@@ -4,9 +4,7 @@ var waitFor = require('./waitFor.js');
 page.onConsoleMessage = function(message) {
   var messages = Array.prototype.slice.call(arguments);
   messages.forEach(function(message) {
-    if (message.substring(0, 17) !== 'Unsafe Javascript' && message !== '[object Object]') {
-      console.log('myMessage:', message);
-    }
+    console.log(message);
   });
 };
 

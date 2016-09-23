@@ -1,0 +1,19 @@
+{
+  "name": "no-frills-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "jshintConfig": {
+    "esversion": 6
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "3.5.0",
+    "mocha": "3.0.2"
+  }
+}
