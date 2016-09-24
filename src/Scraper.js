@@ -25,9 +25,12 @@ function Scraper() {
 
       var products = [];
 
-      // Synchronously runs phantomjs web scraper in a node child process.
+      //run phantom file using bash script
       const phantom = spawn(phantomBin, [pathToScraper], {encoding: 'utf8'});
 
+      // use extractors 
+
+      // return a nice JSON object
       resolve(phantomResults(phantom));
 
     });
