@@ -6,6 +6,7 @@
       "phantomjs": true
     },
     "rules": {
-      "require-jsdoc": "off"
+      "require-jsdoc": "off",
+      "eol-last": "always"
     }
 }
