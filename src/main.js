@@ -1,3 +1,7 @@
+/**
+ * @file Runs scraper and handles errors or prints resulting data.
+ */
+
 var scraper = require('./Scraper.js');
 
 try {

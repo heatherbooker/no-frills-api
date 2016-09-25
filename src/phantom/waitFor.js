@@ -1,3 +1,8 @@
+/**
+ * @file Helper function to wait for certain part of page to be loaded.
+ * @author Source: "phantomjs" Github repo by Ariya, linked from 'Page Automation' section of http://phantomjs.org/examples/ .
+ */
+
 module.exports = function waitFor(testFx, onReady, timeOutMillis) {
   var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 5000, //< Default Max Timout is 3s
     start = new Date().getTime(),

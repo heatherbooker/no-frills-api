@@ -1,3 +1,7 @@
+/**
+ * @file Manages the scraping and extracting of data from NoFrills website.
+ */
+
 const spawnSync = require('child_process').spawnSync;
 const phantomBin = 'phantomjs';
 const path = require('path');

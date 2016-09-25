@@ -1,3 +1,7 @@
+/**
+ * @file Opens NoFrills website and scrapes data in a headless browser using phantomjs.
+ */
+
 var page = require('webpage').create();
 var waitFor = require('./waitFor.js');
 
