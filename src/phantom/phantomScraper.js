@@ -8,7 +8,7 @@ page.onConsoleMessage = function(message) {
   });
 };
 
-console.log('beginning scraping now...')
+console.log('beginning scraping now...');
 
 page.open('http://www.nofrills.ca/en_CA/flyers.banner@NOFR.storenum@3410.week@current.html', function(status) {
   if (status === 'success') {

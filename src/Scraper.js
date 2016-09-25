@@ -22,4 +22,4 @@ function scrape(extractors) {
 
 module.exports = {
   scrape
-}
+};
