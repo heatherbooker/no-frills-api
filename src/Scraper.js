@@ -3,14 +3,13 @@ const phantomBin = 'phantomjs';
 const path = require('path');
 const pathToScraper = path.join(__dirname, './phantom/phantomScraper.js');
 
-
 function scrape(extractors) {
   // Synchronously runs phantomjs scraper in a node child process.
   const result = spawnSync(phantomBin, [pathToScraper], {encoding: 'utf8'});
 
   if (result.error) {
     if (result.error.path === phantomBin) {
-      throw 'phantomjsError';
+      throw new Error('phantomjsNotFound');
     }
     throw result.error;
   }
