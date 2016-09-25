@@ -12,16 +12,18 @@ console.log('beginning scraping now...');
 
 page.open('http://www.nofrills.ca/en_CA/flyers.banner@NOFR.storenum@3410.week@current.html', function(status) {
   if (status === 'success') {
+    // We need to wait for the products to be loaded before trying to get their data.
     waitFor(function() {
       return page.evaluate(function() {
         return document.querySelector('.card-grid-layout div.card');
       });
     }, function() {
+      // Actual scraping happens in this page.evaluate.
       page.evaluate(function() {
         var products = [];
         var cards = document.querySelectorAll('.card-grid-layout div.card');
 
-        for (var i = 0; i < 9; i++) {
+        for (var i = 0; i < cards.length; i++) {
           products.push(cards[i].textContent);
           console.log(i + 'th card: ' + cards[i].textContent);
         }

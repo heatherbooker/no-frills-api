@@ -3,21 +3,18 @@ const phantomBin = 'phantomjs';
 const path = require('path');
 const pathToScraper = path.join(__dirname, './phantom/phantomScraper.js');
 
-function getPhantomResults(phantom) {
-  if (phantom.error) {
-    if (phantom.error.path === phantomBin) {
-      return 'Error - are you sure you have phantomjs installed?';
-    }
-    return phantom.error;
-  }
-  return phantom.stdout;
-}
 
 function scrape(extractors) {
   // Synchronously runs phantomjs scraper in a node child process.
-  const phantom = spawnSync(phantomBin, [pathToScraper], {encoding: 'utf8'});
+  const result = spawnSync(phantomBin, [pathToScraper], {encoding: 'utf8'});
 
-  return getPhantomResults(phantom);
+  if (result.error) {
+    if (result.error.path === phantomBin) {
+      throw 'phantomjsError';
+    }
+    throw result.error;
+  }
+  return result.stdout;
 }
 
 module.exports = {

@@ -9,7 +9,7 @@ module.exports = function waitFor(testFx, onReady, timeOutMillis) {
       } else {
         if(!condition) {
           // If condition still not fulfilled (timeout but condition is 'false')
-          console.log("problem: 'waitFor()' function timeout before request could be completed");
+          console.log("Error: 'waitFor()' function timeout before request could be completed");
           phantom.exit(1);
         } else {
           // Condition fulfilled (timeout and/or condition is 'true')
