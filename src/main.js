@@ -1,16 +1,18 @@
 /**
  * @file Runs scraper and handles errors or prints resulting data.
  */
+var scraper = require('./scraper.js');
 
-var scraper = require('./Scraper.js');
 
 try {
-  var data = scraper.scrape();
-  console.log('scraping completed; data: ', data);
+  scraper.scrape();
+  console.log('Scraping successful; data can be found in "scrapedData.json"');
 } catch (error) {
   if (error.message === 'phantomjsNotFound') {
     console.log('Error - are you sure you have phantomjs installed?');
     process.exit(5);
+  } else if (error.message === 'errorOpeningPage') {
+    console.log('Error opening page; are you sure the URL is correct?');
   } else {
     console.log('Error running scraper: ', error);
   }

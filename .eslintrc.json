@@ -7,6 +7,7 @@
     },
     "rules": {
       "require-jsdoc": "off",
-      "eol-last": "error"
+      "eol-last": "error",
+      "no-multiple-empty-lines": "off"
     }
 }

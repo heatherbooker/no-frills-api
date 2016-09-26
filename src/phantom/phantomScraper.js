@@ -1,18 +1,13 @@
 /**
- * @file Opens NoFrills website and scrapes data in a headless browser using phantomjs.
+ * @file Opens NoFrills website and scrapes data in a headless browser using phantomjs, then writes to output file.
  */
-
 var page = require('webpage').create();
 var waitFor = require('./waitFor.js');
+var fs = require('fs');
 
-page.onConsoleMessage = function(message) {
-  var messages = Array.prototype.slice.call(arguments);
-  messages.forEach(function(message) {
-    console.log(message);
-  });
-};
+// The scraped data will be written to this file.
+var path = 'src/phantom/scrapedData.json';
 
-console.log('beginning scraping now...');
 
 page.open('http://www.nofrills.ca/en_CA/flyers.banner@NOFR.storenum@3410.week@current.html', function(status) {
   if (status === 'success') {
@@ -23,18 +18,20 @@ page.open('http://www.nofrills.ca/en_CA/flyers.banner@NOFR.storenum@3410.week@cu
       });
     }, function() {
       // Actual scraping happens in this page.evaluate.
-      page.evaluate(function() {
+      var products = page.evaluate(function() {
         var products = [];
         var cards = document.querySelectorAll('.card-grid-layout div.card');
 
         for (var i = 0; i < cards.length; i++) {
           products.push(cards[i].textContent);
-          console.log(i + 'th card: ' + cards[i].textContent);
         }
+        return products;
       });
+      fs.write(path, JSON.stringify({products: products}), 'w');
       phantom.exit();
     });
   } else {
-    console.log('error opening webpage:', status);
+    console.log('errorOpeningPage');
+    phantom.exit();
   }
 });
