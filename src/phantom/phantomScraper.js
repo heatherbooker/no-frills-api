@@ -29,7 +29,7 @@ page.open('http://www.nofrills.ca/en_CA/flyers.banner@NOFR.storenum@3410.week@cu
       });
       fs.write(path, JSON.stringify({products: products}), 'w');
       phantom.exit();
-    });
+    }, 5000); // 5000 is the number of milliseconds that waitFor will run before timing out.
   } else {
     console.log('errorOpeningPage');
     phantom.exit();
