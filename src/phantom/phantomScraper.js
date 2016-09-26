@@ -6,7 +6,7 @@ var waitFor = require('./waitFor.js');
 var fs = require('fs');
 
 // The scraped data will be written to this file.
-var path = 'src/phantom/scrapedData.json';
+var path = 'src/data/no_frills_products.json';
 
 
 page.open('http://www.nofrills.ca/en_CA/flyers.banner@NOFR.storenum@3410.week@current.html', function(status) {

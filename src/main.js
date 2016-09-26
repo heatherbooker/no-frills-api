@@ -3,10 +3,11 @@
  */
 var scraper = require('./scraper.js');
 
+var fileName = '"src/data/no_frills_products.json"';
 
 try {
   scraper.scrape();
-  console.log('Scraping successful; data can be found in "scrapedData.json"');
+  console.log('Scraping successful; data can be found at ' + fileName);
 } catch (error) {
   if (error.message === 'phantomjsNotFound') {
     console.log('Error - are you sure you have phantomjs installed?');
