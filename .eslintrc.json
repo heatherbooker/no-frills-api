@@ -1,0 +1,13 @@
+{
+    "extends": "google",
+    "installedESLint": true,
+    "env": {
+      "browser": true,
+      "phantomjs": true
+    },
+    "rules": {
+      "require-jsdoc": "off",
+      "eol-last": "error",
+      "no-multiple-empty-lines": "off"
+    }
+}

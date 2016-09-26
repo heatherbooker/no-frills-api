@@ -1,5 +1,9 @@
+/**
+ * @file Helper function to wait for certain part of page to be loaded.
+ * @author Source: "phantomjs" Github repo by Ariya, linked from 'Page Automation' section of http://phantomjs.org/examples/ .
+ */
 module.exports = function waitFor(testFx, onReady, timeOutMillis) {
-  var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 5000, //< Default Max Timout is 3s
+  var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 3000, //< Default Max Timout is 3s
     start = new Date().getTime(),
     condition = false,
     interval = setInterval(function() {
@@ -9,11 +13,10 @@ module.exports = function waitFor(testFx, onReady, timeOutMillis) {
       } else {
         if(!condition) {
           // If condition still not fulfilled (timeout but condition is 'false')
-          console.log("'waitFor()' timeout");
+          console.log("Error: 'waitFor()' function timeout before request could be completed");
           phantom.exit(1);
         } else {
           // Condition fulfilled (timeout and/or condition is 'true')
-          console.log("'waitFor()' finished in " + (new Date().getTime() - start) + "ms.");
           typeof(onReady) === "string" ? eval(onReady) : onReady(); //< Do what it's supposed to do once the condition is fulfilled
           clearInterval(interval); //< Stop this interval
         }

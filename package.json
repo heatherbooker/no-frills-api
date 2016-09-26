@@ -1,0 +1,22 @@
+{
+  "name": "no-frills-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "mocha",
+    "lint": "eslint . ; exit 0",
+    "start": "node src/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "3.5.0",
+    "mocha": "3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "3.6.0",
+    "eslint-config-google": "0.6.0"
+  }
+}

@@ -1,41 +1,37 @@
+/**
+ * @file Opens NoFrills website and scrapes data in a headless browser using phantomjs, then writes to output file.
+ */
 var page = require('webpage').create();
 var waitFor = require('./waitFor.js');
+var fs = require('fs');
 
-page.onConsoleMessage = function(message) {
-  var messages = Array.prototype.slice.call(arguments);
-  messages.forEach(function(message) {
-    if (message.substring(0, 17) !== 'Unsafe Javascript' && message !== '[object Object]') {
-      console.log('myMessage:', message);
-    }
-  });
-};
+// The scraped data will be written to this file.
+var path = 'src/data/no_frills_products.json';
 
 
 page.open('http://www.nofrills.ca/en_CA/flyers.banner@NOFR.storenum@3410.week@current.html', function(status) {
-
   if (status === 'success') {
-    console.log('success');
-
+    // We need to wait for the products to be loaded before trying to get their data.
     waitFor(function() {
       return page.evaluate(function() {
         return document.querySelector('.card-grid-layout div.card');
       });
-
     }, function() {
-
-      page.evaluate(function() {
+      // Actual scraping happens in this page.evaluate.
+      var products = page.evaluate(function() {
         var products = [];
         var cards = document.querySelectorAll('.card-grid-layout div.card');
-        
-        for (var i = 0; i < 9; i ++) {
+
+        for (var i = 0; i < cards.length; i++) {
           products.push(cards[i].textContent);
-          console.log(i + 'th card: ' + cards[i].textContent);
         }
+        return products;
       });
-
+      fs.write(path, JSON.stringify({products: products}, null, 2), 'w');
       phantom.exit();
-
-    });
+    }, 5000); // 5000 is the number of milliseconds that waitFor will run before timing out.
+  } else {
+    console.log('errorOpeningPage');
+    phantom.exit();
   }
-
 });
