@@ -4,6 +4,7 @@
 var page = require('webpage').create();
 var waitFor = require('./waitFor.js');
 var fs = require('fs');
+var productExtractor = require('../productExtractor.js');
 
 // The scraped data will be written to this file.
 var path = 'src/data/no_frills_products.json';
@@ -27,6 +28,9 @@ page.open('http://www.nofrills.ca/en_CA/flyers.banner@NOFR.storenum@3410.week@cu
         }
         return products;
       });
+      for (var i = 0; i < products.length; i++) {
+        products[i] = productExtractor.extract(products[i]);
+      }
       fs.write(path, JSON.stringify({products: products}, null, 2), 'w');
       phantom.exit();
     }, 5000); // 5000 is the number of milliseconds that waitFor will run before timing out.

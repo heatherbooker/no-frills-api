@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha src/**/*.test.js",
     "lint": "eslint . ; exit 0",
-    "start": "node src/main.js"
+    "dev": "node src/main.js"
   },
   "keywords": [],
   "author": "",
