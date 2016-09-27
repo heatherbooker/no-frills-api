@@ -6,7 +6,6 @@ var testString = "  3.97    KRAFT PEANUT BUTTER   750g of tasty noms    ";
 var result = extractor.extract(testString);
 
 describe('extractor.extract() return value', function() {
-  
   it('is an object', function() {
     assert.typeOf(result, 'object');
   });
@@ -20,9 +19,11 @@ describe('extractor.extract() return value', function() {
   });
   it('has no undefined or null properties', function() {
     for (var key in result) {
-      assert.isDefined(result[key]);
-      assert.isNotNull(result[key]);
+      if ({}.hasOwnProperty(result, key)) {
+        assert.isDefined(result[key]);
+        assert.isNotNull(result[key]);
+      }
     }
   });
 });
-  
+
