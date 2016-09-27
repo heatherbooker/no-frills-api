@@ -7,7 +7,7 @@ const path = require('path');
 const pathToScraper = path.join(__dirname, './phantom/phantomScraper.js');
 
 
-function scrape() {;
+function scrape() {
   console.log('Scraping...');
   // Synchronously runs phantomjs scraper in a node child process.
   const result = spawnSync(phantomBin, [pathToScraper], {encoding: 'utf8'});
