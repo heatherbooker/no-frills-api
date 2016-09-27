@@ -18,12 +18,10 @@ describe('extractor.extract() return value', function() {
     assert.isString(result.details);
   });
   it('has no undefined or null properties', function() {
-    for (var key in result) {
-      if ({}.hasOwnProperty(result, key)) {
-        assert.isDefined(result[key]);
-        assert.isNotNull(result[key]);
-      }
-    }
+    Object.keys(result).forEach(key => {
+      assert.isDefined(result[key]);
+      assert.isNotNull(result[key]);
+    });
   });
 });
 
