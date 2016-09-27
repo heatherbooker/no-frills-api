@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "eslint . ; exit 0",
+    "test": "mocha src/test.js",
+    "lint": "eslint . ; exit 0",
     "start": "node src/main.js"
   },
   "keywords": [],

@@ -3,5 +3,6 @@ node_js:
   - stable
 install:
   - npm install
-test:
+script:
+  - npm run test
   - eslint .
