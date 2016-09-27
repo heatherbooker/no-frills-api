@@ -3,7 +3,8 @@
     "installedESLint": true,
     "env": {
       "browser": true,
-      "phantomjs": true
+      "phantomjs": true,
+      "mocha": true
     },
     "rules": {
       "require-jsdoc": "off",
