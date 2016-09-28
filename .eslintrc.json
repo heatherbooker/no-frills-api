@@ -10,6 +10,7 @@
       "require-jsdoc": "off",
       "valid-jsdoc": "off",
       "eol-last": "error",
-      "no-multiple-empty-lines": "off"
+      "no-multiple-empty-lines": "off",
+      "padded-blocks": "off"
     }
 }

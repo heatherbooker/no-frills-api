@@ -2,9 +2,15 @@
  * @file Extracts details from strings of product data to return data in an organized object form.
  */
 function extract(data) {
+  if (typeof data !== 'string' || data === '') {
+    return false;
+  }
   var trimmedData = data.trim();
   var separators = /\s{4}(.*)\s{3}/;
   var splitData = trimmedData.split(separators);
+  if (splitData.length !== 3) {
+    return false;
+  }
   var labeledData = {
     price: splitData[0],
     name: splitData[1],

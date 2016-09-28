@@ -1,7 +1,7 @@
 /**
  * @file Runs scraper and handles errors or prints resulting data.
  */
-var scraper = require('./scraper.js');
+var scraper = require('./scraper');
 
 var fileName = '"src/data/no_frills_products.json"';
 
