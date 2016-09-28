@@ -6,13 +6,17 @@ var fileData;
 
 var destinationFile = path.join(__dirname, '../data/no_frills_products.json');
 
+
 describe('scraper', function() {
 
-  it('should write a file, ' + destinationFile, function() {
+  beforeEach(function() {
     // It takes a while to fetch the data from the website.
-    this.timeout(5000);
+    this.timeout(7000);
     scraper.scrape();
     fileData = require(destinationFile);
+  });
+
+  it('should write a file, ' + destinationFile, function() {
     assert.isOk(fileData);
   });
 

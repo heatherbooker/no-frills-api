@@ -2,17 +2,20 @@ var assert = require('chai').assert;
 var extractor = require('./productExtractor.js');
 
 
-var testString = "  3.97    KRAFT PEANUT BUTTER   750g of tasty noms    ";
+function setTestString() {
+  return "  3.97    KRAFT PEANUT BUTTER   750g of tasty noms    ";
+}
 
-describe('extractor.extract() intended use cases', function() {
+describe('extractor.extract()', function() {
 
-  var result = extractor.extract(testString);
-
-  it('should return an object...', function() {
+  it('should return an object', function() {
+    var result = extractor.extract(setTestString());
     assert.typeOf(result, 'object');
   });
 
-  it('with price, name, and details keys which are all strings...', function() {
+  it(`should return an object with price, name, and details keys
+      which are all strings...`, function() {
+    var result = extractor.extract(setTestString());
     assert.property(result, 'price');
     assert.isString(result.price);
     assert.property(result, 'name');
@@ -21,25 +24,27 @@ describe('extractor.extract() intended use cases', function() {
     assert.isString(result.details);
   });
 
-  it('and no undefined or null properties.', function() {
+  it(`should return an object with no undefined or
+      null properties`, function() {
+    var result = extractor.extract(setTestString());
     Object.keys(result).forEach(key => {
       assert.isDefined(result[key]);
       assert.isNotNull(result[key]);
     });
   });
 
-});
-
-describe('extractor.extract() edge cases', function() {
-
-  it('should return false when given an invalid string', function() {
+  it(`should return false when given a string not
+      following the expected structure`, function() {
     assert.isNotOk(extractor.extract('   This could be anything'));
     assert.isNotOk(extractor.extract('   This     could be anything'));
   });
 
-  it('should return false when given other invalid inputs', function() {
+  it('should return false when given an empty string', function() {
     assert.isNotOk(extractor.extract(''),
-      'empty string should return invalid');
+    'empty string should return invalid');
+  });
+
+  it('should return false when given other invalid inputs', function() {
     assert.isNotOk(extractor.extract(null),
       'null should return invalid');
     assert.isNotOk(extractor.extract({aNice: 'objectButThatsNotWhatWeWant'}),
