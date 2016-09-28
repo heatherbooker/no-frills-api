@@ -3,8 +3,7 @@ var scraper = require('./index.js');
 var path = require('path');
 
 var fileData;
-
-var destinationFile = path.join(__dirname, '../data/no_frills_products.json');
+var destinationFile;
 
 
 describe('scraper', function() {
@@ -13,6 +12,7 @@ describe('scraper', function() {
     // It takes a while to fetch the data from the website.
     this.timeout(7000);
     scraper.scrape();
+    destinationFile = path.join(__dirname, '../data/no_frills_products.json');
     fileData = require(destinationFile);
   });
 

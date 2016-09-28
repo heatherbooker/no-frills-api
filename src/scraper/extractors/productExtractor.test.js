@@ -2,20 +2,18 @@ var assert = require('chai').assert;
 var extractor = require('./productExtractor.js');
 
 
-function setTestString() {
-  return "  3.97    KRAFT PEANUT BUTTER   750g of tasty noms    ";
-}
-
 describe('extractor.extract()', function() {
 
   it('should return an object', function() {
-    var result = extractor.extract(setTestString());
+    var testString = "  3.97    KRAFT PEANUT BUTTER   750g of tasty noms    ";
+    var result = extractor.extract(testString);
     assert.typeOf(result, 'object');
   });
 
   it(`should return an object with price, name, and details keys
       which are all strings...`, function() {
-    var result = extractor.extract(setTestString());
+    var testString = "  3.97    KRAFT PEANUT BUTTER   750g of tasty noms    ";
+    var result = extractor.extract(testString);
     assert.property(result, 'price');
     assert.isString(result.price);
     assert.property(result, 'name');
@@ -26,7 +24,8 @@ describe('extractor.extract()', function() {
 
   it(`should return an object with no undefined or
       null properties`, function() {
-    var result = extractor.extract(setTestString());
+    var testString = "  3.97    KRAFT PEANUT BUTTER   750g of tasty noms    ";
+    var result = extractor.extract(testString);
     Object.keys(result).forEach(key => {
       assert.isDefined(result[key]);
       assert.isNotNull(result[key]);
