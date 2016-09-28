@@ -4,9 +4,11 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "mocha src/**/*.test.js",
+    "test": "mocha src/**/*.test.js src/**/**/*.test.js ; exit 0",
+    "travisTest": "mocha src/**/*.test.js src/**/**/*.test.js",
     "lint": "eslint . ; exit 0",
-    "start": "node src/main.js"
+    "travisLint": "eslint .",
+    "dev": "node src/main.js"
   },
   "keywords": [],
   "author": "",

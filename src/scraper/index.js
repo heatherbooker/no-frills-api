@@ -4,7 +4,7 @@
 const spawnSync = require('child_process').spawnSync;
 const phantomBin = 'phantomjs';
 const path = require('path');
-const pathToScraper = path.join(__dirname, './phantom/phantomScraper.js');
+const pathToScraper = path.join(__dirname, './phantomScraper.js');
 
 
 function scrape() {
