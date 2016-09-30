@@ -4,10 +4,11 @@
 var scraper = require('./scraper');
 
 
-try {
-  scraper.scrape().then(function(filePath) {
+scraper.scrape()
+  .then(function(filePath) {
     console.log('Scraping successful; data can be found at "' + filePath + '"');
+  })
+  .catch(function(error) {
+    console.log('Error while attempting to scrape: \n', error);
   });
-} catch (error) {
-  console.log(error.message);
-}
+
