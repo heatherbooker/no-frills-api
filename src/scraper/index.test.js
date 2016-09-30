@@ -2,21 +2,20 @@ var assert = require('chai').assert;
 var scraper = require('./index.js');
 var path = require('path');
 
-var fileData;
-var destinationFile;
 
+var fileData;
 
 describe('scraper', function() {
 
-  beforeEach(function() {
-    // It takes a while to fetch the data from the website.
-    this.timeout(7000);
-    scraper.scrape();
-    destinationFile = path.join(__dirname, '../data/no_frills_products.json');
-    fileData = require(destinationFile);
+  beforeEach(function(done) {
+    scraper.scrape(function() {
+      var destinationFile = path.join(__dirname, '../data/no_frills_products.json');
+      fileData = require(destinationFile);
+      done();
+    });
   });
 
-  it('should write a file, ' + destinationFile, function() {
+  it('should write a file: src/data/no_frills_products.json', function() {
     assert.isOk(fileData);
   });
 

@@ -11,6 +11,7 @@
       "valid-jsdoc": "off",
       "eol-last": "error",
       "no-multiple-empty-lines": "off",
-      "padded-blocks": "off"
+      "padded-blocks": "off",
+      "max-len": ["error", { "ignoreTemplateLiterals": true }]
     }
 }
