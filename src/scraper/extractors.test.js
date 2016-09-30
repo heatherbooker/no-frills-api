@@ -32,9 +32,10 @@ describe('product extractor', function() {
     }
   });
 
-  it('should throw an error given an array not containing objects', function() {
+  it(`should throw an error given an array not containing objects`, function() {
     try {
-      extract.products(['just a string', 2, 'another', true, {single: 'object'}]);
+      extract.products(['just a string', 2, 'another',
+                        true, {single: 'object'}]);
       return false;
     } catch (err) {
       return true;

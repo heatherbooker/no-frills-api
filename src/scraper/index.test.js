@@ -7,21 +7,21 @@ var fileData;
 
 describe('scraper', function() {
 
-  beforeEach(function(done) {
-    scraper.scrape(function() {
-      var destinationFile = path.join(__dirname, '../data/no_frills_products.json');
-      fileData = require(destinationFile);
-      done();
+  it('should write a file: src/data/no_frills_products.json', function() {
+    scraper.scrape().then(function() {
+      var filePath = path.join(__dirname, '../data/no_frills_products.json');
+      fileData = require(filePath);
+      assert.isOk(fileData);
     });
   });
 
-  it('should write a file: src/data/no_frills_products.json', function() {
-    assert.isOk(fileData);
-  });
-
   it('should write an object to the file, with array of products', function() {
-    assert.isObject(fileData);
-    assert.isArray(fileData.products);
+    scraper.scrape().then(function() {
+      var filePath = path.join(__dirname, '../data/no_frills_products.json');
+      fileData = require(filePath);
+      assert.isObject(fileData);
+      assert.isArray(fileData.products);
+    });
   });
 
 });

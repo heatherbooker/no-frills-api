@@ -25,35 +25,42 @@ function getOptions(numOfProducts = 1) {
   };
 }
 
-function scrape(callback) {
+function scrape() {
+
   fs.stat('src/data', function(err, stats) {
-    if (err) {
-      throw new Error('error while checking for directory "src/data": ' + err);
-    }
     if (!stats) {
       fs.mkdir('src/data');
+    } else if (err) {
+      throw new Error('error while checking for directory "src/data": ' + err);
     }
   });
-  var filePath = 'src/data/no_frills_products.json';
-  request(getOptions(), function(err, response, body) {
-    if (!err && response.statusCode === 200) {
-      var numOfProducts = JSON.parse(body).flyerResponse.numFound;
-      request(getOptions(numOfProducts), function(err, response, body) {
 
-        if (!err && response.statusCode === 200) {
-          var products = extract.products(JSON.parse(body).flyerResponse.docs);
-          var fileContents = JSON.stringify({products}, null, 2);
-          fs.writeFile(filePath, fileContents);
-          callback();
-        } else {
-          throw new Error(`secondary request to nofrills endpoint failed: ${err}`);
-        }
-      });
-    } else {
-      throw new Error('primary request to nofrills endpoint failed: ' + err);
-    }
+  var filePath = 'src/data/no_frills_products.json';
+
+  return new Promise(function(resolve, reject) {
+    request(getOptions(), function(err, response, body) {
+      if (!err && response.statusCode === 200) {
+        var numOfProducts = JSON.parse(body).flyerResponse.numFound;
+        request(getOptions(numOfProducts), function(err, response, body) {
+
+          if (!err && response.statusCode === 200) {
+            var productList = JSON.parse(body).flyerResponse.docs;
+            var products = extract.products(productList);
+            resolve(products);
+          } else {
+            throw new Error(`secondary request to nofrills endpoint failed: ${err}`);
+          }
+        });
+      } else {
+        throw new Error('primary request to nofrills endpoint failed: ' + err);
+      }
+    });
+  }).then(function(products) {
+    var fileContents = JSON.stringify({products}, null, 2);
+    fs.writeFile(filePath, fileContents);
+    return filePath;
   });
-  return filePath;
+
 }
 
 module.exports = {

@@ -5,8 +5,9 @@ var scraper = require('./scraper');
 
 
 try {
-  var filePath = scraper.scrape();
-  console.log('Scraping successful; data can be found at "' + filePath + '"');
+  scraper.scrape().then(function(filePath) {
+    console.log('Scraping successful; data can be found at "' + filePath + '"');
+  });
 } catch (error) {
   console.log(error.message);
 }
