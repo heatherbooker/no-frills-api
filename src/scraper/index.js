@@ -1,27 +1,35 @@
 /**
- * @file Manages the scraping and extracting of data from NoFrills website.
+ * @file Makes http request to nofrills, writes formatted data to another file.
  */
-const spawnSync = require('child_process').spawnSync;
-const phantomBin = 'phantomjs';
-const path = require('path');
-const pathToScraper = path.join(__dirname, './phantomScraper.js');
+const request = require('request');
+const extract = require('./extractors.js');
 
+const storeNum = '784';
+// Use an absurdly high number of products to ensure we always get them all.
+const numOfProducts = '10000';
+const options = {
+  url: `http://www.nofrills.ca/banners/publication/v1/en_CA/NOFR/current/${storeNum}/items?start=0&rows=${numOfProducts}&tag=`,
+  method: 'POST',
+  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+};
 
 function scrape() {
-  console.log('Scraping...');
-  // Synchronously runs phantomjs scraper in a node child process.
-  const result = spawnSync(phantomBin, [pathToScraper], {encoding: 'utf8'});
 
-  if (result.error) {
-    if (result.error.path === phantomBin) {
-      throw new Error('phantomjsNotFound');
-    }
-    throw result.error;
-  } else if (result.stdout.trim() === 'errorOpeningPage') {
-    throw new Error('errorOpeningPage');
-  }
+  return new Promise((resolve, reject) => {
+
+    // First we need to check how many products there are for this flyer.
+    request(options, (err, response, body) => {
+
+      if (err) {
+        return reject('Request to nofrills endpoint failed; ' + err);
+      }
+
+      const productList = JSON.parse(body).flyerResponse.docs;
+      const products = extract.products(productList);
+      resolve(products);
+
+    });
+  });
 }
 
-module.exports = {
-  scrape
-};
+module.exports = {scrape};

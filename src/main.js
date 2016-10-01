@@ -1,20 +1,14 @@
 /**
  * @file Runs scraper and handles errors or prints resulting data.
  */
-var scraper = require('./scraper');
+const scraper = require('./scraper');
 
-var fileName = '"src/data/no_frills_products.json"';
 
-try {
-  scraper.scrape();
-  console.log('Scraping successful; data can be found at ' + fileName);
-} catch (error) {
-  if (error.message === 'phantomjsNotFound') {
-    console.log('Error - are you sure you have phantomjs installed?');
-    process.exit(5);
-  } else if (error.message === 'errorOpeningPage') {
-    console.log('Error opening page; are you sure the URL is correct?');
-  } else {
-    console.log('Error running scraper: ', error);
-  }
-}
+scraper.scrape()
+  .then(products => {
+    console.log('Scraping successful; first product:\n' +
+                  JSON.stringify(products[0], null, 2));
+  })
+  .catch(error => {
+    console.log('Error while attempting to scrape: \n', error);
+  });
