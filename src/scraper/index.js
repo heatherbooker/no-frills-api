@@ -6,25 +6,15 @@ var request = require('request');
 var extract = require('./extractors.js');
 
 
-var headers = {
-  'Origin': 'http://www.nofrills.ca',
-  'Accept-Encoding': 'gzip, deflate, lzma',
-  'Accept-Language': 'en-GB,en-US;q=0.8,en;q=0.6',
-  'Content-Type': 'application/x-www-form-urlencoded',
-  'Accept': 'application/json',
-  'Referer': `http://www.nofrills.ca/en_CA/flyers.banner@NOFR.storenum@784.week@current.html`,
-  'X-Requested-With': 'XMLHttpRequest',
-  'Connection': 'keep-alive',
-  'Content-Length': '0',
-  'Cookie': `JSESSIONID=0001VjSBD8ZOhtDgdDYldX_I9pW:-H88BM; storeIdCookie=292; storeNumCookie=784; storeProvienceCookie=ON; SessionPersistence-publish=CLIENTCONTEXT%3A%3DvisitorId%3D%2CvisitorId_xss%3D%7CPROFILEDATA%3A%3D%7C; cq5pr=CQ5_HER; NSC_qsdrif.mpcmbx.db_80=ffffffff0960541945525d5f4f58455e445a4a423660`
-};
-
 // If we don't know how many products there are, there's probably at least 1.
 function getOptions(numOfProducts = 1) {
   return {
     url: `http://www.nofrills.ca/banners/publication/v1/en_CA/NOFR/current/784/items?start=0&rows=${numOfProducts}&tag=`,
     method: 'POST',
-    headers: headers
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Connection': 'keep-alive'
+    }
   };
 }
 
@@ -68,7 +58,7 @@ function scrape() {
   })
   .then(function(products) {
 
-    var fileContents = JSON.stringify({products}, null, 2);
+    var fileContents = JSON.stringify({products}, null, 2) + '\n';
     fs.writeFile(filePath, fileContents);
 
     return filePath;
