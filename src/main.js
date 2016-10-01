@@ -1,14 +1,14 @@
 /**
  * @file Runs scraper and handles errors or prints resulting data.
  */
-var scraper = require('./scraper');
+const scraper = require('./scraper');
 
 
 scraper.scrape()
-  .then(function(filePath) {
-    console.log('Scraping successful; data can be found at "' + filePath + '"');
+  .then(products => {
+    console.log('Scraping successful; first product:\n' +
+                  JSON.stringify(products[0], null, 2));
   })
-  .catch(function(error) {
+  .catch(error => {
     console.log('Error while attempting to scrape: \n', error);
   });
-

@@ -42,6 +42,4 @@ function removeNullProperties(product) {
   return product;
 }
 
-module.exports = {
-  products: extractProducts
-};
+module.exports = {products: extractProducts};

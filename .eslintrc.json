@@ -12,6 +12,10 @@
       "eol-last": "error",
       "no-multiple-empty-lines": "off",
       "padded-blocks": "off",
-      "max-len": ["error", { "ignoreTemplateLiterals": true }]
+      "max-len": ["error", { "ignoreTemplateLiterals": true }],
+      "object-curly-newline": ["error", {
+        "ObjectExpression": { "minProperties": 3, "multiline": true },
+        "ObjectPattern": { "minProperties": 3, "multiline": true }
+      }]
     }
 }
