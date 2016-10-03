@@ -8,13 +8,16 @@
     "travisTest": "mocha src/**/*.test.js src/**/**/*.test.js",
     "lint": "eslint . ; exit 0",
     "travisLint": "eslint .",
-    "dev": "node src/main.js"
+    "start": "node src/main.js",
+    "dev": "node src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chai": "3.5.0",
+    "chai-http": "3.0.0",
+    "express": "4.14.0",
     "mocha": "3.0.2",
     "request": "2.75.0"
   },
