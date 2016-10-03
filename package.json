@@ -8,7 +8,7 @@
     "travisTest": "mocha src/**/*.test.js src/**/**/*.test.js",
     "lint": "eslint . ; exit 0",
     "travisLint": "eslint .",
-    "start": "node src/main.js",
+    "scrape": "node src/main.js",
     "dev": "node src/server.js"
   },
   "keywords": [],
