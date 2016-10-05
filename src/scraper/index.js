@@ -55,4 +55,16 @@ function scrapeStore() {
   });
 }
 
-module.exports = {scrapeFlyer, scrapeStore};
+function scrape() {
+  const flyerPromise = scrapeFlyer().then(function(flyer) {
+    return flyer;
+  });
+  const storePromise = scrapeStore().then(function(store) {
+    return store;
+  });
+  return Promise.all([flyerPromise, storePromise]).then(function(values) {
+    return {flyer: values[0], store: values[1]};
+  });
+}
+
+module.exports = {scrape};

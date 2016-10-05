@@ -4,19 +4,12 @@
 const scraper = require('./scraper');
 
 
-// scraper.scrapeFlyer()
-//   .then(products => {
-//     console.log('Scraping successful; first product:\n' +
-//                   JSON.stringify(products[0], null, 2));
-//   })
-//   .catch(error => {
-//     console.log('Error while attempting to scrape: \n', error);
-//   });
-
-scraper.scrapeStore()
-  .then(store => {
-    console.log('Scraping successful; store:\n' +
-                  JSON.stringify(store, null, 2));
+scraper.scrape()
+  .then(data => {
+    console.log('Scraping successful; \nstore:\n' +
+                  JSON.stringify(data.store, null, 2) +
+                '\nfirst product:\n' +
+                  JSON.stringify(data.flyer[0], null, 2));
   })
   .catch(error => {
     console.log('Error while attempting to scrape: \n', error);
