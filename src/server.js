@@ -6,10 +6,8 @@ const scraper = require('./scraper');
 server.get('/', (req, res) => {
   scraper.scrape()
     .then(data => {
-      res.send('Scraping successful;<br /><br />store:<br /><br /><br />' +
-                JSON.stringify(data.store, null, '<br />') +
-                '<br /><br /><br />first product:<br /><br /><br />' +
-                JSON.stringify(data.flyer[0], null, '<br />'));
+      res.send('Scraping successful;' +
+                JSON.stringify(data));
     })
     .catch(error => {
       res.send('Error while attempting to scrape: \n', error);
