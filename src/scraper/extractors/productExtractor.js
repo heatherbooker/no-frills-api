@@ -1,5 +1,5 @@
 /**
- * @file Extractors are used by the scraper to format the product objects.
+ * @file Extractor used by the scraper to format the product objects.
  */
 function extractProducts(arrayOfProducts) {
 
@@ -43,4 +43,4 @@ function removeNullProperties(product) {
   return product;
 }
 
-module.exports = {products: extractProducts};
+module.exports = extractProducts;

@@ -40,7 +40,7 @@ This request returns store information for all the stores.
 
 This request returns store information for the store identified by the `store_id` parameter.  
 The data.store.hours field represents the store's operating hours for this week; if any day's hours are affected by a holiday, that day will be listed in hours.holidays.  
-The owner is preferentially given in the data.ownerOrManager field. If the owner is not available, the manager is given instead.
+The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".  
 
 ### response
 
@@ -50,7 +50,8 @@ The owner is preferentially given in the data.ownerOrManager field. If the owner
   "data": {
     "store": {
       "id": "3410",
-      "ownerOrManager": "Bob",
+      "owner": "Bob",
+      "manager": null,
       "address": {
         "street_address": "621 Fairville Blvd",
         "city": "Vancouver",
