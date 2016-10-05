@@ -1,5 +1,5 @@
 /**
- * @file Extractor used by the scraper to format the product objects.
+ * @file Extractor used by the scraper to format the flyer objects.
  */
 function extractFlyer(flyerData) {
 
