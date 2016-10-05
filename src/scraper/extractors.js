@@ -14,7 +14,7 @@ function extractProducts(arrayOfProducts) {
     if (product.priceSavings === 'n/a') {
       product.priceSavings = null;
     } else {
-      product.priceSavings = product.priceSavings.replace('SAVE ', '');      
+      product.priceSavings = product.priceSavings.replace('SAVE ', '');
     }
 
     // Removes HTML tags found in product.description.

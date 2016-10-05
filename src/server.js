@@ -2,7 +2,6 @@ var express = require('express');
 var server = express();
 
 server.get('/', (req, res) => {
-  console.log(req.headers);
   res.send('Hello World!');
 });
 
