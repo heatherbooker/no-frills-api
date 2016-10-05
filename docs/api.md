@@ -39,7 +39,8 @@ This request returns store information for all the stores.
 ### description
 
 This request returns store information for the store identified by the `store_id` parameter.  
-The `has_french_flyer` field describes whether a store's flyer contains product descriptions in French. These descriptions are generally short, such as "pains" for bread or "repas" for frozen meals.  
+The data.store.hours field represents the store's operating hours for this week; if any day's hours are affected by a holiday, that day will be listed in hours.holidays.  
+The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".  
 
 ### response
 
@@ -50,6 +51,7 @@ The `has_french_flyer` field describes whether a store's flyer contains product 
     "store": {
       "id": "3410",
       "owner": "Bob",
+      "manager": null,
       "address": {
         "street_address": "621 Fairville Blvd",
         "city": "Vancouver",
@@ -57,13 +59,13 @@ The `has_french_flyer` field describes whether a store's flyer contains product 
         "postal_code": "V6E 3T7"
       },
       "hours": {
+        "holidays": ["Monday"];
         "sunday": "11:00 AM - 6:00 PM",
-        "monday": "10:00 AM - 8:00 PM",
+        "monday": "Closed",
         ...
       },
       "phone_number": "111-111-1111",
-      "has_french_flyer": false,
-      "services": ["Pharmacy", "Produce", "Gift Cards"", ...]
+      "departments": ["Pharmacy", "Produce", "Gift Cards", ...]
     }
   }
 }

@@ -1,12 +1,20 @@
-var express = require('express');
-var server = express();
+const express = require('express');
+const server = express();
+const scraper = require('./scraper');
+
 
 server.get('/', (req, res) => {
-  res.send('Hello World!');
+  scraper.scrape()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(error => {
+      res.send('Error while attempting to scrape: \n', error);
+    });
 });
 
-server.listen(3000, () => {
-  console.log(`Wee baby "Hello World" server listening on port 3000!`);
+server.listen(8080, () => {
+  console.log(`Go to http://localhost:8080`);
 });
 
 module.exports = server;

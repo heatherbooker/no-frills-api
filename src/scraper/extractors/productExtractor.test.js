@@ -1,9 +1,9 @@
 var assert = require('chai').assert;
-var extract = require('./extractors.js');
+var extract = require('./productExtractor.js');
 
 describe('product extractor', function() {
 
-  it(`should return an array with objects which have no null or undefined fields`, function() {
+  it(`should return an array with objects of 7 keys each`, function() {
     var testProduct = [{
       correctionNotice: null,
       description: `<span style="color:#000000;">1 LB TRAY<br />↵product of U.S.A., no.1 grade /<br />↵<br />↵fraises</span>`,
@@ -16,16 +16,17 @@ describe('product extractor', function() {
       productTitle: "STRAWBERRIES",
       rank: 0
     }];
-    var result = extract.products(testProduct);
+    var result = extract(testProduct);
     assert.isArray(result);
-    Object.keys(result[0]).forEach(function(key) {
-      assert.isOk(key, result[0][key]);
+    result.forEach(product => {
+      assert.isObject(product);
+      assert.lengthOf(Object.keys(product), 7);
     });
   });
 
   it('should throw an error given a non-array input', function() {
     try {
-      extract.products({an: 'object'});
+      extract({an: 'object'});
       return false;
     } catch (err) {
       return true;
@@ -34,7 +35,7 @@ describe('product extractor', function() {
 
   it(`should throw an error given an array not containing objects`, function() {
     try {
-      extract.products(['just a string', 2, 'another',
+      extract(['just a string', 2, 'another',
                         true, {single: 'object'}]);
       return false;
     } catch (err) {
@@ -44,7 +45,7 @@ describe('product extractor', function() {
 
   it('should throw an error given more than one input', function() {
     try {
-      extract.products(['first array', 'things in it'], {could: 'beAnObject'});
+      extract(['first array', 'things in it'], {could: 'beAnObject'});
       return false;
     } catch (err) {
       return true;

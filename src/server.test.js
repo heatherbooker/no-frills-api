@@ -6,14 +6,13 @@ var server = require('./server.js');
 
 
 describe('server', function() {
-  it('should respond with "Hello World!" to home route', function(done) {
+  it('should respond with a string to home route', function(done) {
     chai.request(server)
       .get('/')
       .end(function(err, res) {
         should.not.exist(err);
         res.should.have.status(200);
         res.should.have.property('text');
-        res.text.should.equal('Hello World!');
         done();
       });
   });
