@@ -6,5 +6,6 @@ TO RUN:
 ```bash
 git clone https://github.com/heatherbooker/no-frills-api.git
 cd no-frills-api
-npm run start
+npm run dev
+xdg-open http://localhost:8080
 ```
