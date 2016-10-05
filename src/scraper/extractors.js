@@ -11,7 +11,11 @@ function extractProducts(arrayOfProducts) {
 
   return arrayOfProducts.map(product => {
 
-    product.priceSavings = product.priceSavings.replace('SAVE ', '');
+    if (product.priceSavings === 'n/a') {
+      product.priceSavings = null;
+    } else {
+      product.priceSavings = product.priceSavings.replace('SAVE ', '');
+    }
 
     // Removes HTML tags found in product.description.
     product.description = product.description
@@ -29,14 +33,11 @@ function extractProducts(arrayOfProducts) {
 
 function removeNullProperties(product) {
 
-  // These properties are sometimes or always set to null or 'n/a'.
-  var nullProperties = ['points', 'rank', 'itemDetailsUrl', 'flyerUrl',
-                        'correctionNotice', 'priceSavings'];
+  // These properties are always null.
+  var nullProperties = ['points', 'rank', 'itemDetailsUrl', 'flyerUrl'];
 
   nullProperties.forEach(nullProp => {
-    if (!product[nullProp] || product[nullProp] === 'n/a') {
-      delete product[nullProp];
-    }
+    delete product[nullProp];
   });
 
   return product;
