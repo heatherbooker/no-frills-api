@@ -2,9 +2,16 @@
  * @file Extractor used by the scraper to format the store data.
  */
 function extractStore(storeData) {
+  if (storeData === {}) {
+    throw new Error(`Error extracting store: the extractor received an empty object!`);
+  } else if (arguments.length > 1) {
+    throw new Error('Error extracting store: too many arguments!');
+  }
+
   var store = {address: {}};
   store.id = storeData.storeNumber;
-  store.address.street_address = storeData.address.addressLine1.trim() + storeData.address.addressLine2;
+  store.address.street_address = storeData.address.addressLine1.trim() +
+                                 storeData.address.addressLine2;
   store.address.city = storeData.address.city;
   store.address.province = storeData.address.province;
   store.address.postal_code = storeData.address.postalCode;

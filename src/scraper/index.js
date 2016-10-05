@@ -34,10 +34,8 @@ function scrapeFlyer() {
 
 function scrapeStore() {
 
-  const storeId = '100'
-  const options = {
-    url: `http://www.nofrills.ca/banners/store/v1/details/nofrills?lang=en_CA&storeId=${storeId}`
-  };
+  const storeId = '100';
+  const options = {url: `http://www.nofrills.ca/banners/store/v1/details/nofrills?lang=en_CA&storeId=${storeId}`};
 
   return new Promise((resolve, reject) => {
 

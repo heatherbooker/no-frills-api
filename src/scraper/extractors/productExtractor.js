@@ -24,7 +24,7 @@ function extractProducts(arrayOfProducts) {
     // Product description in French is last part of description, after 2 '\n'.
     var descriptions = product.description.split('/\n\n');
     product.description = descriptions[0].trim();
-    product.french = descriptions[1];
+    product.french = descriptions[1] || null;
 
     return removeNullProperties(product);
 

@@ -16,6 +16,8 @@
       "object-curly-newline": ["error", {
         "ObjectExpression": { "minProperties": 3, "multiline": true },
         "ObjectPattern": { "minProperties": 3, "multiline": true }
-      }]
+      }],
+      "camelcase": 0,
+      "quote-props": 0
     }
 }
