@@ -6,8 +6,7 @@ const scraper = require('./scraper');
 server.get('/', (req, res) => {
   scraper.scrape()
     .then(data => {
-      res.send('Scraping successful;' +
-                JSON.stringify(data));
+      res.send(data);
     })
     .catch(error => {
       res.send('Error while attempting to scrape: \n', error);
