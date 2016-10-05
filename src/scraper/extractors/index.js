@@ -1,7 +1,7 @@
 /**
  * @file Extractors are used by the scraper to format the scraped data.
  */
-const products = require('./productExtractor.js');
+const flyer = require('./flyerExtractor.js');
 const store = require('./storeExtractor.js');
 
-module.exports = {products, store};
+module.exports = {flyer, store};

@@ -24,9 +24,10 @@ function scrapeFlyer() {
         return reject('Request to nofrills flyer endpoint failed; ' + err);
       }
 
-      const productList = JSON.parse(body).flyerResponse.docs;
-      const products = extract.products(productList);
-      resolve(products);
+      const flyer = extract.flyer(JSON.parse(body));
+      flyer.id = 1;
+      flyer.store_id = storeNum;
+      resolve(flyer);
 
     });
   });
