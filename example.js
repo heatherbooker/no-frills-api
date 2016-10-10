@@ -52,61 +52,21 @@ function getCities(province) {
   return promise;
 }
 
-
 function getStore(city, province) {
 
-  // console.log('get store code for city: "' + city + '" in province "' + province + '"');
-
-  var endpoint = `http://www.nofrills.ca/banners/store/v1/listing/nofrills?lang=en_CA&city=${city}&province=${province}`;
+  var endpoint = `http://www.nofrills.ca/banners/store/v1/listing/nofrills?lang=en_CA&banner=6&proximity=75&city=${city}&province=${province}`;
   var promise = new Promise((resolve, reject) => {
 
     request(endpoint, (error, response, body) => {
       if (error) {
         return reject(error);
       }
-      resolve(JSON.parse(body));
+
+      resolve(JSON.parse(body)[0]);
     });
+
   });
   return promise;
 }
-
-
-function main() {
-
-  getProvinces()
-
-    .then(provinces => {
-
-      var storePromises = provinces.map(province => {
-        return getCities(province).then(cities => {
-          console.log(cities[0]);
-          return cities.map(city => {
-            return getStore(city, province);
-          });
-        });
-      });
-
-      return Promise.all(storePromises).then(storeLists => {
-        // console.log(storeLists[0]);
-        var mop = storeLists.reduce((prev, current) => {
-          return prev.concat(current);
-        });
-        // console.log(typeof mop, mop[0], mop);
-      });
-    // })
-
-    // .then(stores => {
-    //   console.log(typeof stores, 'should be array', stores[0]);
-    //   stores.forEach(store => {
-    //     console.log(JSON.parse(store).storeNum);
-    //   });
-    });
-}
-
-
-// get all stores
-// get stores for <city> in <province>
-// get stores for <province>
-// get store
 
 module.exports = {getProvinces, getCities, getStore};
