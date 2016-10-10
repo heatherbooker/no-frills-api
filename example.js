@@ -1,6 +1,5 @@
 var request = require('request');
-var fs = require('fs');
-var spawn = require('child_process').spawn;
+var cheerio = require('cheerio');
 
 
 function getProvinces() {
@@ -10,7 +9,7 @@ function getProvinces() {
 
     request(endpoint, (error, response, body) => {
       if (error) {
-        reject(error);
+        return reject(error);
       }
 
       var provinceData = JSON.parse(body).provincePrompt;
@@ -22,73 +21,55 @@ function getProvinces() {
 }
 
 
-function scrapeCities(province, fileStream) {
-
-  if (province !== 'MB') {
+function getCities(province) {
 
   var endpoint = `http://www.nofrills.ca/en_CA/store-list-page.${province}.html`;
   var promise = new Promise((resolve, reject) => {
     
-    request(endpoint)
-      .on('response', response => {
-        console.log('scraping ' + province);
-        resolve();
-      })
-      .pipe(fileStream);
-  });
+    request(endpoint, (error, response, body) => {
+      if (error) {
+        return reject(error);
+      }
 
-  return promise;
-}
-}
+      var cities = [];
+      const $ = cheerio.load(body);
 
+      $('a').each(function() {
+        var link = $(this).attr('href');
 
-function extractCities() {
-
-  var promise = new Promise((resolve, reject) => {
-
-    const python = spawn('python', ['example.py']);
-
-    python.stdout.on('data', (data) => {
-      console.log('got smthg', data.toString());
-      const cityLists = JSON.parse(data.toString());
-
-      Object.keys(cityLists).forEach(province => {
-        cityLists[province].forEach(city => {
-          getStore(city, province);
-        });
+        // The city name is after the two char province, in (.+?) .
+        var match = link.match(/store-list-page\.[A-Z]{2}\.(.+?)\.html/);
+        if (match) {
+          var cityObject = {province, city: match[1]};
+          cities.push(cityObject);
+        }
       });
-    });
 
-    python.stderr.on('data', (err) => {
-      console.log(`stderr while running python child_process: ${err}`);
+      resolve(cities);
     });
-
-    python.on('close', () => {
-      resolve();
-    });
-  
   });
+
   return promise;
 }
 
 
 function getStore(city, province) {
 
-  console.log('get store code for city: "' + city + '"');
+  // console.log('get store code for city: "' + city + '" in province "' + province + '"');
 
   var endpoint = `http://www.nofrills.ca/banners/store/v1/listing/nofrills?lang=en_CA&city=${city}&province=${province}`;
   var promise = new Promise((resolve, reject) => {
 
     request(endpoint, (error, response, body) => {
       if (error) {
-        reject(error);
+        return reject(error);
       }
-
-      resolve(body);
+      resolve(JSON.parse(body));
     });
   });
   return promise;
 }
+
 
 function main() {
 
@@ -96,33 +77,36 @@ function main() {
 
     .then(provinces => {
 
-      var fileName = 'example.html';
-      var htmlSoupStream = fs.createWriteStream(fileName, {autoClose: false});
-
-      return new Promise((resolve, reject) => {
-
-        htmlSoupStream.on('open', () => {
-
-          var cityScraperPromises = provinces.map(province => {
-            return scrapeCities(province, htmlSoupStream);
-          });
-
-          return Promise.all(cityScraperPromises).then(() => {
-            htmlSoupStream.end();
-
-            resolve(fileName);
+      var storePromises = provinces.map(province => {
+        return getCities(province).then(cities => {
+          console.log(cities[0]);
+          return cities.map(city => {
+            return getStore(city, province);
           });
         });
       });
-    })
 
-    .then(fileName => {
-      return extractCities(fileName);
-    })
+      return Promise.all(storePromises).then(storeLists => {
+        // console.log(storeLists[0]);
+        var mop = storeLists.reduce((prev, current) => {
+          return prev.concat(current);
+        });
+        // console.log(typeof mop, mop[0], mop);
+      });
+    // })
 
-    .then(() => {
-      spawn('rm', ['example.html']);
+    // .then(stores => {
+    //   console.log(typeof stores, 'should be array', stores[0]);
+    //   stores.forEach(store => {
+    //     console.log(JSON.parse(store).storeNum);
+    //   });
     });
 }
 
-main();
+
+// get all stores
+// get stores for <city> in <province>
+// get stores for <province>
+// get store
+
+module.exports = {getProvinces, getCities, getStore};
