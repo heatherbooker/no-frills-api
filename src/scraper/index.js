@@ -5,13 +5,12 @@ const request = require('request');
 const extract = require('./extractors');
 
 
-function scrapeFlyer() {
+function scrapeFlyer(storeId) {
 
-  const storeNum = '784';
   // Use an absurdly high number of products to ensure we always get them all.
   const numOfProducts = '10000';
   const options = {
-    url: `http://www.nofrills.ca/banners/publication/v1/en_CA/NOFR/current/${storeNum}/items?start=0&rows=${numOfProducts}&tag=`,
+    url: `http://www.nofrills.ca/banners/publication/v1/en_CA/NOFR/current/${storeId}/items?start=0&rows=${numOfProducts}&tag=`,
     method: 'POST',
     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   };
@@ -33,14 +32,13 @@ function scrapeFlyer() {
   });
 }
 
-function scrapeStore() {
+function scrapeStore(storeId) {
 
-  const storeId = '100';
-  const options = {url: `http://www.nofrills.ca/banners/store/v1/details/nofrills?lang=en_CA&storeId=${storeId}`};
+  const endpoint = `http://www.nofrills.ca/banners/store/v1/details/nofrills?lang=en_CA&storeId=${storeId}`;
 
   return new Promise((resolve, reject) => {
 
-    request(options, (err, response, body) => {
+    request(endpoint, (err, response, body) => {
 
       if (err) {
         return reject('Request to nofrills store endpoint failed; ' + err);
@@ -56,16 +54,4 @@ function scrapeStore() {
   });
 }
 
-function scrape() {
-  const flyerPromise = scrapeFlyer().then(function(flyer) {
-    return flyer;
-  });
-  const storePromise = scrapeStore().then(function(store) {
-    return store;
-  });
-  return Promise.all([flyerPromise, storePromise]).then(function(values) {
-    return {flyer: values[0], store: values[1]};
-  });
-}
-
-module.exports = {scrape};
+module.exports = {store: scrapeStore, flyer: scrapeFlyer};
