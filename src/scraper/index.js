@@ -1,5 +1,5 @@
 /**
- * @file Makes http request to nofrills, writes formatted data to another file.
+ * @file Makes http requests to nofrills for a single flyer or store.
  */
 const request = require('request');
 const extract = require('./extractors');
@@ -25,7 +25,7 @@ function scrapeFlyer(storeId) {
 
       const flyer = extract.flyer(JSON.parse(body));
       flyer.id = 1;
-      flyer.store_id = storeNum;
+      flyer.store_id = storeId;
       resolve(flyer);
 
     });

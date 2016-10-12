@@ -10,7 +10,7 @@ function getProvinces() {
     request(endpoint, (error, response, body) => {
       if (error) {
         return reject(`Request to nofrills endpoint to get list of
-                       provinces failed; ${error}`);
+          provinces failed; ${error}`);
       }
 
       const provinceData = JSON.parse(body).provincePrompt;
@@ -26,7 +26,7 @@ function getCities(province) {
 
   const endpoint = `http://www.nofrills.ca/en_CA/store-list-page.${province}.html`;
   const promise = new Promise((resolve, reject) => {
-    
+
     request(endpoint, (error, response, body) => {
       if (error) {
         return reject(`Request to nofrills endpoint to get list of
