@@ -45,7 +45,7 @@ function extractHours(storeHours) {
 
 function extractOwner(storeName) {
   // "Bob's NOFRILLS" indicates Bob is the owner.
-  var ownershipRegex = /('s .+)/;
+  var ownershipRegex = /'s .+/;
   if (ownershipRegex.test(storeName)) {
     return storeName.replace(ownershipRegex, '');
   }

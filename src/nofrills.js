@@ -26,7 +26,7 @@ function getAllStoresFromCity(city, province, delay = 1) {
           const stores = JSON.parse(body);
           resolve(stores.map(store => extract.store(store)));
         } catch (err) {
-          throw new Error(`Error parsing stores from ${city.city}:`, err);
+          throw new Error(`Error parsing stores from ${city}:`, err);
         }
 
       });
