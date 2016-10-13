@@ -1,7 +1,8 @@
 /**
  * @file Extractor used by the scraper to format the flyer objects.
  */
-function extractFlyer(flyerData) {
+function extractFlyer(data) {
+  const flyerData = JSON.parse(data);
 
   if (arguments.length > 1) {
     throw new Error('Error extracting flyer details: too many arguments!');

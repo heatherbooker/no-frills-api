@@ -1,19 +1,13 @@
 const express = require('express');
 const server = express();
-const nofrills = require('./nofrills.js');
+const NoFrills = require('./nofrills.js');
 
+const nofrills = new NoFrills();
 
 server.get('/', (req, res) => {
 
-  nofrills.getAllStores()
-    .then(stores => {
-      res.send(stores);
-      console.log('Done getting all stores; check localhost:8080 for listing');
-    })
-    .catch(err => {
-      console.error(err);
-      res.send('Error getting all stores:', err);
-    });
+  const stores = nofrills.getAllStores();
+  res.send(stores);
 
 });
 

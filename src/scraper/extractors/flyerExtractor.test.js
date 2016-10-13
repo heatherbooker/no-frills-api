@@ -24,14 +24,14 @@ describe('flyer extractor', function() {
         }]
       }
     };
-    const result = extract(testFlyer);
+    const result = extract(JSON.stringify(testFlyer));
     assert.isObject(result);
     assert.lengthOf(Object.keys(result), 3);
   });
 
-  it('should throw an error given a non-object input', function() {
+  it('should throw an error given a non-JSON string input', function() {
     try {
-      extract([{an: 'object'}, "how did this get here"]);
+      extract(`this is not valid JSON! [{an: 'object'}, "how here"]`);
       return false;
     } catch (err) {
       return true;
@@ -40,8 +40,8 @@ describe('flyer extractor', function() {
 
   it(`should throw an error given an array not containing objects`, function() {
     try {
-      extract(['just a string', 2, 'another',
-                        true, {single: 'object'}]);
+      extract(`['just a string', 2, 'another',
+                        true, {single: 'object'}]`);
       return false;
     } catch (err) {
       return true;
@@ -50,7 +50,7 @@ describe('flyer extractor', function() {
 
   it('should throw an error given more than one input', function() {
     try {
-      extract(['first array', 'things in it'], {could: 'beAnObject'});
+      extract(`['first array', 'things in it'], {could: 'beAnObject'}`);
       return false;
     } catch (err) {
       return true;

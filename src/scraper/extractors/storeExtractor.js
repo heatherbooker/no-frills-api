@@ -1,6 +1,11 @@
 /**
  * @file Extractor used by the scraper to format the store data.
  */
+function extractStores(data) {
+  const stores = JSON.parse(data);
+  return stores.map(store => extractStore(store));
+}
+
 function extractStore(storeData) {
   if (storeData === {}) {
     throw new Error(`Error extracting store: the extractor received an empty object!`);
@@ -58,4 +63,4 @@ function extractOwner(storeName) {
   return null;
 }
 
-module.exports = extractStore;
+module.exports = extractStores;
