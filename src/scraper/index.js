@@ -116,40 +116,4 @@ function scrapeFlyer(storeId) {
   });
 }
 
-
-// function getFlyerByStoreId(storeId) {
-//   const flyer = scraper.scrapeFlyer(storeId);
-//   return extract.flyer(flyer);
-// }
-
-// function getAllFlyersFromCity(city, province) {
-//   return getAllStoresFromCity(city, province).then(stores => {
-//     return stores.map(store => getFlyerByStoreId(store.storeNumber));
-//   });
-// }
-
-// function getAllFlyersFromProvince(province) {
-//   return locations.getCities(province).then(cities => {
-//     const promises = cities.map(city => {
-//       return getAllFlyersFromCity(city, province);
-//     });
-//     return Promise.all(promises).then(flyers => {
-//       return flyers.reduce((prev, curr) => prev.concat(curr));
-//     });
-//   });
-// }
-
-// function getAllFlyers() {
-//   return locations.getProvinces().then(provinces => {
-//     const promises = provinces.map(province => {
-//       return getAllFlyersFromProvince(province);
-//     });
-
-//     return Promise.all(promises).then(flyers => {
-//       flyers.reduce((prev, curr) => prev.concat(curr));
-//     });
-//   });
-// }
-
-
 module.exports = {scrapeFlyer, scrapeStores: getAllStores};

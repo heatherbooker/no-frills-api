@@ -5,9 +5,6 @@ var extractor = require('./locationExtractors.js');
 describe('province extractor', function() {
   it('should return an array of two-letter province codes', function() {
     var testProvinceData = JSON.stringify({
-      "cssToHide": ["pcplus-show-logged-in"],
-      "analytics": {"enabled": true},
-      "currentDate": "2016-10-13",
       "gsCartYtdWeekRange": "Jan 1, 2016 - Oct 13, 2016",
       "departmentId": {
         "pharmacy": "300064",
@@ -62,18 +59,7 @@ describe('province extractor', function() {
           "zoom": 4,
           "zoomDetail": 15
         }
-      },
-      "headerInfo": {
-        "showStoreHeader": true,
-        "state": "IDENTIFIED",
-        "storeResultsUrl": "/en_CA/storeresults.html",
-        "premiumStore": false,
-        "flyerURLItemView": "/en_CA/flyers.banner@YIG.storenum@635.html",
-        "flyerLinkText": "View Weekly Flyer",
-        "postalCode": "E8E 2W7"
-      },
-      "cssToShow": ["100", "635", "NB", "pcplus-show-logged-out"],
-      "gsCartCurrentWeekRange": "Sun Oct 9 - Sat Oct 15"
+      }
     });
     var result = extractor.extractProvinces(testProvinceData);
     assert.isArray(result);
