@@ -12,13 +12,6 @@ class NoFrills {
       .then(stores => {
         this.stores = stores;
       });
-      // .then(() => {
-
-      //   return getAllFlyers();
-      // })
-      // .then(flyers => {
-      //   this.flyers = flyers;
-      // });
   }
 
   getStoreById(id) {
@@ -35,28 +28,6 @@ class NoFrills {
 
   getAllStores() {
     return this.stores;
-  }
-
-  getFlyerByStoreId(id) {
-    return this.flyers.filter(flyer => flyer.store_id === id);
-  }
-
-  getFlyersFromCity(city) {
-    return this.flyers.filter(flyer => {
-      var storeForFlyer = this.getStoreById(flyer.store_id);
-      return storeForFlyer.address.city === city;
-    });
-  }
-
-  getFlyersFromProvince(province) {
-    return this.flyers.filter(flyer => {
-      var storeForFlyer = this.getStoreById(flyer.store_id);
-      return storeForFlyer.address.province === province;
-    });
-  }
-
-  getAllFlyers() {
-    return this.flyers;
   }
 
 }
