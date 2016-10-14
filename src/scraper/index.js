@@ -21,7 +21,8 @@ function scrapeStores() {
       while (extractions.length > 0) {
 
         if (extractions[0].endpoint) {
-          getPromiseToGetThing(extractions[0].endpoint, extractions[0].extractor)
+          const extraction = extractions[0];
+          getPromiseToGetThing(extraction.endpoint, extraction.extractor)
             .then(newExtractions => {
               newExtractions.forEach(extraction => {
                 extractions.push(extraction);

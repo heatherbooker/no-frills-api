@@ -12,7 +12,7 @@ server.get('/', (req, res) => {
 });
 
 nofrills.init().then(() => {
-  
+
   server.listen(8080, () => {
     console.log(`Go to http://localhost:8080`);
   });

@@ -3,7 +3,7 @@ var request = require('request');
 var extractor = require('./locationExtractors.js');
 
 describe('province extractor', function() {
-  it('should return an array of two-letter province codes', function() {
+  it('should return an array of objects', function() {
     var testProvinceData = JSON.stringify({
       "gsCartYtdWeekRange": "Jan 1, 2016 - Oct 13, 2016",
       "departmentId": {
@@ -63,7 +63,7 @@ describe('province extractor', function() {
     });
     var result = extractor.extractProvinces(testProvinceData);
     assert.isArray(result);
-    assert.lengthOf(result[0], 2);
+    assert.isObject(result[0]);
   });
 });
 
