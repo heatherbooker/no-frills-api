@@ -5,23 +5,67 @@ const request = require('request');
 const extractor = require('./extractors');
 
 
+function scrapeStores() {
+
+  // Start by just getting the list of provinces.
+  const firstExtraction = {
+    identity: 'provinces',
+    endpoint: `http://www.nofrills.ca/banners/global/v1/en_CA/nofrills`,
+    extractor: extractor.extractProvinces
+  };
+  const extractions = [firstExtraction];
+  const results = [];
+
+  function runExtractions(extractions) {
+    var promise = new Promise((resolve, reject) => {
+      while (extractions.length > 0) {
+
+        if (extractions[0].endpoint) {
+          getPromiseToGetThing(extractions[0].endpoint, extractions[0].extractor)
+            .then(newExtractions => {
+              newExtractions.forEach(extraction => {
+                extractions.push(extraction);
+              });
+              runExtractions(extractions);
+            });
+
+        } else {
+          results.push(extractions[0]);
+        }
+
+        extractions.shift();
+
+        if (extractions.length === 0) {
+          resolve(results);
+        }
+      }
+    });
+    return promise;
+  }
+
+  return runExtractions(extractions);
+}
+
+
 function getPromiseToGetThing(options, extractorToUse, delay = 1) {
 
   const promise = new Promise((resolve, reject) => {
 
-    setTimeout(function() {
+    setTimeout(() => {
       request(options, (error, response, body) => {
         if (error) {
           return reject(`Request to ${options} failed: ${error}`);
         }
 
-        try {
+        if (body === '') {
+          // Send it back to be tried again a little later.
+          resolve({
+            endpoint: options,
+            extractor: extractorToUse,
+            delay: delay + 100
+          });
+        } else {
           resolve(extractorToUse(body));
-
-        } catch (err) {
-          return reject(`HTTP response body: ${body}\nError extracting info
-            from body of http response from ${options}; Body of http response
-            found above; Error: ${err}`);
         }
 
       });
@@ -31,71 +75,6 @@ function getPromiseToGetThing(options, extractorToUse, delay = 1) {
   return promise;
 }
 
-
-function getAllStores() {
-
-  const provincesEndpoint = `http://www.nofrills.ca/banners/global/v1/en_CA/nofrills`;
-
-  return getPromiseToGetThing(provincesEndpoint, extractor.extractProvinces)
-    .then(provinces => {
-      const promises = provinces.map(province => {
-        const citiesEndpoint = `http://www.nofrills.ca/en_CA/store-list-page.${province}.html`;
-
-        return getPromiseToGetThing(citiesEndpoint, extractor.extractCities)
-          .then(cities => {
-            return getAllStoresFromProvince(province, cities);
-          });
-      });
-
-      return Promise.all(promises).then(storesByProvince => {
-
-        var stores = [];
-        storesByProvince.forEach(province => {
-          province.forEach(store => {
-            stores.push(store);
-          });
-        });
-
-        return stores;
-      });
-    });
-}
-
-
-function getAllStoresFromProvince(province, cities) {
-
-  // Ontario has a lot of cities and needs to go last and have
-  // more time to prevent overloading the nofrills server.
-  let delay = province === 'ON' ? 5000 : 1;
-  const cityPromises = cities.map(city => {
-    delay += province === 'ON' ? 400 : 150;
-
-    return getAllStoresFromCity(city.city, province, delay);
-  });
-
-  return Promise.all(cityPromises).then(storesByCity => {
-    console.log('got all stores for all cities in province', province);
-
-    var stores = [];
-    storesByCity.forEach(city => {
-      city.forEach(store => {
-        stores.push(store);
-      });
-    });
-
-    return stores;
-  })
-  .catch(reason => {
-    console.warn(reason);
-  });
-}
-
-
-function getAllStoresFromCity(city, province, delay) {
-
-  const endpoint = `http://www.nofrills.ca/banners/store/v1/listing/nofrills?lang=en_CA&banner=6&proximity=75&city=${city}&province=${province}`;
-  return getPromiseToGetThing(endpoint, extractor.extractStores, delay);
-}
 
 
 function scrapeFlyer(storeId) {
@@ -116,4 +95,4 @@ function scrapeFlyer(storeId) {
   });
 }
 
-module.exports = {scrapeFlyer, scrapeStores: getAllStores};
+module.exports = {scrapeFlyer, scrapeStores};

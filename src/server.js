@@ -1,18 +1,22 @@
 const express = require('express');
 const server = express();
-const NoFrills = require('./nofrills.js');
+const NoFrills = require('./NoFrills.js');
+
 
 const nofrills = new NoFrills();
 
 server.get('/', (req, res) => {
 
-  const stores = nofrills.getAllStores();
-  res.send(stores);
+  res.send(nofrills.getAllStores());
 
 });
 
-server.listen(8080, () => {
-  console.log(`Go to http://localhost:8080`);
+nofrills.init().then(() => {
+  
+  server.listen(8080, () => {
+    console.log(`Go to http://localhost:8080`);
+  });
+
 });
 
 module.exports = server;

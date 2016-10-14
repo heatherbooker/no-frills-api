@@ -4,10 +4,6 @@
 function extractFlyer(data) {
   const flyerData = JSON.parse(data);
 
-  if (arguments.length > 1) {
-    throw new Error('Error extracting flyer details: too many arguments!');
-  }
-
   const products = extractProducts(flyerData.flyerResponse.docs);
   const dates = flyerData.weekRange.split(' - ');
   return {
@@ -18,10 +14,6 @@ function extractFlyer(data) {
 }
 
 function extractProducts(arrayOfProducts) {
-
-  if (arguments.length > 1) {
-    throw new Error('Error extracting products: too many arguments!');
-  }
 
   return arrayOfProducts.map(product => {
 

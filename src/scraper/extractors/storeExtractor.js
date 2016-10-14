@@ -7,11 +7,6 @@ function extractStores(data) {
 }
 
 function extractStore(storeData) {
-  if (storeData === {}) {
-    throw new Error(`Error extracting store: the extractor received an empty object!`);
-  } else if (arguments.length > 1) {
-    throw new Error('Error extracting store: too many arguments!');
-  }
 
   var store = {address: {}};
   store.id = storeData.storeNumber;
