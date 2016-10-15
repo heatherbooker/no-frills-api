@@ -11,7 +11,7 @@ class NoFrills {
   }
 
   init() {
-    return scraper.scrapeStores()
+    return scraper.scrape()
       .then(stores => {
         this.stores = stores;
       });

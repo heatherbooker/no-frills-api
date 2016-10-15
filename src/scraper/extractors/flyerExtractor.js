@@ -4,13 +4,19 @@
 function extractFlyer(data) {
   const flyerData = JSON.parse(data);
 
-  const products = extractProducts(flyerData.flyerResponse.docs);
-  const dates = flyerData.weekRange.split(' - ');
-  return {
-    products,
-    start_date: dates[0],
-    end_date: dates[1]
-  };
+  if (flyerData.weekRange) {
+
+    const products = extractProducts(flyerData.flyerResponse.docs);
+    const dates = flyerData.weekRange.split(' - ');
+    const storeId = /storenum@([0-9]*)\./.exec(flyerData.flyerUrl);
+    return [{
+      products,
+      start_date: dates[0],
+      end_date: dates[1],
+      store_id: storeId[1]
+    }];
+  }
+  return null;
 }
 
 function extractProducts(arrayOfProducts) {

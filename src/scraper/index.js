@@ -5,7 +5,7 @@ const request = require('request');
 const extractor = require('./extractors');
 
 
-function scrapeStores() {
+function scrape() {
 
   // Start by just getting the list of provinces.
   const firstExtraction = {
@@ -14,30 +14,38 @@ function scrapeStores() {
     extractor: extractor.extractProvinces
   };
   const extractions = [firstExtraction];
-  const results = [];
+  const stores = [];
 
   function runExtractions(extractions) {
-    var promise = new Promise((resolve, reject) => {
+    const promise = new Promise((resolve, reject) => {
       while (extractions.length > 0) {
 
-        if (extractions[0].endpoint) {
-          const extraction = extractions[0];
-          getPromiseToGetThing(extraction.endpoint, extraction.extractor)
-            .then(newExtractions => {
-              newExtractions.forEach(extraction => {
-                extractions.push(extraction);
-              });
-              runExtractions(extractions);
-            });
+        const extraction = extractions[0];
+        getPromiseToMakeHttpRequest(extraction.endpoint, extraction.extractor)
+          .then(newExtractions => {
+            newExtractions.forEach(newExtraction => {
 
-        } else {
-          results.push(extractions[0]);
+              if (newExtraction.endpoint) {
+                extractions.push(newExtraction);
+
+              } else {
+                const storeToAddFlyer = stores.filter(store => {
+                  return store.id === newExtraction.store_id;
+                })[0];
+                storeToAddFlyer.flyer = newExtraction;
+              }
+            });
+            runExtractions(extractions);
+          });
+
+        if (extractions[0].store) {
+          stores.push(extractions[0].store);
         }
 
         extractions.shift();
 
         if (extractions.length === 0) {
-          resolve(results);
+          resolve(stores);
         }
       }
     });
@@ -48,7 +56,7 @@ function scrapeStores() {
 }
 
 
-function getPromiseToGetThing(options, extractorToUse, delay = 1) {
+function getPromiseToMakeHttpRequest(options, extractorToUse, delay = 1) {
 
   const promise = new Promise((resolve, reject) => {
 
@@ -77,23 +85,4 @@ function getPromiseToGetThing(options, extractorToUse, delay = 1) {
 }
 
 
-
-function scrapeFlyer(storeId) {
-
-  // Use an absurdly high number of products to ensure we always get them all.
-  const numOfProducts = '10000';
-  const options = {
-    url: `http://www.nofrills.ca/banners/publication/v1/en_CA/NOFR/current/${storeId}/items?start=0&rows=${numOfProducts}&tag=`,
-    method: 'POST',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-  };
-
-  return getPromiseToGetThing(options, extractor.extractFlyer).then(flyer => {
-    flyer.id = 1;
-    flyer.store_id = storeId;
-
-    return flyer;
-  });
-}
-
-module.exports = {scrapeFlyer, scrapeStores};
+module.exports = {scrape};

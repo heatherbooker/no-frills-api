@@ -1,9 +1,30 @@
 /**
  * @file Extractor used by the scraper to format the store data.
  */
+const flyerExtractor = require('./flyerExtractor.js');
+
+
 function extractStores(data) {
   const stores = JSON.parse(data);
-  return stores.map(store => extractStore(store));
+  return stores.map(store => {
+    const extractedStore = extractStore(store);
+    return {
+      store: extractedStore,
+      endpoint: getFlyerEndpoint(extractedStore.id),
+      extractor: flyerExtractor,
+      delay: 5000
+    };
+  });
+}
+
+function getFlyerEndpoint(storeId) {
+  // Use an absurdly high number of products to ensure we always get them all.
+  const numOfProducts = '10000';
+  return {
+    url: `http://www.nofrills.ca/banners/publication/v1/en_CA/NOFR/current/${storeId}/items?start=0&rows=${numOfProducts}&tag=`,
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  };
 }
 
 function extractStore(storeData) {

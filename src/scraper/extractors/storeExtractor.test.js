@@ -159,18 +159,6 @@ describe('store extractor', function() {
     });
   });
 
-  it(`should return objects with key "address" whose value is an object with 4 keys`, function() {
-    var result = extract(testStore);
-    assert.isObject(result[0].address);
-    assert.lengthOf(Object.keys(result[0].address), 4);
-  });
-
-  it(`should return objects with key "hours" whose value is an object with 8 keys`, function() {
-    var result = extract(testStore);
-    assert.isObject(result[0].hours);
-    assert.lengthOf(Object.keys(result[0].hours), 8);
-  });
-
   it('should throw an error given more than one input', function() {
     try {
       extract(`{some: "details"}, {could: 'beAnObject'}`);
