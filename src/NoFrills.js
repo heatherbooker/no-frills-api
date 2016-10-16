@@ -7,7 +7,7 @@ const scraper = require('./scraper');
 class NoFrills {
 
   constructor() {
-    this.stores = [];
+    this.stores = [];;
   }
 
   init() {
