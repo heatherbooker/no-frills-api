@@ -21,18 +21,20 @@ function scrape() {
       while (extractions.length > 0) {
 
         const extraction = extractions[0];
-        makeDelayedRequest(extraction.endpoint, extraction.extractor)
+        makeDelayedRequest(extraction.endpoint, extraction.delay)
           .then(response => {
             if (response === '') {
               // Send it back to be tried again a little later.
-              var newExtractions = [{
+              return [{
                 endpoint: extraction.endpoint,
                 extractor: extraction.extractor,
                 delay: 100
               }];
             } else {
-              var newExtractions = extraction.extractor(response);
+              return extraction.extractor(response);
             }
+          })
+          .then(newExtractions => {
             newExtractions.forEach(newExtraction => {
 
               if (newExtraction.endpoint) {
@@ -66,7 +68,7 @@ function scrape() {
 }
 
 
-function makeDelayedRequest(options, extractorToUse, delay = 1) {
+function makeDelayedRequest(options, delay = 1) {
 
   const promise = new Promise((resolve, reject) => {
 
