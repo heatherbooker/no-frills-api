@@ -5,9 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "mocha 'src/**/*.test.js'",
-    "travisTest": "mocha 'src/**/*.test.js'",
-    "lint": "eslint . || true",
-    "travisLint": "eslint . || true",
+    "lint": "eslint .",
     "dev": "nodemon src/server.js"
   },
   "keywords": [],
