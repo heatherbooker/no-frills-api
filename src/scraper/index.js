@@ -21,8 +21,18 @@ function scrape() {
       while (extractions.length > 0) {
 
         const extraction = extractions[0];
-        getPromiseToMakeHttpRequest(extraction.endpoint, extraction.extractor)
-          .then(newExtractions => {
+        makeDelayedRequest(extraction.endpoint, extraction.extractor)
+          .then(response => {
+            if (response === '') {
+              // Send it back to be tried again a little later.
+              var newExtractions = [{
+                endpoint: extraction.endpoint,
+                extractor: extraction.extractor,
+                delay: 100
+              }];
+            } else {
+              var newExtractions = extraction.extractor(response);
+            }
             newExtractions.forEach(newExtraction => {
 
               if (newExtraction.endpoint) {
@@ -56,7 +66,7 @@ function scrape() {
 }
 
 
-function getPromiseToMakeHttpRequest(options, extractorToUse, delay = 1) {
+function makeDelayedRequest(options, extractorToUse, delay = 1) {
 
   const promise = new Promise((resolve, reject) => {
 
@@ -66,16 +76,7 @@ function getPromiseToMakeHttpRequest(options, extractorToUse, delay = 1) {
           return reject(`Request to ${options} failed: ${error}`);
         }
 
-        if (body === '') {
-          // Send it back to be tried again a little later.
-          resolve({
-            endpoint: options,
-            extractor: extractorToUse,
-            delay: delay + 100
-          });
-        } else {
-          resolve(extractorToUse(body));
-        }
+        resolve(body);
 
       });
     }, delay);
