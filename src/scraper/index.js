@@ -30,9 +30,8 @@ function scrape() {
                 extractor: extraction.extractor,
                 delay: 100
               }];
-            } else {
-              return extraction.extractor(response);
             }
+            return extraction.extractor(response);
           })
           .then(newExtractions => {
             newExtractions.forEach(newExtraction => {

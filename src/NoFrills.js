@@ -1,5 +1,5 @@
 /**
- * @file These functions will be used by the server according to the route.
+ * @file This class exposes methods to get various groupings of stores & flyers.
  */
 const scraper = require('./scraper');
 
