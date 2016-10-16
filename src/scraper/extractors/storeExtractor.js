@@ -1,12 +1,33 @@
 /**
  * @file Extractor used by the scraper to format the store data.
  */
+const flyerExtractor = require('./flyerExtractor.js');
+
+
+function extractStores(data) {
+  const stores = JSON.parse(data);
+  return stores.map(store => {
+    const extractedStore = extractStore(store);
+    return {
+      store: extractedStore,
+      endpoint: getFlyerEndpoint(extractedStore.id),
+      extractor: flyerExtractor,
+      delay: 5000
+    };
+  });
+}
+
+function getFlyerEndpoint(storeId) {
+  // Use an absurdly high number of products to ensure we always get them all.
+  const numOfProducts = '10000';
+  return {
+    url: `http://www.nofrills.ca/banners/publication/v1/en_CA/NOFR/current/${storeId}/items?start=0&rows=${numOfProducts}&tag=`,
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  };
+}
+
 function extractStore(storeData) {
-  if (storeData === {}) {
-    throw new Error(`Error extracting store: the extractor received an empty object!`);
-  } else if (arguments.length > 1) {
-    throw new Error('Error extracting store: too many arguments!');
-  }
 
   var store = {address: {}};
   store.id = storeData.storeNumber;
@@ -46,10 +67,16 @@ function extractHours(storeHours) {
 function extractOwner(storeName) {
   // "Bob's NOFRILLS" indicates Bob is the owner.
   var ownershipRegex = /'s .+/;
-  if (ownershipRegex.test(storeName) > -1) {
+  if (ownershipRegex.test(storeName)) {
     return storeName.replace(ownershipRegex, '');
+  }
+  // Sometimes the above doesn't catch an owner.
+  var firstRegexFailed = storeName.split(/NOFRILLS|No Frills/);
+  if (firstRegexFailed.length > 1) {
+    var end = (firstRegexFailed[0].length - 3);
+    return firstRegexFailed[0].substring(0, end);
   }
   return null;
 }
 
-module.exports = extractStore;
+module.exports = extractStores;

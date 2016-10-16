@@ -7,7 +7,7 @@ var testStore;
 describe('store extractor', function() {
 
   beforeEach(function() {
-    testStore = {
+    testStore = JSON.stringify([{
       "id": "100",
       "storeName": "Gil's YIG Balmoral",
       "storeNumber": "635",
@@ -148,42 +148,32 @@ describe('store extractor', function() {
       "exceptionHours": [],
       "distance": "521.1",
       "configuredDepartments": null
-    };
+    }]);
   });
 
-  it(`should return an object with 7 keys`, function() {
+  it(`should return an array of objects`, function() {
     var result = extract(testStore);
-    assert.isObject(result);
-    assert.lengthOf(Object.keys(result), 7);
-  });
-
-  it(`should return an object with key "address" whose value is an object with 4 keys`, function() {
-    var result = extract(testStore);
-    assert.isObject(result.address);
-    assert.lengthOf(Object.keys(result.address), 4);
-  });
-
-  it(`should return an object with key "hours" whose value is an object with 8 keys`, function() {
-    var result = extract(testStore);
-    assert.isObject(result.hours);
-    assert.lengthOf(Object.keys(result.hours), 8);
+    assert.isArray(result);
+    result.forEach(store => {
+      assert.isObject(store);
+    });
   });
 
   it('should throw an error given more than one input', function() {
     try {
-      extract({some: "details"}, {could: 'beAnObject'});
+      extract(`{some: "details"}, {could: 'beAnObject'}`);
       return false;
     } catch (err) {
       return true;
     }
   });
 
-  it('should throw an error given an empty object', function() {
+  it('should not error given an empty array', function() {
     try {
-      extract({});
-      return false;
-    } catch (err) {
+      extract([]);
       return true;
+    } catch (err) {
+      return false;
     }
   });
 

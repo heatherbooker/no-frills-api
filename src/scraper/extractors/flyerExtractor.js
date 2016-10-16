@@ -1,13 +1,25 @@
 /**
- * @file Extractor used by the scraper to format the product objects.
+ * @file Extractor used by the scraper to format the flyer objects.
  */
-function extractProducts(arrayOfProducts) {
+function extractFlyer(data) {
+  const flyerData = JSON.parse(data);
 
-  // If there's more than one argument, it may be because the
-  // objects should have been aggregated into an array.
-  if (arguments.length > 1) {
-    throw new Error('Error extracting products: too many arguments!');
+  if (flyerData.weekRange) {
+
+    const products = extractProducts(flyerData.flyerResponse.docs);
+    const dates = flyerData.weekRange.split(' - ');
+    const storeId = /storenum@([0-9]*)\./.exec(flyerData.flyerUrl);
+    return [{
+      products,
+      start_date: dates[0],
+      end_date: dates[1],
+      store_id: storeId[1]
+    }];
   }
+  return null;
+}
+
+function extractProducts(arrayOfProducts) {
 
   return arrayOfProducts.map(product => {
 
@@ -43,4 +55,4 @@ function removeNullProperties(product) {
   return product;
 }
 
-module.exports = extractProducts;
+module.exports = extractFlyer;

@@ -1,70 +1,90 @@
 /**
- * @file Makes http request to nofrills, writes formatted data to another file.
+ * @file Makes http requests to nofrills to get store and flyer data.
  */
 const request = require('request');
-const extract = require('./extractors');
+const extractor = require('./extractors');
 
-
-function scrapeFlyer() {
-
-  const storeNum = '784';
-  // Use an absurdly high number of products to ensure we always get them all.
-  const numOfProducts = '10000';
-  const options = {
-    url: `http://www.nofrills.ca/banners/publication/v1/en_CA/NOFR/current/${storeNum}/items?start=0&rows=${numOfProducts}&tag=`,
-    method: 'POST',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-  };
-
-  return new Promise((resolve, reject) => {
-
-    request(options, (err, response, body) => {
-
-      if (err) {
-        return reject('Request to nofrills flyer endpoint failed; ' + err);
-      }
-
-      const productList = JSON.parse(body).flyerResponse.docs;
-      const products = extract.products(productList);
-      resolve(products);
-
-    });
-  });
-}
-
-function scrapeStore() {
-
-  const storeId = '100';
-  const options = {url: `http://www.nofrills.ca/banners/store/v1/details/nofrills?lang=en_CA&storeId=${storeId}`};
-
-  return new Promise((resolve, reject) => {
-
-    request(options, (err, response, body) => {
-
-      if (err) {
-        return reject('Request to nofrills store endpoint failed; ' + err);
-      } else if (body === '') {
-        return reject(`Request to nofrills store ${storeId} endpoint failed; Unable to find a store with that ID.`);
-      }
-
-      const storeInfo = JSON.parse(body);
-      const store = extract.store(storeInfo);
-      resolve(store);
-
-    });
-  });
-}
 
 function scrape() {
-  const flyerPromise = scrapeFlyer().then(function(flyer) {
-    return flyer;
-  });
-  const storePromise = scrapeStore().then(function(store) {
-    return store;
-  });
-  return Promise.all([flyerPromise, storePromise]).then(function(values) {
-    return {flyer: values[0], store: values[1]};
-  });
+
+  // Start by just getting the list of provinces.
+  const firstExtraction = {
+    identity: 'provinces',
+    endpoint: `http://www.nofrills.ca/banners/global/v1/en_CA/nofrills`,
+    extractor: extractor.extractProvinces
+  };
+  const extractions = [firstExtraction];
+  const stores = [];
+
+  function runExtractions(extractions) {
+    const promise = new Promise((resolve, reject) => {
+      while (extractions.length > 0) {
+
+        const extraction = extractions[0];
+        makeDelayedRequest(extraction.endpoint, extraction.delay)
+          .then(response => {
+            if (response === '') {
+              // Send it back to be tried again a little later.
+              return [{
+                endpoint: extraction.endpoint,
+                extractor: extraction.extractor,
+                delay: 100
+              }];
+            }
+            return extraction.extractor(response);
+          })
+          .then(newExtractions => {
+            newExtractions.forEach(newExtraction => {
+
+              if (newExtraction.endpoint) {
+                extractions.push(newExtraction);
+
+              } else {
+                const storeToAddFlyer = stores.filter(store => {
+                  return store.id === newExtraction.store_id;
+                })[0];
+                storeToAddFlyer.flyer = newExtraction;
+              }
+            });
+            runExtractions(extractions);
+          });
+
+        if (extractions[0].store) {
+          stores.push(extractions[0].store);
+        }
+
+        extractions.shift();
+
+        if (extractions.length === 0) {
+          resolve(stores);
+        }
+      }
+    });
+    return promise;
+  }
+
+  return runExtractions(extractions);
 }
+
+
+function makeDelayedRequest(options, delay = 1) {
+
+  const promise = new Promise((resolve, reject) => {
+
+    setTimeout(() => {
+      request(options, (error, response, body) => {
+        if (error) {
+          return reject(`Request to ${options} failed: ${error}`);
+        }
+
+        resolve(body);
+
+      });
+    }, delay);
+
+  });
+  return promise;
+}
+
 
 module.exports = {scrape};

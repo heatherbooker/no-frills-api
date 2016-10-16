@@ -4,12 +4,10 @@ var scraper = require('./index.js');
 
 describe('scraper', function() {
 
-  it('should return an object containing an array and an object', function() {
-    scraper.scrape().then((function(data) {
-      assert.isObject(data);
-      assert.lengthOf(Object.keys(data), 2);
-      assert.isArray(data.flyer);
-      assert.isObject(data.store);
+  it('should return an array containing objects', function() {
+    scraper.scrape().then((function(stores) {
+      assert.isArray(stores);
+      assert.isObject(stores[0]);
     }));
   });
 

@@ -1,20 +1,22 @@
 const express = require('express');
 const server = express();
-const scraper = require('./scraper');
+const NoFrills = require('./NoFrills.js');
 
+
+const nofrills = new NoFrills();
 
 server.get('/', (req, res) => {
-  scraper.scrape()
-    .then(data => {
-      res.send(data);
-    })
-    .catch(error => {
-      res.send('Error while attempting to scrape: \n', error);
-    });
+
+  res.send(nofrills.getAllStores());
+
 });
 
-server.listen(8080, () => {
-  console.log(`Go to http://localhost:8080`);
+nofrills.init().then(() => {
+
+  server.listen(8080, () => {
+    console.log(`Go to http://localhost:8080`);
+  });
+
 });
 
 module.exports = server;

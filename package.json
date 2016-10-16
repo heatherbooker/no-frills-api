@@ -4,10 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "mocha src/**/*.test.js src/**/**/*.test.js ; exit 0",
-    "travisTest": "mocha src/**/*.test.js src/**/**/*.test.js",
-    "lint": "eslint . ; exit 0",
-    "travisLint": "eslint .",
+    "test": "mocha 'src/**/*.test.js'",
+    "lint": "eslint .",
     "dev": "nodemon src/server.js"
   },
   "keywords": [],
@@ -16,6 +14,7 @@
   "dependencies": {
     "chai": "3.5.0",
     "chai-http": "3.0.0",
+    "cheerio": "0.22.0",
     "express": "4.14.0",
     "mocha": "3.0.2",
     "nodemon": "1.10.2",
