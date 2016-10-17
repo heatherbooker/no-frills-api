@@ -118,7 +118,7 @@ The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".
 }
 ```
 
-## get /stores/:store\_id/flyers/
+## get /stores/:store\_id/flyers
 ### description
 
 This request returns only flyers for the store identified by the `store_id` parameter.  
