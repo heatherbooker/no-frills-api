@@ -73,7 +73,14 @@ function extractOwner(storeName) {
   // Sometimes the above doesn't catch an owner.
   var firstRegexFailed = storeName.split(/NOFRILLS|No Frills/);
   if (firstRegexFailed.length > 1) {
-    var end = (firstRegexFailed[0].length - 3);
+    var nameLength = firstRegexFailed[0].length;
+    var end;
+    // Names may end with "'s " or "s' " (as in Chris').
+    if (firstRegexFailed[0].substring(nameLength - 2) === 's ') {
+      end = nameLength - 3;
+    } else {
+      end = nameLength - 2;
+    }
     return firstRegexFailed[0].substring(0, end);
   }
   return null;
