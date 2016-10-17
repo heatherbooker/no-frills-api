@@ -5,6 +5,8 @@ const request = require('request');
 const extractor = require('./extractors');
 
 
+let delay = 1;
+
 function scrape() {
 
   // Start by just getting the list of provinces.
@@ -21,14 +23,14 @@ function scrape() {
       while (extractions.length > 0) {
 
         const extraction = extractions[0];
-        makeDelayedRequest(extraction.endpoint, extraction.delay)
+        makeDelayedRequest(extraction.endpoint)
           .then(response => {
             if (response === '') {
               // Send it back to be tried again a little later.
+              delay += 2000;
               return [{
                 endpoint: extraction.endpoint,
-                extractor: extraction.extractor,
-                delay: 100
+                extractor: extraction.extractor
               }];
             }
             return extraction.extractor(response);
@@ -54,6 +56,7 @@ function scrape() {
         }
 
         extractions.shift();
+        delay += 800;
 
         if (extractions.length === 0) {
           resolve(stores);
@@ -67,7 +70,7 @@ function scrape() {
 }
 
 
-function makeDelayedRequest(options, delay = 1) {
+function makeDelayedRequest(options) {
 
   const promise = new Promise((resolve, reject) => {
 
