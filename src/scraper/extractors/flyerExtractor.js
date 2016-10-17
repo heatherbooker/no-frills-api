@@ -13,7 +13,8 @@ function extractFlyer(data) {
       products,
       start_date: dates[0],
       end_date: dates[1],
-      store_id: storeId[1]
+      store_id: storeId[1],
+      id: '1'
     }];
   }
   return null;

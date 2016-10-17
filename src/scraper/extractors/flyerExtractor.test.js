@@ -3,7 +3,7 @@ var extract = require('./flyerExtractor.js');
 
 describe('flyer extractor', function() {
 
-  it('should return an array with an object with 4 keys', function() {
+  it('should return an array with an object', function() {
     const testFlyer = {
       bannerUrl: 'whateverwhateverhatever',
       weekRange: 'Thursday Sept 12 - Wednesday Sept 18',
@@ -27,7 +27,6 @@ describe('flyer extractor', function() {
     const result = extract(JSON.stringify(testFlyer));
     assert.isArray(result);
     assert.isObject(result[0]);
-    assert.lengthOf(Object.keys(result[0]), 4);
   });
 
   it('should return null given a flyer with all null values', function() {

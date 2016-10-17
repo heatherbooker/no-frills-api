@@ -43,7 +43,7 @@ function scrape() {
                 const storeToAddFlyer = stores.filter(store => {
                   return store.id === newExtraction.store_id;
                 })[0];
-                storeToAddFlyer.flyer = newExtraction;
+                storeToAddFlyer.flyers.push(newExtraction);
               }
             });
             runExtractions(extractions);

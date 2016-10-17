@@ -18,7 +18,7 @@ class NoFrills {
   }
 
   getStoreById(id) {
-    return this.stores.filter(store => store.id === id);
+    return this.stores.filter(store => store.id === id)[0];
   }
 
   getStoresByCity(city) {
@@ -31,6 +31,15 @@ class NoFrills {
 
   getAllStores() {
     return this.stores;
+  }
+
+  getFlyersForStore(storeId) {
+    return this.getStoreById(storeId).flyers;
+  }
+
+  getFlyerById(storeId, flyerId) {
+    const flyers = this.getFlyersForStore(storeId);
+    return flyers.filter(flyer => flyer.id === flyerId)[0];
   }
 
 }
