@@ -14,17 +14,13 @@ class NoFrills {
     return scraper.scrape()
       .then(stores => {
         this.stores = stores;
-        console.log('got stores');
         this.flyers = this._extractFlyersFromStores(stores);
-        console.log('got flyers');
       });
   }
 
   _extractFlyersFromStores(stores) {
-    console.log('before extracting');
     const flyersByStore = stores.map(store => store.flyers);
     const allFlyers = [];
-    console.log('extracting flyers');
     flyersByStore.forEach(storeFlyers => {
       allFlyers.push(...storeFlyers);
     });

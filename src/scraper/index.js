@@ -3,8 +3,6 @@
  */
 const request = require('request');
 const extractor = require('./extractors');
-const fs = require('fs');
-let count = 0;
 
 
 function scrape() {
@@ -27,7 +25,6 @@ function scrape() {
         makeDelayedRequest(extraction.endpoint, delay)
           .then(response => {
             if (response === '') {
-              console.log('bloody empty!!');
               delay += 2000;
               // Send it back to be tried again a little later.
               return [{
@@ -54,7 +51,6 @@ function scrape() {
           });
 
         if (extractions[0].store) {
-          console.log('new store!');
           stores.push(extractions[0].store);
         }
 
@@ -62,8 +58,6 @@ function scrape() {
         delay += 5000;
 
         if (extractions.length === 0 && stores.length > 0) {
-          fs.writeFile(`stores${count}.json`, JSON.stringify(stores));
-          count++;
           resolve(stores);
         }
       }
