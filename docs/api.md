@@ -18,48 +18,7 @@ Append the route representing the data you would like to receive, to the above e
 ## get /stores
 ### description
 
-This request returns store information and flyers for all the stores.  
-
-### response
-
-```
-{
-  "status": 200,
-  "data": {
-    "stores": [{
-      // see /store/:storeID response below for details of the store objects
-      },
-      ...
-    ]
-  }
-}
-```
-
-## get /stores/provinceCode/:province
-### description
-
-This request returns store information and flyers for all stores in the province identified in the two letter `province` parameter.  
-Province availability may vary, but typically at least 'BC'(_British Columbia_), 'AB'(_Alberta_), and 'ON'(_Ontario_) are available. Note that the province is identified by its two letter abbreviation, while in the next query, cities are identified by their full names.  
-
-### response
-
-```
-{
-  "status": 200,
-  "data": {
-    "stores": [{
-      // see /store/:storeID response below for details of the store objects
-      },
-      ...
-    ]
-  }
-}
-```
-
-## get /stores/city/:city
-### description
-
-This request returns store information and flyers for all stores in the city identified in the `city` parameter.  
+This request returns store information for all the stores.  
 
 ### response
 
@@ -79,7 +38,7 @@ This request returns store information and flyers for all stores in the city ide
 ## get /stores/:store_id
 ### description
 
-This request returns store information and flyers for the store identified by the `store_id` parameter.  
+This request returns store information for the store identified by the `store_id` parameter.  
 The data.store.hours field represents the store's operating hours for this week; if any day's hours are affected by a holiday, that day will be listed in hours.holidays.  
 The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".  
 
@@ -106,13 +65,7 @@ The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".
         ...
       },
       "phone_number": "111-111-1111",
-      "departments": ["Pharmacy", "Produce", "Gift Cards", ...],
-      "flyers": [{
-        // see /store/:store_id/flyers/:flyer_id response below
-        // for details of the flyer objects
-        },
-        ...
-      ]
+      "departments": ["Pharmacy", "Produce", "Gift Cards", ...]
     }
   }
 }
@@ -167,6 +120,46 @@ This request returns the flyer identified by the `flyer_id` parameter for the st
         ...
       ]
     }
+  }
+}
+```
+
+## get /flyers
+### description
+
+This request returns all the flyers for all the stores.
+
+### response
+```
+{
+  "status": 200,
+  "data": {
+    "flyers": [{
+        // see /store/:store_id/flyers/:flyer_id response above
+        // for details of the flyer objects
+      },
+    ...
+    ]
+  }
+}
+```
+
+## get /flyers/current
+### description
+
+This request returns the most recent flyer for each store.
+
+### response
+```
+{
+  "status": 200,
+  "data": {
+    "flyers": [{
+        // see /store/:store_id/flyers/:flyer_id response above
+        // for details of the flyer objects
+      },
+    ...
+    ]
   }
 }
 ```

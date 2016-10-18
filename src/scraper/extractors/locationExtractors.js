@@ -1,5 +1,6 @@
 const cheerio = require('cheerio');
 const storeExtractor = require('./storeExtractor.js');
+const fs = require('fs');
 
 
 function extractProvinces(data) {
@@ -34,6 +35,7 @@ function extractCities(cityHtml) {
       cities.push(cityObject);
     }
   });
+  fs.writeFile('cities.js', JSON.stringify(cities));
   return cities;
 }
 

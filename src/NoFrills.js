@@ -14,7 +14,21 @@ class NoFrills {
     return scraper.scrape()
       .then(stores => {
         this.stores = stores;
+        console.log('got stores');
+        this.flyers = this._extractFlyersFromStores(stores);
+        console.log('got flyers');
       });
+  }
+
+  _extractFlyersFromStores(stores) {
+    console.log('before extracting');
+    const flyersByStore = stores.map(store => store.flyers);
+    const allFlyers = [];
+    console.log('extracting flyers');
+    flyersByStore.forEach(storeFlyers => {
+      allFlyers.push(...storeFlyers);
+    });
+    return allFlyers;
   }
 
   getStoreById(id) {
@@ -40,6 +54,27 @@ class NoFrills {
   getFlyerById(storeId, flyerId) {
     const flyers = this.getFlyersForStore(storeId);
     return flyers.filter(flyer => flyer.id === flyerId)[0];
+  }
+
+  getAllFlyers() {
+    return this.flyers;
+  }
+
+  getAllCurrentFlyers() {
+    const flyersByStore = this.stores.map(store => store.flyers);
+    let currentFlyers = [];
+    flyersByStore.forEach(storeFlyers => {
+      if (storeFlyers.length > 0) {
+        let latestFlyer = {id: '0'};
+        storeFlyers.forEach(flyer => {
+          if (flyer.id > latestFlyer.id) {
+            latestFlyer = flyer;
+          }
+        });
+        currentFlyers.push(latestFlyer);
+      }
+    });
+    return currentFlyers;
   }
 
 }

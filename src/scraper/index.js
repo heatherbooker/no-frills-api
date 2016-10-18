@@ -3,6 +3,8 @@
  */
 const request = require('request');
 const extractor = require('./extractors');
+const fs = require('fs');
+let count = 0;
 
 
 function scrape() {
@@ -15,20 +17,22 @@ function scrape() {
   };
   const extractions = [firstExtraction];
   const stores = [];
+  let delay = 0;
 
   function runExtractions(extractions) {
     const promise = new Promise((resolve, reject) => {
       while (extractions.length > 0) {
 
         const extraction = extractions[0];
-        makeDelayedRequest(extraction.endpoint, extraction.delay)
+        makeDelayedRequest(extraction.endpoint, delay)
           .then(response => {
             if (response === '') {
+              console.log('bloody empty!!');
+              delay += 2000;
               // Send it back to be tried again a little later.
               return [{
                 endpoint: extraction.endpoint,
-                extractor: extraction.extractor,
-                delay: 100
+                extractor: extraction.extractor
               }];
             }
             return extraction.extractor(response);
@@ -50,12 +54,16 @@ function scrape() {
           });
 
         if (extractions[0].store) {
+          console.log('new store!');
           stores.push(extractions[0].store);
         }
 
         extractions.shift();
+        delay += 5000;
 
-        if (extractions.length === 0) {
+        if (extractions.length === 0 && stores.length > 0) {
+          fs.writeFile(`stores${count}.json`, JSON.stringify(stores));
+          count++;
           resolve(stores);
         }
       }
