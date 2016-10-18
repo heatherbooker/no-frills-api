@@ -41,6 +41,7 @@ This request returns store information for all the stores.
 This request returns store information for the store identified by the `store_id` parameter.  
 The data.store.hours field represents the store's operating hours for this week; if any day's hours are affected by a holiday, that day will be listed in hours.holidays.  
 The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".  
+The highest number for the flyer id represents the most recent flyer.  
 
 ### response
 
@@ -65,7 +66,8 @@ The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".
         ...
       },
       "phone_number": "111-111-1111",
-      "departments": ["Pharmacy", "Produce", "Gift Cards", ...]
+      "departments": ["Pharmacy", "Produce", "Gift Cards", ...],
+      "flyer_ids": ["12", "392"]
     }
   }
 }
@@ -92,38 +94,6 @@ This request returns only flyers for the store identified by the `store_id` para
 }
 ```
 
-## get /stores/:store\_id/flyers/:flyer\_id
-### description
-
-This request returns the flyer identified by the `flyer_id` parameter for the store identified by the `store_id` parameter.  
-
-### response
-
-```
-{
-  "status": 200,
-  "data": {
-    "flyer": {
-      "id": 2,
-      "store_id": "3410",
-      "start_date": "Thursday September 29",
-      "end_date": "Wednesday October 05",
-      "products": [{
-        "productTitle": "CATELLI HEALTHY HARVEST, BISTRO or SMART PASTA",
-        "priceString": "0.97",
-        "priceSavings": "$1.00",
-        "description": "300-375 g\nselected varieties",
-        "correctionNotice": null,
-        "img": "http://content.flyerservices.com/xmlpublicationservice.svc/lcl/NOFR/images/30f23534-5dd4-4df6-a81d-00cd38eba750/214x214",
-        "french": "pâtes"
-        },
-        ...
-      ]
-    }
-  }
-}
-```
-
 ## get /flyers
 ### description
 
@@ -140,6 +110,38 @@ This request returns all the flyers for all the stores.
       },
     ...
     ]
+  }
+}
+```
+
+## get /flyers/:flyer\_id
+### description
+
+This request returns the flyer identified by the `flyer_id` parameter.  
+
+### response
+
+```
+{
+  "status": 200,
+  "data": {
+    "flyer": {
+      "id": "267",
+      "store_id": "3410",
+      "start_date": "Thursday September 29",
+      "end_date": "Wednesday October 05",
+      "products": [{
+        "productTitle": "CATELLI HEALTHY HARVEST, BISTRO or SMART PASTA",
+        "priceString": "0.97",
+        "priceSavings": "$1.00",
+        "description": "300-375 g\nselected varieties",
+        "correctionNotice": null,
+        "img": "http://content.flyerservices.com/xmlpublicationservice.svc/lcl/NOFR/images/30f23534-5dd4-4df6-a81d-00cd38eba750/214x214",
+        "french": "pâtes"
+        },
+        ...
+      ]
+    }
   }
 }
 ```
@@ -182,7 +184,7 @@ This is the response object you might receive if there is a problem with your re
 
 If you are new to this, it may all be a little confusing. I know it was for me. So let me break it down as much as I can.  
 
-_Tip: Change any word in the address prefaced with ":" (ex, ":province" -> "BC") to specify what you want._   
+_Tip: Change any word in the address prefaced with ":" (ex, ":store\_id" -> "386") to specify what you want._   
 
 1. Open a new file; call it: `nofrillsExample.js`.
 2. Add an HTTP request to this nofrills api, using the fetch api:
@@ -190,7 +192,7 @@ _Tip: Change any word in the address prefaced with ":" (ex, ":province" -> "BC")
 ```javascript
 // nofrillsExample.js
 
-fetch('whatever.nofrills/getmesomedata/stores/3410/flyers/2')
+fetch('whatever.nofrills/getmesomedata/flyers/2')
   .then(function(data) {
     console.log('we got some data! here it is: ' + data);
 });
@@ -201,7 +203,7 @@ fetch('whatever.nofrills/getmesomedata/stores/3410/flyers/2')
 ```bash
 node nofrillsExample.js
 ```
-This will retrieve a single flyer, identified by the number "2" in the URL, from the store identified by the number "3410" in the URL. To get a flyer from a different store, change the number after "/stores/" (make sure that your new number is a valid store id though!). To get a different flyer from the same store, change the number after "/flyers/" (again, making sure the new number is also a valid flyer id - "1" is always a safe bet).  
+This will retrieve a single flyer, identified by the number "2" in the URL. To get a different flyer, change the number after "/flyers/" (make sure that your new number is a valid flyer id though!). To get all the flyers from a store, change "/flyers/2" to "/stores/386/flyers", or any other valid store id.  
 [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is an awesome, super simple way to make HTTP requests. It takes care of a lot of the details for you. For example, we don't need to specify that we want to use the `GET` method to access the data - it is simply the default.  
 The fetch call is followed by `.then()` which takes a callback which itself takes an argument, "data". There are a few things to know about this:
 - "data" is not a special word; you could use any word - "information", "stuff", "whoKnowsWhatThisIsEvenGonnaBe", etc.
@@ -214,7 +216,7 @@ So if we write:
 ```javascript
 var importantThings = 'alphaghetti';
 
-fetch('whatever.nofrills/getmesomedata/stores/3410/flyers/2')
+fetch('whatever.nofrills/getmesomedata/stores/3410/flyers')
   .then(function(stuff) {
     importantThings = stuff;
     console.log('these are really important things: ', importantThings);

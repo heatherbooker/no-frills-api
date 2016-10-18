@@ -24,15 +24,15 @@ server.get('/stores/:store_id/flyers', (req, res) => {
 
 });
 
-server.get('/stores/:store_id/flyers/:flyer_id', (req, res) => {
-
-  res.send(nofrills.getFlyerById(req.params.store_id, req.params.flyer_id));
-
-});
-
 server.get('/flyers', (req, res) => {
 
   res.send(nofrills.getAllFlyers());
+
+});
+
+server.get('/flyers/:flyer_id', (req, res) => {
+
+  res.send(nofrills.getFlyerById(req.params.flyer_id));
 
 });
 

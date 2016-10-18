@@ -8,23 +8,16 @@ class NoFrills {
 
   constructor() {
     this.stores = [];
+    this.maxFlyerId = 1;
   }
 
   init() {
-    return scraper.scrape()
-      .then(stores => {
-        this.stores = stores;
-        this.flyers = this._extractFlyersFromStores(stores);
+    return scraper.scrape(this.maxFlyerId);
+      .then(data => {
+        this.stores = data.stores;
+        this.flyers = data.flyers;
+        this.maxFlyerId = data.newMaxFlyerId;
       });
-  }
-
-  _extractFlyersFromStores(stores) {
-    const flyersByStore = stores.map(store => store.flyers);
-    const allFlyers = [];
-    flyersByStore.forEach(storeFlyers => {
-      allFlyers.push(...storeFlyers);
-    });
-    return allFlyers;
   }
 
   getStoreById(id) {
@@ -47,13 +40,8 @@ class NoFrills {
     return this.getStoreById(storeId).flyers;
   }
 
-  getFlyerById(storeId, flyerId) {
-    const flyers = this.getFlyersForStore(storeId);
-    return flyers.filter(flyer => flyer.id === flyerId)[0];
-  }
-
-  getAllFlyers() {
-    return this.flyers;
+  getFlyerById(flyerId) {
+    return this.flyers.filter(flyer => flyer.id === flyerId)[0];
   }
 
   getAllCurrentFlyers() {
@@ -71,6 +59,10 @@ class NoFrills {
       }
     });
     return currentFlyers;
+  }
+
+  getAllFlyers() {
+    return this.flyers;
   }
 
 }

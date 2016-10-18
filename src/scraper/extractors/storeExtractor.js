@@ -41,7 +41,7 @@ function extractStore(storeData) {
   store.manager = storeData.manager.contactName || null;
   store.phone_number = storeData.phoneNumber;
   store.hours = extractHours(storeData.operatingHours);
-  store.flyers = [];
+  store.flyer_ids = [];
   return store;
 }
 
