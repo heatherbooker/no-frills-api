@@ -15,6 +15,7 @@ function scrape() {
   };
   const extractions = [firstExtraction];
   const stores = [];
+  const flyers = [];
 
   function runExtractions(extractions) {
     const promise = new Promise((resolve, reject) => {
@@ -40,10 +41,11 @@ function scrape() {
                 extractions.push(newExtraction);
 
               } else {
+                flyers.push(newExtraction);
                 const storeToAddFlyer = stores.filter(store => {
                   return store.id === newExtraction.store_id;
                 })[0];
-                storeToAddFlyer.flyers.push(newExtraction);
+                storeToAddFlyer.flyer_ids.push(newExtraction.id);
               }
             });
             runExtractions(extractions);
@@ -56,7 +58,7 @@ function scrape() {
         extractions.shift();
 
         if (extractions.length === 0) {
-          resolve(stores);
+          resolve({stores, flyers});
         }
       }
     });

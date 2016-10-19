@@ -8,12 +8,14 @@ class NoFrills {
 
   constructor() {
     this.stores = [];
+    this.flyers = [];
   }
 
   init() {
     return scraper.scrape()
-      .then(stores => {
-        this.stores = stores;
+      .then(data => {
+        this.stores = data.stores;
+        this.flyers = data.flyers;
       });
   }
 
@@ -34,12 +36,16 @@ class NoFrills {
   }
 
   getFlyersForStore(storeId) {
-    return this.getStoreById(storeId).flyers;
+    const flyerIds = this.getStoreById(storeId).flyer_ids;
+    return flyerIds.map(id => this.getFlyerById(id));
   }
 
-  getFlyerById(storeId, flyerId) {
-    const flyers = this.getFlyersForStore(storeId);
-    return flyers.filter(flyer => flyer.id === flyerId)[0];
+  getFlyerById(id) {
+    return this.flyers.filter(flyer => flyer.id === id)[0];
+  }
+
+  getAllFlyers() {
+    return this.flyers;
   }
 
 }
