@@ -42,7 +42,7 @@ function scrape() {
 
               } else {
                 const flyer = newExtraction;
-                flyer.id = flyers.length + 1;
+                flyer.id = String(flyers.length + 1);
                 flyers.push(flyer);
                 const storeToAddFlyer = stores.filter(store => {
                   return store.id === newExtraction.store_id;
