@@ -41,11 +41,13 @@ function scrape() {
                 extractions.push(newExtraction);
 
               } else {
-                flyers.push(newExtraction);
+                const flyer = newExtraction;
+                flyer.id = flyers.length + 1;
+                flyers.push(flyer);
                 const storeToAddFlyer = stores.filter(store => {
                   return store.id === newExtraction.store_id;
                 })[0];
-                storeToAddFlyer.flyer_ids.push(newExtraction.id);
+                storeToAddFlyer.flyer_ids.push(flyer.id);
               }
             });
             runExtractions(extractions);
