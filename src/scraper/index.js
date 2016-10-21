@@ -5,7 +5,7 @@ const request = require('request');
 const extractor = require('./extractors');
 
 
-function scrape() {
+function scrape(maxFlyerId) {
 
   // Start by just getting the list of provinces.
   const firstExtraction = {
@@ -15,20 +15,23 @@ function scrape() {
   };
   const extractions = [firstExtraction];
   const stores = [];
+  const flyers = [];
+  let delay = 0;
+  let newMaxFlyerId = ++maxFlyerId;
 
   function runExtractions(extractions) {
     const promise = new Promise((resolve, reject) => {
       while (extractions.length > 0) {
 
         const extraction = extractions[0];
-        makeDelayedRequest(extraction.endpoint, extraction.delay)
+        makeDelayedRequest(extraction.endpoint, delay)
           .then(response => {
             if (response === '') {
+              delay += 2000;
               // Send it back to be tried again a little later.
               return [{
                 endpoint: extraction.endpoint,
-                extractor: extraction.extractor,
-                delay: 100
+                extractor: extraction.extractor
               }];
             }
             return extraction.extractor(response);
@@ -40,10 +43,13 @@ function scrape() {
                 extractions.push(newExtraction);
 
               } else {
+                const flyerId = newMaxFlyerId.toString();
+                flyers.push({...newExtraction, id: flyerId});
                 const storeToAddFlyer = stores.filter(store => {
                   return store.id === newExtraction.store_id;
                 })[0];
-                storeToAddFlyer.flyer = newExtraction;
+                storeToAddFlyer.flyers.push(flyerId);
+                newMaxFlyerId++;
               }
             });
             runExtractions(extractions);
@@ -54,9 +60,10 @@ function scrape() {
         }
 
         extractions.shift();
+        delay += 5000;
 
-        if (extractions.length === 0) {
-          resolve(stores);
+        if (extractions.length === 0 && stores.length > 0) {
+          resolve({stores, newMaxFlyerId, flyers});
         }
       }
     });
