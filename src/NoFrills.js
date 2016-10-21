@@ -23,11 +23,11 @@ class NoFrills {
     return this.stores.filter(store => store.id === id)[0];
   }
 
-  getStoresByCity(city) {
+  getStoresFromCity(city) {
     return this.stores.filter(store => store.address.city === city);
   }
 
-  getStoresByProvince(province) {
+  getStoresFromProvince(province) {
     return this.stores.filter(store => store.address.province === province);
   }
 
