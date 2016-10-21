@@ -66,7 +66,7 @@ function extractHours(storeHours) {
 
 function extractOwner(storeName) {
   // "Bob's NOFRILLS" or "Kris' NoFrills" indicates Bob/Kris are owners.
-  const match = /(.*)'s |(.*s)' /.exec(name);
+  const match = /(.*)'s |(.*s)' /.exec(storeName);
   if (match) {
     return match[1] || match[2];
   }
