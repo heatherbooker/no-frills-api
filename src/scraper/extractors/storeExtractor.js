@@ -65,16 +65,10 @@ function extractHours(storeHours) {
 }
 
 function extractOwner(storeName) {
-  // "Bob's NOFRILLS" indicates Bob is the owner.
-  var ownershipRegex = /'s .+/;
-  if (ownershipRegex.test(storeName)) {
-    return storeName.replace(ownershipRegex, '');
-  }
-  // Sometimes the above doesn't catch an owner.
-  var firstRegexFailed = storeName.split(/NOFRILLS|No Frills/);
-  if (firstRegexFailed.length > 1) {
-    var end = (firstRegexFailed[0].length - 3);
-    return firstRegexFailed[0].substring(0, end);
+  // "Bob's NOFRILLS" or "Kris' NoFrills" indicates Bob/Kris are owners.
+  const match = /(.*)'s |(.*s)' /.exec(storeName);
+  if (match) {
+    return match[1] || match[2];
   }
   return null;
 }
