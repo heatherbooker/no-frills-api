@@ -4,18 +4,16 @@ const storeExtractor = require('./storeExtractor.js');
 
 function extractProvinces(data) {
   const provinceData = JSON.parse(data).provincePrompt;
-  const provinces = provinceData.map(province => {
-
+  return provinceData.map(province => {
     return {
       endpoint: `http://www.nofrills.ca/en_CA/store-list-page.${province.label}.html`,
       extractor: extractCities
     };
   });
-  return provinces;
 }
 
 function extractCities(cityHtml) {
-  const cities = [];
+  const cityExtractions = [];
   const $ = cheerio.load(cityHtml);
 
   $('a').each(function() {
@@ -34,7 +32,7 @@ function extractCities(cityHtml) {
       cities.push(cityObject);
     }
   });
-  return cities;
+  return cityExtractions;
 }
 
 module.exports = {extractCities, extractProvinces};

@@ -9,7 +9,6 @@ function scrape() {
 
   // Start by just getting the list of provinces.
   const firstExtraction = {
-    identity: 'provinces',
     endpoint: `http://www.nofrills.ca/banners/global/v1/en_CA/nofrills`,
     extractor: extractor.extractProvinces
   };
@@ -42,6 +41,7 @@ function scrape() {
 
               } else {
                 const flyer = newExtraction;
+                // y u do dis
                 flyer.id = String(flyers.length + 1);
                 flyers.push(flyer);
                 const storeToAddFlyer = stores.filter(store => {
@@ -59,7 +59,8 @@ function scrape() {
 
         extractions.shift();
 
-        if (extractions.length === 0) {
+        if (extractions.length === 0 && stores.length > 0) {
+          console.log('should be resolving');
           resolve({stores, flyers});
         }
       }
@@ -71,14 +72,14 @@ function scrape() {
 }
 
 
-function makeDelayedRequest(options, delay = 1) {
+function makeDelayedRequest(endpoint, delay = 1) {
 
   const promise = new Promise((resolve, reject) => {
 
     setTimeout(() => {
-      request(options, (error, response, body) => {
+      request(endpoint, (error, response, body) => {
         if (error) {
-          return reject(`Request to ${options} failed: ${error}`);
+          return reject(`Request to ${endpoint} failed: ${error}`);
         }
 
         resolve(body);
