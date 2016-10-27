@@ -52,10 +52,13 @@ function scrape() {
       return Promise.all(promises);
     })
 
-    // Removes cities which have no stores.
+    // Removes cities which have no stores, & city.nameForEndpoint properties.
     .then(() => {
       nofrillsData.provinces.forEach(prov => {
         prov.cities = prov.cities.filter(c => c.stores);
+        prov.cities.forEach(c => {
+          delete c.nameForEndpoint;
+        });
       });
     })
 
@@ -87,8 +90,7 @@ function scrape() {
     })
 
     .catch(reason => {
-      console.log(`Oh crap, the catch statement in scraper/index.js
-        caught something :(`, reason);
+      console.log(`Oh crap, the catch statement in scraper/index.js caught something :(`, reason);
     });
 }
 

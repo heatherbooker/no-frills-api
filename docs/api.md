@@ -18,7 +18,7 @@ Append the route representing the data you would like to receive, to the above e
 ## get /stores
 ### description
 
-This request returns store information and flyer ids for all stores.  
+This request returns store information and flyer ids for all stores, organized by city and province. Provinces are represented by their two-letter abbreviation (ex. BC for British Columbia).  
 
 ### response
 
@@ -26,9 +26,18 @@ This request returns store information and flyer ids for all stores.
 {
   "status": 200,
   "data": {
-    "stores": [{
-      // see /store/:storeID response below for details of the store objects
+    "provinces": [{
+      "code": "AB",
+      "cities": [{
+        "name": "Lethbridge",
+        "stores": [{
+            // see /store/:storeID response below for details of the store objects
+          },
+          ...
+        ]
       },
+      ...
+      ]},
       ...
     ]
   }
@@ -55,7 +64,7 @@ The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".
       "address": {
         "street_address": "621 Fairville Blvd",
         "city": "Vancouver",
-        "province": "British Columbia",
+        "province": "BC",
         "postal_code": "V6E 3T7"
       },
       "hours": {
