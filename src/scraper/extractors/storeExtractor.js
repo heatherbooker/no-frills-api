@@ -6,14 +6,18 @@ const flyerExtractor = require('./flyerExtractor.js');
 
 function extractStores(data) {
   const stores = JSON.parse(data);
-  return stores.map(store => {
+  return stores.map(store => {      // store: extractedStore,
+      // endpoint: getFlyerEndpoint(extractedStore.id),
+      // extractor: flyerExtractor,
+      // delay: 5000
+
     const extractedStore = extractStore(store);
-    return {
-      store: extractedStore,
-      endpoint: getFlyerEndpoint(extractedStore.id),
-      extractor: flyerExtractor,
-      delay: 5000
-    };
+    return extractedStore;//{
+      // store: extractedStore,
+      // endpoint: getFlyerEndpoint(extractedStore.id),
+      // extractor: flyerExtractor,
+      // delay: 5000
+    // };
   });
 }
 
@@ -33,7 +37,7 @@ function extractStore(storeData) {
   store.id = storeData.storeNumber;
   store.address.street_address = storeData.address.addressLine1.trim() +
                                  storeData.address.addressLine2;
-  store.address.city = storeData.address.city;
+  store.address.city = storeData.address.city.trim();
   store.address.province = storeData.address.province;
   store.address.postal_code = storeData.address.postalCode;
   store.departments = extractDepartments(storeData.departments);

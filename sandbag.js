@@ -8,17 +8,9 @@ function extractProvinces(data, nofrillsData) {
   const provinces = JSON.parse(data).provincePrompt;
   const provinceCodes = provinces.map(province => ({code: province.label}));
   nofrillsData.provinces = provinceCodes;
+
   return nofrillsData;
 }
-
-// const cityEndpoint: `http://www.nofrills.ca/banners/store/v1/listing/nofrills?lang=en_CA&
-//         banner=6&proximity=75&city=${match[2]}&province=${match[1]}`
-
-const firstExtraction = {
-  extractor: extractProvinces,
-  endpoint: `http://www.nofrills.ca/banners/global/v1/en_CA/nofrills`
-};
-const extractions = [firstExtraction];
 
 function extractCities(data, nofrillsData) {
   const cities = [];
@@ -34,7 +26,8 @@ function extractCities(data, nofrillsData) {
     if (match) {
       currentProvince = match[1];
       const cityObject = {
-        name: match[2],
+        nameForEndpoint: match[2],
+        name: match[2].replace(/%20/g, ' ').trim()
       };
       cities.push(cityObject);
     }
@@ -45,25 +38,30 @@ function extractCities(data, nofrillsData) {
       province.cities = cities;
     }
   });
-  return nofrillsData;
 
+  return nofrillsData;
 }
 
 function extractStores(data, nofrillsData) {
-  try {
-    nofrillsData.someStores = storeExtractor(data);
-    console.log('extracting a store');
-    return nofrillsData;
-  } catch (e) {
-    console.log('new error!' + e);
-    return nofrillsData;
-  }
+  const stores = storeExtractor(data);
+  // Finds the appropraite city in nofrillsData to add stores to.
+  const provinceCode = stores[0].address.province;
+  const cityName = stores[0].address.city;
+  const province = nofrillsData.provinces.find(prov => prov.code === provinceCode);
+  const city = province.cities.find(city => city.name === cityName);
+  city.stores = stores;
+
+  return nofrillsData;
 }
 
-makeDelayedRequest(extractions[0].endpoint)
+const firstEndpoint = `http://www.nofrills.ca/banners/global/v1/en_CA/nofrills`;
+
+makeDelayedRequest(firstEndpoint)
+  // Gets list of provinces.
   .then(data => {
     return extractProvinces(data, nofrillsData);
   })
+  // Gets list of cities in each province.
   .then(nofrillsData => {
     const promises = nofrillsData.provinces.map(province => {
       const cityEndpoint = `http://www.nofrills.ca/en_CA/store-list-page.${province.code}.html`;
@@ -71,48 +69,43 @@ makeDelayedRequest(extractions[0].endpoint)
         return extractCities(data, nofrillsData);
       });
     });
-    console.log('doing promises now');
     return Promise.all(promises);
   })
-  .then(data => {
-    console.log(JSON.stringify(nofrillsData), 'that was first set of data');
+  // Removes provinces which have no cities (& therefore no stores).
+  .then(() => {
+    nofrillsData.provinces = nofrillsData.provinces.filter(province => province.cities);
     return nofrillsData;
   })
+  // Gets stores for each city.
   .then(nofrillsData => {
-    const promises = nofrillsData.provinces.map(province => {
-      console.log('working on province: ', province.code);
-      if (province.cities) {
-        const storesEndpoint = `http://www.nofrills.ca/banners/store/v1/listing/nofrills?lang=en_CA&banner=6&proximity=75&city=${province.cities[0].name}&province=${province.code}`;
-        return makeDelayedRequest(storesEndpoint).then(data => {
-          if (data) {
-            console.log('got store data, about to extract it');
-            const stores = extractStores(data, nofrillsData);
-            return stores;
-          } else {
-            console.log('cam back empryt, trying again');
-            return makeDelayedRequest(storesEndpoint, 1000).then(data => {
-              return extractStores(data, nofrillsData);
-            });
-          }
+    const promises = [];
+    nofrillsData.provinces.forEach(province => {
+      // Adds a delay between requests so we don't overwhelm nofrills site.
+      let delay = 1;
+      province.cities.forEach(city => {
+        const storesEndpoint = `http://www.nofrills.ca/banners/store/v1/listing/nofrills?lang=en_CA&banner=6&proximity=75&city=${city.nameForEndpoint}&province=${province.code}`;
+        delay += 400;
+
+        const promise = makeDelayedRequest(storesEndpoint, delay).then(data => {
+          extractStores(data, nofrillsData);
         });
-      } else {
-        return Promise.resolve(true);
-      }
+
+        promises.push(promise);
+      });
     });
-    console.log('now we\'re getting all the stores');
     return Promise.all(promises);
   })
+  // Prints final nofrillsData object.
   .then(data => {
-    console.log(JSON.stringify(nofrillsData, null, 2), 'we got the stores');
+    console.log(JSON.stringify(nofrillsData.provinces[0].cities, null, 2), '\nthe end!');
   })
-  .then(nothing => {
-    console.log('the end.');
+  .catch(reason => {
+    console.log('final catch caught something good :(', reason);
   });
 
 
 
 function makeDelayedRequest(endpoint, delay = 1) {
-  console.log('making request to ', endpoint);
 
   const promise = new Promise((resolve, reject) => {
 
@@ -121,7 +114,9 @@ function makeDelayedRequest(endpoint, delay = 1) {
         if (error) {
           return reject(`Request to ${endpoint} failed: ${error}`);
         }
-        console.log('got data', endpoint);
+        if (!body) {
+          return makeDelayedRequest(endpoint, delay + 1000);
+        }
         resolve(body);
 
       });
