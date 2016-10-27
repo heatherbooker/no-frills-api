@@ -9,12 +9,12 @@ function extractFlyer(data) {
     const products = extractProducts(flyerData.flyerResponse.docs);
     const dates = flyerData.weekRange.split(' - ');
     const storeId = /storenum@([0-9]*)\./.exec(flyerData.flyerUrl);
-    return [{
+    return {
       products,
       start_date: dates[0],
       end_date: dates[1],
       store_id: storeId[1]
-    }];
+    };
   }
   return null;
 }

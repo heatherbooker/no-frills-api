@@ -3,11 +3,12 @@
  */
 const flyerExtractor = require('./flyerExtractor.js');
 const storeExtractor = require('./storeExtractor.js');
-const locationExtractor = require('./locationExtractors.js');
+const provinceExtractor = require('./provinceExtractor.js');
+const cityExtractor = require('./cityExtractor.js');
 
 module.exports = {
   extractFlyer: flyerExtractor,
   extractStores: storeExtractor,
-  extractCities: locationExtractor.extractCities,
-  extractProvinces: locationExtractor.extractProvinces
+  extractCities: cityExtractor,
+  extractProvinces: provinceExtractor
 };
