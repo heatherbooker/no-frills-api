@@ -5,6 +5,7 @@ const NoFrills = require('./NoFrills.js');
 
 const nofrills = new NoFrills();
 
+
 server.get('/', (req, res) => {
 
   res.send(nofrills.getAllStores());
