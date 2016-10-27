@@ -7,30 +7,20 @@ const scraper = require('./scraper');
 class NoFrills {
 
   constructor() {
-    this.stores = [];
+    this.provinces = [];
+    this.flyers = [];
   }
 
   init() {
     return scraper.scrape()
-      .then(stores => {
-        this.stores = stores;
+      .then(data => {
+        this.provinces = data.provinces;
+        this.flyers = data.flyers;
       });
   }
 
-  getStoreById(id) {
-    return this.stores.filter(store => store.id === id);
-  }
-
-  getStoresFromCity(city) {
-    return this.stores.filter(store => store.address.city === city);
-  }
-
-  getStoresFromProvince(province) {
-    return this.stores.filter(store => store.address.province === province);
-  }
-
   getAllStores() {
-    return this.stores;
+    return this.provinces;
   }
 
 }

@@ -18,7 +18,7 @@ Append the route representing the data you would like to receive, to the above e
 ## get /stores
 ### description
 
-This request returns store information for all the stores.  
+This request returns store information and flyer ids for all stores, organized by city and province. Provinces are represented by their two-letter abbreviation (ex. BC for British Columbia).  
 
 ### response
 
@@ -26,9 +26,18 @@ This request returns store information for all the stores.
 {
   "status": 200,
   "data": {
-    "stores": [{
-      // see /store/:storeID response below for details of the store objects
+    "provinces": [{
+      "code": "AB",
+      "cities": [{
+        "name": "Lethbridge",
+        "stores": [{
+            // see /store/:storeID response below for details of the store objects
+          },
+          ...
+        ]
       },
+      ...
+      ]},
       ...
     ]
   }
@@ -38,7 +47,7 @@ This request returns store information for all the stores.
 ## get /stores/:store_id
 ### description
 
-This request returns store information for the store identified by the `store_id` parameter.  
+This request returns store information and flyer ids for the store identified by the `store_id` parameter.  
 The data.store.hours field represents the store's operating hours for this week; if any day's hours are affected by a holiday, that day will be listed in hours.holidays.  
 The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".  
 
@@ -55,7 +64,7 @@ The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".
       "address": {
         "street_address": "621 Fairville Blvd",
         "city": "Vancouver",
-        "province": "British Columbia",
+        "province": "BC",
         "postal_code": "V6E 3T7"
       },
       "hours": {
@@ -65,7 +74,8 @@ The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".
         ...
       },
       "phone_number": "111-111-1111",
-      "departments": ["Pharmacy", "Produce", "Gift Cards", ...]
+      "departments": ["Pharmacy", "Produce", "Gift Cards", ...],
+      "flyer_ids": ["23", "297", ...]
     }
   }
 }
@@ -74,18 +84,38 @@ The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".
 ## get /stores/:store\_id/flyers
 ### description
 
-This request returns all flyers for the store identified by the `store_id` parameter.   
+This request returns only flyers for the store identified by the `store_id` parameter.  
 
 ### response
 
 ```
 {
   "status": 200,
-  "store_id": 3410,
   "data": {
     "flyers": [{
-      // see /store/:store_id/flyers/:flyer_id response below
-      // for details of the flyer objects
+        // see /flyers/:flyer_id response below
+        // for details of the flyer objects
+      },
+    ...
+    ]
+  }
+}
+```
+
+## get /flyers
+### description
+
+This request returns all flyers for all stores.  
+
+### response
+
+```
+{
+  "status": 200,
+  "data": {
+    "flyers": [{
+        // see /flyers/:flyer_id response below
+        // for details of the flyer objects
       },
       ...
     ]
@@ -93,7 +123,7 @@ This request returns all flyers for the store identified by the `store_id` param
 }
 ```
 
-## get /stores/:store\_id/flyers/:flyer\_id
+## get /flyers/:flyer\_id
 ### description
 
 This request returns the flyer identified by the `flyer_id` parameter for the store identified by the `store_id` parameter.  
@@ -105,7 +135,7 @@ This request returns the flyer identified by the `flyer_id` parameter for the st
   "status": 200,
   "data": {
     "flyer": {
-      "id": 2,
+      "id": "2",
       "store_id": "3410",
       "start_date": "Thursday September 29",
       "end_date": "Wednesday October 05",
@@ -121,27 +151,6 @@ This request returns the flyer identified by the `flyer_id` parameter for the st
         ...
       ]
     }
-  }
-}
-```
-
-## get /flyers
-### description
-
-This request returns all flyers for all stores.
-
-### response
-
-```
-{
-  "status": 200,
-  "data": {
-    "flyers": [{
-      // see /store/:store_id/flyers/:flyer_id response above
-      // for details of the flyer objects
-    },
-      ...
-    ]
   }
 }
 ```
@@ -164,13 +173,15 @@ This is the response object you might receive if there is a problem with your re
 
 If you are new to this, it may all be a little confusing. I know it was for me. So let me break it down as much as I can.  
 
+_Tip: Change any word in the address prefaced with ":" (ex, ":store\_id" -> "386") to specify what you want._   
+
 1. Open a new file; call it: `nofrillsExample.js`.
 2. Add an HTTP request to this nofrills api, using the fetch api:
 
 ```javascript
 // nofrillsExample.js
 
-fetch('whatever.nofrills/getmesomedata/stores/3410/flyers/2')
+fetch('whatever.nofrills/getmesomedata/stores/3410/flyers')
   .then(function(data) {
     console.log('we got some data! here it is: ' + data);
 });
@@ -194,7 +205,7 @@ So if we write:
 ```javascript
 var importantThings = 'alphaghetti';
 
-fetch('whatever.nofrills/getmesomedata/stores/3410/flyers/2')
+fetch('whatever.nofrills/getmesomedata/stores/3410/flyers')
   .then(function(stuff) {
     importantThings = stuff;
     console.log('these are really important things: ', importantThings);

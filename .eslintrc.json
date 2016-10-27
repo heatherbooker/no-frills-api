@@ -18,6 +18,7 @@
         "ObjectPattern": { "minProperties": 3, "multiline": true }
       }],
       "camelcase": 0,
-      "quote-props": 0
+      "quote-props": 0,
+      "max-nested-callbacks": ["error", 5]
     }
 }

@@ -1,30 +1,19 @@
 /**
  * @file Extractor used by the scraper to format the store data.
  */
-const flyerExtractor = require('./flyerExtractor.js');
-
-
-function extractStores(data) {
-  const stores = JSON.parse(data);
-  return stores.map(store => {
+function extractStores(data, nofrillsData) {
+  const stores = JSON.parse(data).map(store => {
     const extractedStore = extractStore(store);
-    return {
-      store: extractedStore,
-      endpoint: getFlyerEndpoint(extractedStore.id),
-      extractor: flyerExtractor,
-      delay: 5000
-    };
+    return extractedStore;
   });
-}
+  // Finds the appropriate city in nofrillsData to add stores to.
+  const provinceCode = stores[0].address.province;
+  const cityName = stores[0].address.city;
+  const province = nofrillsData.provinces.find(p => p.code === provinceCode);
+  const city = province.cities.find(city => city.name === cityName);
+  city.stores = stores;
 
-function getFlyerEndpoint(storeId) {
-  // Use an absurdly high number of products to ensure we always get them all.
-  const numOfProducts = '10000';
-  return {
-    url: `http://www.nofrills.ca/banners/publication/v1/en_CA/NOFR/current/${storeId}/items?start=0&rows=${numOfProducts}&tag=`,
-    method: 'POST',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-  };
+  return nofrillsData;
 }
 
 function extractStore(storeData) {
@@ -33,7 +22,7 @@ function extractStore(storeData) {
   store.id = storeData.storeNumber;
   store.address.street_address = storeData.address.addressLine1.trim() +
                                  storeData.address.addressLine2;
-  store.address.city = storeData.address.city;
+  store.address.city = storeData.address.city.trim();
   store.address.province = storeData.address.province;
   store.address.postal_code = storeData.address.postalCode;
   store.departments = extractDepartments(storeData.departments);
@@ -41,6 +30,7 @@ function extractStore(storeData) {
   store.manager = storeData.manager.contactName || null;
   store.phone_number = storeData.phoneNumber;
   store.hours = extractHours(storeData.operatingHours);
+  store.flyer_ids = [];
   return store;
 }
 
