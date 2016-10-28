@@ -28,7 +28,7 @@ function extractStore(storeData) {
   store.departments = extractDepartments(storeData.departments);
   store.owner = extractOwner(storeData.storeName);
   store.manager = storeData.manager.contactName || null;
-  store.phone_number = storeData.phoneNumber;
+  store.phone_number = storeData.phoneNumber || null;
   store.hours = extractHours(storeData.operatingHours);
   store.flyer_ids = [];
   return store;

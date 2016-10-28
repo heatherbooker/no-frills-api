@@ -11,10 +11,16 @@ server.get('/', (req, res) => {
 
 });
 
+server.get('/flyers', (req, res) => {
+
+  res.send(nofrills.getAllFlyers());
+
+});
+
 nofrills.init().then(() => {
 
   server.listen(8080, () => {
-    console.log(`Go to http://localhost:8080`);
+    console.log(`Go to http://localhost:8080/flyers`);
   });
 
 });
