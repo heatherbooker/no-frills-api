@@ -12,7 +12,18 @@ class NoFrills {
   }
 
   init() {
-    return scraper.scrape()
+    return new Promise((resolve, reject) => {
+      const fs = require('fs');
+      fs.readFile('./data/finalNoFrillsData.json', (err, fileData) => {
+        if (err) {
+          scraper.scrape().then(data => {
+            resolve(data);
+          });
+        } else {
+          resolve(JSON.parse(fileData));
+        }
+      });
+    })
       .then(data => {
         this.provinces = data.provinces;
         this.flyers = data.flyers;
