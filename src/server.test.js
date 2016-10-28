@@ -11,7 +11,7 @@ var flyerSchema;
 describe('server', function() {
 
   beforeEach(function() {
-    this.timeout(150000);
+    this.timeout(200000);
 
     storeSchema = Joi.object().keys({
       code: Joi.string().max(2).required(),
