@@ -17,10 +17,16 @@ server.get('/flyers', (req, res) => {
 
 });
 
+server.get('/flyers/:id', (req, res) => {
+
+  res.send(nofrills.getFlyerById(req.params.id));
+
+});
+
 nofrills.init().then(() => {
 
   server.listen(8080, () => {
-    console.log(`Go to http://localhost:8080/flyers`);
+    console.log(`Go to http://localhost:8080/flyers/1`);
   });
 
 });

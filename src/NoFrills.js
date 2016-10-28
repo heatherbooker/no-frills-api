@@ -39,6 +39,10 @@ class NoFrills {
     return this.flyers;
   }
 
+  getFlyerById(id) {
+    return this.flyers.find(f => f.id === id);
+  }
+
 }
 
 module.exports = NoFrills;
