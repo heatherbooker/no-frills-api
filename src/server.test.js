@@ -3,7 +3,6 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 var expect = chai.expect;
-var server = require('./server.js');
 var Joi = require('joi');
 var storeSchema;
 var flyerSchema;
@@ -12,6 +11,8 @@ var flyerSchema;
 describe('server', function() {
 
   beforeEach(function() {
+    this.timeout(150000);
+
     storeSchema = Joi.object().keys({
       code: Joi.string().max(2).required(),
       cities: Joi.array().items(Joi.object().keys({
@@ -28,6 +29,7 @@ describe('server', function() {
         }))
       }))
     }).required();
+
     flyerSchema = Joi.object().keys({
       products: Joi.array().items(Joi.object().keys({
         productTitle: Joi.string().required(),
@@ -43,13 +45,15 @@ describe('server', function() {
       start_date: Joi.string().required(),
       end_date: Joi.string().required()
     });
+
+    return require('./server.js');
   });
 
   it('should respond with Joi-approved JSON to /', function(done) {
 
     var storesSchema = Joi.array().items(storeSchema).required();
 
-    chai.request(server)
+    chai.request('http://localhost:8080')
       .get('/')
       .end(function(err, res) {
         expect(err).to.be.null;
@@ -65,7 +69,7 @@ describe('server', function() {
 
     var flyersSchema = Joi.array().items(flyerSchema).required();
 
-    chai.request(server)
+    chai.request('http://localhost:8080')
       .get('/flyers')
       .end(function(err, res) {
         expect(err).to.be.null;
@@ -81,7 +85,7 @@ describe('server', function() {
 
     var flyerId = '1';
 
-    chai.request(server)
+    chai.request('http://localhost:8080')
       .get(`/flyers/${flyerId}`)
       .end(function(err, res) {
         expect(err).to.be.null;
