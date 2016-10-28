@@ -13,6 +13,7 @@ class NoFrills {
 
   init() {
     return new Promise((resolve, reject) => {
+      // Use saved data if available.
       const fs = require('fs');
       fs.readFile('./data/finalNoFrillsData.json', (err, fileData) => {
         if (err) {
