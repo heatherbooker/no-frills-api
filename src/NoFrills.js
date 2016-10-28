@@ -23,6 +23,10 @@ class NoFrills {
     return this.provinces;
   }
 
+  getAllFlyers() {
+    return this.flyers;
+  }
+
 }
 
 module.exports = NoFrills;
