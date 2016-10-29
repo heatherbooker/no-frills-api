@@ -1,12 +1,14 @@
 /**
  * @file This class exposes methods to get various groupings of stores & flyers.
  */
+const EventEmitter = require('events');
 const scraper = require('./scraper');
 
 
-class NoFrills {
+class NoFrills extends EventEmitter {
 
   constructor() {
+    super();
     this.provinces = [];
     this.flyers = [];
   }
@@ -45,4 +47,12 @@ class NoFrills {
 
 }
 
-module.exports = NoFrills;
+const noFrills = new NoFrills();
+
+noFrills.init().then(() => {
+
+  noFrills.emit('noFrills-initialized');
+
+});
+
+module.exports = noFrills;
