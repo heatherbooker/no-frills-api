@@ -1,7 +1,7 @@
 const express = require('express');
 const server = express();
 const flyerRouter = require('./controllers/flyerController.js');
-const noFrills = require('./NoFrills.js');
+const noFrills = require('./noFrills.js');
 
 
 server.use('/api/v0/flyers', flyerRouter);

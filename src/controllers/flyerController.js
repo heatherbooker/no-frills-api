@@ -1,6 +1,6 @@
 /* eslint new-cap: "off" */
 const router = require('express').Router();
-const noFrills = require('../NoFrills.js');
+const noFrills = require('../noFrills.js');
 
 
 router.get('/', (req, res) => {

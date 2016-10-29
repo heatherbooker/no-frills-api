@@ -16,7 +16,7 @@ describe('api v0', function() {
   beforeEach(function(done) {
     this.timeout(200000);
 
-    noFrills = reload('../NoFrills.js');
+    noFrills = reload('../noFrills.js');
 
     endpoint = 'http://localhost:8080/api/v0';
 
