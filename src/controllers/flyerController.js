@@ -1,5 +1,5 @@
-/* eslint new-cap: "off" */
-const router = require('express').Router();
+const Router = require('express').Router;
+const router = new Router();
 const noFrills = require('../noFrills.js');
 
 
