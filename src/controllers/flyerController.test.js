@@ -3,9 +3,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 var expect = chai.expect;
-var reload = require('require-reload')(require);
 var Joi = require('joi');
-var noFrills;
 var flyerSchema;
 var endpoint;
 require('../server');
@@ -13,10 +11,7 @@ require('../server');
 
 describe('api v0', function() {
 
-  beforeEach(function(done) {
-    this.timeout(200000);
-
-    noFrills = reload('../noFrills.js');
+  beforeEach(function() {
 
     endpoint = 'http://localhost:8080/api/v0';
 
@@ -36,27 +31,28 @@ describe('api v0', function() {
       end_date: Joi.string().required()
     });
 
-    noFrills.on('noFrills-initialized', function() {
-      done();
-    });
   });
 
   describe('/flyers route', function() {
 
     it('should respond with Joi-approved JSON to /flyers', function(done) {
+      this.timeout(300000);
 
-      var flyersSchema = Joi.array().items(flyerSchema).required();
+      require('../noFrills.js').on('noFrills-initialized', function() {
 
-      chai.request(endpoint)
-        .get('/flyers')
-        .end(function(err, res) {
-          expect(err).to.be.null;
-          expect(res).to.have.status(200);
-          Joi.validate(res.body, flyersSchema, function(error, val) {
-            expect(error).to.be.null;
-            done();
+        var flyersSchema = Joi.array().items(flyerSchema).required();
+
+        chai.request(endpoint)
+          .get('/flyers')
+          .end(function(err, res) {
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            Joi.validate(res.body, flyersSchema, function(error, val) {
+              expect(error).to.be.null;
+              done();
+            });
           });
-        });
+      });
     });
   });
 
