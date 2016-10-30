@@ -19,6 +19,6 @@
       }],
       "camelcase": 0,
       "quote-props": 0,
-      "max-nested-callbacks": ["error", 5]
+      "max-nested-callbacks": "off"
     }
 }

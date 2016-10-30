@@ -1,26 +1,16 @@
 const express = require('express');
 const server = express();
-const NoFrills = require('./NoFrills.js');
+const flyerRouter = require('./controllers/flyerController.js');
+const noFrills = require('./noFrills.js');
 
 
-const nofrills = new NoFrills();
+server.use('/api/v0/flyers', flyerRouter);
 
-server.get('/', (req, res) => {
 
-  res.send(nofrills.getAllStores());
-
-});
-
-server.get('/flyers', (req, res) => {
-
-  res.send(nofrills.getAllFlyers());
-
-});
-
-nofrills.init().then(() => {
+noFrills.on('noFrills-initialized', () => {
 
   server.listen(8080, () => {
-    console.log(`Go to http://localhost:8080/flyers`);
+    console.log(`Go to http://localhost:8080/api/v0/flyers/1`);
   });
 
 });
