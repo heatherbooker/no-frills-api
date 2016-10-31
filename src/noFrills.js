@@ -21,13 +21,8 @@ class NoFrills extends EventEmitter {
       fs.readFile(fileName, (err, fileData) => {
         if (err) {
           scraper.scrape().then(data => {
-            // Save data for next time.
-            if (!fs.existsSync('./data')) {
-              fs.mkdirSync('./data');
-            }
-            fs.writeFile(fileName, JSON.stringify(data, null, 2), () => {
-              resolve(data);
-            });
+            fs.writeFileSync(fileName, JSON.stringify(data));
+            resolve(data);
           });
         } else {
           resolve(JSON.parse(fileData));
