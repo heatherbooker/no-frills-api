@@ -37,6 +37,7 @@ describe('api v0', function() {
   describe('/stores route', function() {
 
     it('should respond with Joi-approved JSON to /stores', function(done) {
+      this.timeout(500000);
 
       var storesSchema = Joi.array().items(storeSchema).required();
 

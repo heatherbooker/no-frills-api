@@ -36,7 +36,7 @@ describe('api v0', function() {
   describe('/flyers route', function() {
 
     it('should respond with Joi-approved JSON to /flyers', function(done) {
-      this.timeout(300000);
+      this.timeout(500000);
 
       require('../noFrills.js').on('noFrills-initialized', function() {
 
