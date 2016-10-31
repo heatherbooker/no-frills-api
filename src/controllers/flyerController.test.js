@@ -9,7 +9,7 @@ var endpoint;
 require('../server');
 
 
-describe('api v0', function() {
+describe('api v0 /flyers routes', function() {
 
   beforeEach(function() {
 
@@ -33,7 +33,7 @@ describe('api v0', function() {
 
   });
 
-  describe('/flyers route', function() {
+  describe('/', function() {
 
     it('should respond with Joi-approved JSON to /flyers', function(done) {
       this.timeout(500000);
@@ -56,7 +56,7 @@ describe('api v0', function() {
     });
   });
 
-  describe('/flyers/:id route', function() {
+  describe('/:id route', function() {
     it('should respond with Joi-approved JSON to /flyers/:id', function(done) {
 
       var flyerId = '1';

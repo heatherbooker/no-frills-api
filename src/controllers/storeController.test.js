@@ -9,7 +9,7 @@ var endpoint;
 require('../server');
 
 
-describe('api v0', function() {
+describe('api v0 /stores routes', function() {
 
   beforeEach(function() {
 
@@ -34,7 +34,7 @@ describe('api v0', function() {
 
   });
 
-  describe('/stores route', function() {
+  describe('/', function() {
 
     it('should respond with Joi-approved JSON to /stores', function(done) {
       this.timeout(500000);
