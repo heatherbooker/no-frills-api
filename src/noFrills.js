@@ -17,9 +17,11 @@ class NoFrills extends EventEmitter {
     return new Promise((resolve, reject) => {
       // Use saved data if available.
       const fs = require('fs');
-      fs.readFile('./data/finalNoFrillsData.json', (err, fileData) => {
+      const fileName = './data/finalNoFrillsData.json';
+      fs.readFile(fileName, (err, fileData) => {
         if (err) {
           scraper.scrape().then(data => {
+            fs.writeFile(fileName, data);
             resolve(data);
           });
         } else {
