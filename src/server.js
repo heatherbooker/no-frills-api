@@ -13,7 +13,7 @@ server.use('/api/v0/stores', storeRouter);
 noFrills.on('noFrills-initialized', () => {
 
   server.listen(8080, () => {
-    console.log(`Go to http://localhost:8080/api/v0/stores`);
+    console.log(`Go to http://localhost:8080/api/v0/stores/3946`);
   });
 
 });

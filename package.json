@@ -19,7 +19,8 @@
     "joi": "9.2.0",
     "mocha": "3.0.2",
     "nodemon": "1.10.2",
-    "request": "2.75.0"
+    "request": "2.75.0",
+    "winston": "2.2.0"
   },
   "devDependencies": {
     "eslint": "3.6.0",

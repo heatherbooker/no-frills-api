@@ -1,5 +1,6 @@
 const request = require('request');
 const extractor = require('./extractors/index.js');
+const winston = require('winston');
 
 
 function scrape() {
@@ -16,6 +17,7 @@ function scrape() {
 
     // Gets list of cities in each province.
     .then(nofrillsData => {
+      winston.info('successfully scraped list of provinces');
       const promises = nofrillsData.provinces.map(province => {
         const cityEndpoint = `http://www.nofrills.ca/en_CA/store-list-page.${province.code}.html`;
         return makeDelayedRequest(cityEndpoint).then(data => {
@@ -27,6 +29,7 @@ function scrape() {
 
     // Removes provinces which have no cities (& therefore no stores).
     .then(() => {
+      winston.info('successfully scraped lists of cities');
       nofrillsData.provinces = nofrillsData.provinces.filter(p => p.cities);
       return nofrillsData;
     })
@@ -54,6 +57,7 @@ function scrape() {
 
     // Removes cities which have no stores, & city.nameForEndpoint properties.
     .then(() => {
+      winston.info('successfully scraped all stores');
       nofrillsData.provinces.forEach(prov => {
         prov.cities = prov.cities.filter(c => c.stores);
         prov.cities.forEach(c => {
@@ -86,6 +90,7 @@ function scrape() {
     })
 
     .then(() => {
+      winston.info('successfully scraped all flyers');
       return nofrillsData;
     })
 
@@ -114,10 +119,12 @@ function makeDelayedRequest(endpoint, delay = 1) {
       request(endpoint, (error, response, body) => {
 
         if (error) {
+          winston.error(`request to ${endpoint} failed due to ${error}`);
           return reject(`Request to ${endpoint} failed: ${error}`);
         }
 
         if (!body) {
+          winston.warn(`the body for a request to nofrills came back empty, retrying with increased delay`);
           return makeDelayedRequest(endpoint, delay + 1000);
         }
 
