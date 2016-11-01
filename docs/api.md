@@ -25,22 +25,11 @@ This request returns store information and flyer ids for all stores, organized b
 ```
 {
   "status": 200,
-  "data": {
-    "provinces": [{
-      "code": "AB",
-      "cities": [{
-        "name": "Lethbridge",
-        "stores": [{
-            // see /store/:storeID response below for details of the store objects
-          },
-          ...
-        ]
-      },
-      ...
-      ]},
-      ...
-    ]
-  }
+  "data": [{
+      // see /store/:storeID response below for details of the store objects
+    },
+    ...
+  ]
 }
 ```
 
@@ -88,7 +77,6 @@ This request returns only flyers for the store identified by the `store_id` para
 
 ```
 {
-  "status": 200,
   "data": [
     {
       // see /flyers/:flyer_id response below
