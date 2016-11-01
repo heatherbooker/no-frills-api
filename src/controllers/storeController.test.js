@@ -54,7 +54,6 @@ describe('api v0 /stores routes', function() {
     });
   });
 
-
   describe('/:id route', function() {
     it('should respond with Joi-approved JSON to /stores/:id', function(done) {
 
@@ -66,6 +65,39 @@ describe('api v0 /stores routes', function() {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
           Joi.validate(res.body, storeSchema, function(error, val) {
+            expect(error).to.be.null;
+            done();
+          });
+        });
+    });
+  });
+
+  describe('/:id/flyers route', function() {
+    it(`should respond with Joi-approved JSON to /stores/:id/flyers`, function(done) {
+
+      var storeId = '3946';
+      var flyersSchema = Joi.array().items(Joi.object().keys({
+        products: Joi.array().items(Joi.object().keys({
+          productTitle: Joi.string().required(),
+          priceString: Joi.string().required(),
+          priceSavings: Joi.any().required(),
+          description: Joi.any().required(),
+          correctionNotice: Joi.any().required(),
+          img: Joi.string().required(),
+          french: Joi.any().required()
+        })).required(),
+        id: Joi.string().required(),
+        store_id: Joi.string().required(),
+        start_date: Joi.string().required(),
+        end_date: Joi.string().required()
+      }));
+
+      chai.request(endpoint)
+        .get(`/stores/${storeId}/flyers`)
+        .end(function(err, res) {
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+          Joi.validate(res.body, flyersSchema, function(error, val) {
             expect(error).to.be.null;
             done();
           });

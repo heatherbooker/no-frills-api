@@ -57,26 +57,24 @@ The owner is the person's name found in the store name, ex. "Bob's NOFRILLS".
 {
   "status": 200,
   "data": {
-    "store": {
-      "id": "3410",
-      "owner": "Bob",
-      "manager": null,
-      "address": {
-        "street_address": "621 Fairville Blvd",
-        "city": "Vancouver",
-        "province": "BC",
-        "postal_code": "V6E 3T7"
-      },
-      "hours": {
-        "holidays": ["Monday"];
-        "sunday": "11:00 AM - 6:00 PM",
-        "monday": "Closed",
-        ...
-      },
-      "phone_number": "111-111-1111",
-      "departments": ["Pharmacy", "Produce", "Gift Cards", ...],
-      "flyer_ids": ["23", "297", ...]
-    }
+    "id": "3410",
+    "owner": "Bob",
+    "manager": null,
+    "address": {
+      "street_address": "621 Fairville Blvd",
+      "city": "Vancouver",
+      "province": "BC",
+      "postal_code": "V6E 3T7"
+    },
+    "hours": {
+      "holidays": ["Monday"];
+      "sunday": "11:00 AM - 6:00 PM",
+      "monday": "Closed",
+      ...
+    },
+    "phone_number": "111-111-1111",
+    "departments": ["Pharmacy", "Produce", "Gift Cards", ...],
+    "flyer_ids": ["23", "297", ...]
   }
 }
 ```
@@ -91,14 +89,13 @@ This request returns only flyers for the store identified by the `store_id` para
 ```
 {
   "status": 200,
-  "data": {
-    "flyers": [{
-        // see /flyers/:flyer_id response below
-        // for details of the flyer objects
-      },
-    ...
-    ]
-  }
+  "data": [
+    {
+      // see /flyers/:flyer_id response below
+      // for details of the flyer objects
+    },
+  ...
+  ]
 }
 ```
 
@@ -112,14 +109,13 @@ This request returns all flyers for all stores.
 ```
 {
   "status": 200,
-  "data": {
-    "flyers": [{
-        // see /flyers/:flyer_id response below
-        // for details of the flyer objects
-      },
-      ...
-    ]
-  }
+  "data": [
+    {
+      // see /flyers/:flyer_id response below
+      // for details of the flyer objects
+    },
+    ...
+  ]
 }
 ```
 
@@ -134,23 +130,21 @@ This request returns the flyer identified by the `flyer_id` parameter for the st
 {
   "status": 200,
   "data": {
-    "flyer": {
-      "id": "2",
-      "store_id": "3410",
-      "start_date": "Thursday September 29",
-      "end_date": "Wednesday October 05",
-      "products": [{
-        "productTitle": "CATELLI HEALTHY HARVEST, BISTRO or SMART PASTA",
-        "priceString": "0.97",
-        "priceSavings": "$1.00",
-        "description": "300-375 g\nselected varieties",
-        "correctionNotice": null,
-        "img": "http://content.flyerservices.com/xmlpublicationservice.svc/lcl/NOFR/images/30f23534-5dd4-4df6-a81d-00cd38eba750/214x214",
-        "french": "pâtes"
-        },
-        ...
-      ]
-    }
+    "id": "2",
+    "store_id": "3410",
+    "start_date": "Thursday September 29",
+    "end_date": "Wednesday October 05",
+    "products": [{
+      "productTitle": "CATELLI HEALTHY HARVEST, BISTRO or SMART PASTA",
+      "priceString": "0.97",
+      "priceSavings": "$1.00",
+      "description": "300-375 g\nselected varieties",
+      "correctionNotice": null,
+      "img": "http://content.flyerservices.com/xmlpublicationservice.svc/lcl/NOFR/images/30f23534-5dd4-4df6-a81d-00cd38eba750/214x214",
+      "french": "pâtes"
+      },
+      ...
+    ]
   }
 }
 ```

@@ -19,6 +19,7 @@ class NoFrills extends EventEmitter {
 
   init() {
     const fileName = './data/finalNoFrillsData.json';
+    let fileDataExists = false;
     return new Promise((resolve, reject) => {
       // Use saved data if available.
       fs.readFile(fileName, (err, fileData) => {
@@ -30,17 +31,20 @@ class NoFrills extends EventEmitter {
           });
         } else {
           winston.info(`there is a file on disk with nofrills data, so there is no need to scrape`);
+          fileDataExists = true;
           resolve(JSON.parse(fileData));
         }
       });
     })
       .then(data => {
-        // Save data for next time.
-        if (!fs.existsSync('./data')) {
-          fs.mkdirSync('./data');
+        if (!fileDataExists) {
+          // Save data for next time.
+          if (!fs.existsSync('./data')) {
+            fs.mkdirSync('./data');
+          }
+          fs.writeFileSync(fileName, JSON.stringify(data, null, 2) + '\n');
+          winston.info(`a new file containing the fresh noFrills data has been created`);
         }
-        fs.writeFileSync(fileName, JSON.stringify(data, null, 2));
-        winston.info(`a new file containing the fresh noFrills data has been created`);
         return data;
       })
       .then(data => {
@@ -68,6 +72,11 @@ class NoFrills extends EventEmitter {
         }
       }
     }
+  }
+
+  getFlyersByStoreId(id) {
+    const store = this.getStoreById(id);
+    return store.flyer_ids.map(flyerId => this.getFlyerById(flyerId));
   }
 
   getAllFlyers() {

@@ -15,4 +15,10 @@ router.get('/:id', (req, res) => {
 
 });
 
+router.get('/:id/flyers', (req, res) => {
+
+  res.send(noFrills.getFlyersByStoreId(req.params.id));
+
+});
+
 module.exports = router;
