@@ -33,13 +33,7 @@ describe('api v0 /stores routes', function() {
     it('should respond with Joi-approved JSON to /stores', function(done) {
       this.timeout(500000);
 
-      var storesSchema = Joi.array().items(Joi.object().keys({
-        code: Joi.string().max(2).required(),
-        cities: Joi.array().items(Joi.object().keys({
-          name: Joi.string(),
-          stores: Joi.array().items(storeSchema)
-        }))
-      })).required();
+      var storesSchema = Joi.array().items(storeSchema).required();
 
       chai.request(endpoint)
         .get('/stores')

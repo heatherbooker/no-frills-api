@@ -57,7 +57,13 @@ class NoFrills extends EventEmitter {
   }
 
   getAllStores() {
-    return this.provinces;
+    const allStores = [];
+    this.provinces.forEach(prov => {
+      prov.cities.forEach(city => {
+        allStores.push(...city.stores);
+      });
+    });
+    return allStores;
   }
 
   getStoreById(id) {
