@@ -1,5 +1,14 @@
-notes.md
+# npm
 node_modules
 npm-debug.log
+
+# local development
 .vscode
+
+# logs
 .logs.json
+
+# sass
+.sass-cache
+static/*.scss
+

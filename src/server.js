@@ -9,11 +9,13 @@ server.use('/api/v0/flyers', flyerRouter);
 
 server.use('/api/v0/stores', storeRouter);
 
+server.use(express.static('static'));
+
 
 noFrills.on('noFrills-initialized', () => {
 
   server.listen(8080, () => {
-    console.log(`Go to http://localhost:8080/api/v0/stores/3946/flyers`);
+    console.log(`Go to http://localhost:8080/`);
   });
 
 });

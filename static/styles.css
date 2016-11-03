@@ -1,0 +1,126 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+a {
+  text-decoration: none;
+  color: inherit; }
+
+a:active {
+  outline: none; }
+
+button {
+  background: none;
+  outline: none;
+  border: none; }
+
+/* end of reset styles */
+body {
+  background-color: #F9E499;
+  font-family: 'Roboto', sans-serif;
+  color: #101010; }
+
+.nf-header {
+  height: 75px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center; }
+
+.nf-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center; }
+
+.nf-logo {
+  height: 45px;
+  width: 220px;
+  display: inline-block;
+  position: relative;
+  left: -120px; }
+
+.nf-logo img {
+  max-width: 100%; }
+
+.nf-nav-list {
+  display: inline-block; }
+
+.nf-nav li {
+  display: inline-block;
+  color: #545454;
+  padding: 20px; }
+
+.nf-home-buzzwords {
+  color: #545454;
+  font-size: 40pt;
+  font-weight: bold;
+  width: 400px;
+  text-transform: uppercase;
+  background-color: #fff;
+  opacity: 30%;
+  box-shadow: 0 0 5px 10px; }
+
+.nf-home-bz1 {
+  color: #101010; }
+
+.nf-home-bz2 {
+  color: #0D6B9F; }
+
+.nf-home-bz3 {
+  color: #9F050E; }
+
+.nf-home-bz4 {
+  color: #F7D233; }
+
+.nf-home-mainContent {
+  margin: 100px; }
+
+.nf-home-docsBtn {
+  border: 2px solid #EC1F2B;
+  border-radius: 3px;
+  padding: 15px;
+  font-size: 20pt;
+  margin: 45px; }
+
+/*# sourceMappingURL=styles.css.map */
