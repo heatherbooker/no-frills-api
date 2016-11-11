@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>No-Frills API</title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
+</head>
+
+<body>
+
+  <header class="nf-header">
+    <nav class="nf-nav">
+      <h1 class="nf-logo">
+        <a href="/">
+          <img src="nfapi-logo.png" alt="No-Frills API">
+        </a>
+      </h1>
+      <ul class="nf-nav-list no-list-styles">
+        <li><a href="/docs/v0.html">Documentation</a></li>
+        <li><a href="www.github.com/heatherbooker/no-frills-api">Source</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class="nf-home-mainContent">
+      <div class="nf-home-main-left">
+        <div class="nf-home-buzzwords">
+          <h2>
+          <span class="nf-home-bz1">No-Frills API</span>
+          <span>is a</span>
+          <span class="nf-home-bz2">modern platform</span>
+          <span>for</span>
+          <span class="nf-home-bz3">integrating No-Frills data</span>
+          <span>into</span>
+          <span class="nf-home-bz4">software applications</span>
+        </h2>
+        </div>
+        <a href="/docs/v0.html">
+          <button class="nf-home-docsBtn">
+            Go to Docs
+          </button>
+        </a>
+      </div>
+
+      <div class="nf-home-main-right">
+        <h3 class="nf-tryItSlogan">Try it out!</h3>
+        <div class="nf-tryIt">
+          <div class="nf-tryIt-requestBar">
+            <select class="nf-tryIt-select">
+              <option value="stores/3946">A Store</option>
+              <option value="stores">All Stores</option>
+              <option value="flyers/1">A Flyer</option>
+              <option value="flyers">All Flyers</option>
+              <option value="stores/3946/flyers">All Flyers for a Store</option>
+            </select>
+            <span class="nf-tryIt-endpoint">www.nofrillsapi/api/v0/</span>
+            <input type="text" value="stores/3946" class="nf-tryIt-input">
+            <button class="nf-tryIt-goBtn">GO</button>
+          </div>
+          <div class="nf-tryIt-responseContainer">
+            <pre class="nf-tryIt-response"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="nf-footer">
+    <p>No-Frills API is not affiliated with Loblaw Companies Limited</p>
+    <p>a project by
+      <a href="//www.github.com/heatherbooker">Heather Booker</a> , inspired by the
+      <a href="//www.lcboapi.com">LCBO API</a> by
+      <a href="//www.heycarsten.com">Carsten Nielson</a>
+    </p>
+  </footer>
+
+</body>
+
+<script type="text/javascript">
+
+  function nf_attachHandlers() {
+
+    const tryIt_select = document.querySelector('.nf-tryIt-select');
+    const tryIt_response = document.querySelector('.nf-tryIt-response');
+    const tryIt_goBtn = document.querySelector('.nf-tryIt-goBtn');
+    const tryIt_input = document.querySelector('.nf-tryIt-input');
+
+    // Update listed endpoint when 'select' is changed.
+    tryIt_select.addEventListener('change', function() {
+      const selectValue = tryIt_select.value;
+      tryIt_input.value = selectValue;
+    });
+
+    // Sends an HTTP Request when 'GO' btn is clicked.
+    tryIt_goBtn.addEventListener('click', function() {
+      const endpoint = tryIt_input.value;
+      fetch('/api/v0/' + endpoint)
+        .then(res => {
+          return res.json();
+        })
+        .then(response => {
+          tryIt_response.innerHTML = JSON.stringify(response, null, 2);
+        });
+    });
+
+  }
+
+  nf_attachHandlers();
+  // Makes first request to nofrills api.
+  document.querySelector('.nf-tryIt-goBtn').click();
+  // Puts focus on input field so users notice it is editable.
+  document.querySelector('.nf-tryIt-input').select();
+  
+
+</script>
+
+</html>

@@ -1,0 +1,76 @@
+.nf-docs {
+  display: flex;
+}
+
+.nf-header-docs {
+  flex-wrap: wrap;
+}
+
+.nf-docs-sidenav {
+  width: 15%;
+  padding: 85px 10px 10px;
+  background-color: $backgroundGrey;
+  position: fixed;
+  top: 0px;
+  height: calc(100% + 75px);
+}
+
+.nf-docs-sidenav-header {
+  font-weight: bold;
+}
+
+.nf-docs-sidenav li {
+  padding: 20px 10px;
+}
+
+.nf-docs-sidenav li a {
+  width: 100%;
+  height: 100%;
+  color: $darkRed;
+}
+
+.nf-header-docs::after {
+  content: "";
+  height: 30px;
+  width: 100%;
+  background-color: $darkerLightGold;
+}
+
+.nf-docs main {
+  flex: 1 1;
+  padding: 40px 45px 40px calc(15% + 60px);
+}
+
+.nf-docs p {
+  line-height: 24px;
+  margin: 5px 0px;
+}
+
+.nf-docs-h2 {
+  font-size: 20pt;
+  font-weight: bold;
+  margin-top: 80px;
+  margin-bottom: 20px;
+}
+
+.nf-docs-h2-first {
+  margin-top: -5px;
+}
+
+.nf-docs-h3 {
+  font-weight: bold;
+  font-size: 16pt;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+.nf-docs pre {
+  padding: 10px;
+  width: 80%;
+}
+
+.nf-docs-list {
+  position: relative;
+  left: 20px;
+  line-height: 24px;
+}

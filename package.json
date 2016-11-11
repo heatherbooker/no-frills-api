@@ -4,6 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "prestart": "sass --watch static/styles/main.scss &",
+    "start": "npm run dev",
     "test": "mocha 'src/**/*.test.js'",
     "lint": "eslint .",
     "dev": "node src/server.js"
