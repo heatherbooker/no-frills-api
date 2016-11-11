@@ -14,8 +14,10 @@ server.use(express.static('static'));
 
 noFrills.on('noFrills-initialized', () => {
 
-  server.listen(8080, () => {
-    console.log(`Go to http://localhost:8080`);
+  const port = process.env.PORT || 8080;
+
+  server.listen(port, () => {
+    console.log(`If running locally, go to http://localhost:8080`);
   });
 
 });
