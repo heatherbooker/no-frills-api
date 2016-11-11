@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "engines": {
+    "node": "6.4.0",
+    "npm": "3.10.3"
+  },
   "scripts": {
     "prestart": "sass --watch static/styles/main.scss &",
     "start": "npm run dev",
