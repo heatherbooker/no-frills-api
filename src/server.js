@@ -15,7 +15,7 @@ server.use(express.static('static'));
 noFrills.on('noFrills-initialized', () => {
 
   server.listen(8080, () => {
-    console.log(`Go to http://localhost:8080/`);
+    console.log(`Go to http://localhost:8080`);
   });
 
 });

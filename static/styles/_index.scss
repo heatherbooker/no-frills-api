@@ -1,0 +1,112 @@
+.nf-home-mainContent {
+  display: flex;
+  background-color: $lightGold;
+}
+
+// Left side 
+.nf-home-buzzwords {
+  color: $lightGrey;
+  font-size: 40pt;
+  font-weight: bold;
+  width: 400px;
+  text-transform: uppercase;
+}
+
+.nf-home-bz1 {
+  color: $black;
+}
+
+.nf-home-bz2 {
+  color: $darkBlue;
+}
+
+.nf-home-bz3 {
+  color: $darkRed;
+}
+
+.nf-home-bz4 {
+  color: $darkGold;
+}
+
+.nf-home-main-left {
+  margin: 80px 100px 20px;
+  flex: 1;
+}
+
+.nf-home-main-right {
+  margin-top: 60px;
+  flex: 2;
+}
+
+.nf-home-docsBtn {
+  border: 3px solid $lightRed;
+  border-radius: 6px;
+  padding: 20px;
+  font-size: 20pt;
+  margin: 55px 25px;
+}
+
+.nf-home-docsBtn:hover {
+  background-color: $lighterLightGold;
+}
+
+// Right side
+.nf-tryItSlogan {
+  font-size: 20pt;
+  margin: 15px 0px 15px 40px;
+}
+
+.nf-tryIt {
+  background-color: $black;
+  height: 500px;
+  min-width: 600px;
+  width: 90%;
+  max-width: 900px;
+}
+
+.nf-tryIt-requestBar {
+  background-color: #fff;
+  height: 40px;
+  font-size: 15pt;
+  display: flex;
+}
+
+.nf-tryIt-select {
+  background-color: $darkGold;
+  border: none;
+  height: 100%;
+  flex: 2;
+  padding: 3px 8px;
+  max-width: 300px;
+}
+
+.nf-tryIt-endpoint {
+  color: #A5A5A5;
+  padding-left: 15px;
+  align-self: center;
+}
+
+.nf-tryIt-input {
+  flex: 1;
+  border: none;
+  min-width: 0;
+}
+
+.nf-tryIt-goBtn {
+  background-color: $darkRed;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18pt;
+  height: 100%;
+  width: 60px;
+  margin-top: 0px;
+  float: right;
+}
+
+.nf-tryIt-response {
+  height: 460px;
+  overflow: auto;
+  color: #fff;
+  padding: 5px 10px;
+  line-height: 18px;
+}

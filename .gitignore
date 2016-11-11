@@ -10,5 +10,5 @@ npm-debug.log
 
 # sass
 .sass-cache
-static/*.scss
-
+static/*.css
+static/*.css.map
