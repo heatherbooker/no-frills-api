@@ -8,11 +8,12 @@
     "npm": "3.10.3"
   },
   "scripts": {
-    "prestart": "sass --watch static/styles/main.scss &",
-    "start": "npm run dev",
+    "prestart": "sass static/styles/main.scss static/styles/main.css",
+    "start": "node src/server.js",
     "test": "mocha 'src/**/*.test.js'",
     "lint": "eslint .",
-    "dev": "node src/server.js"
+    "predev": "sass --watch static/styles/main.scss:static/styles/main.css &",
+    "dev": "npm run start"
   },
   "keywords": [],
   "author": "",
