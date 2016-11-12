@@ -64,7 +64,7 @@
 
       <h2 class="nf-docs-h2" id="root-endpoint">root endpoint</h2>
       
-      <h3 class="nf-docs-h3" id="whatever.nofrillsgetmesomedata">whatever.nofrills/getmesomedata</h3>
+      <h3 class="nf-docs-h3-no-caps" id="http://nofrills-api.herokuapp.com/api/v0">http://nofrills-api.herokuapp.com/api/v0</h3>
       <p>Append the route representing the data you would like to receive, to the above endpoint.</p>
 
 
@@ -89,7 +89,7 @@
       </ol>
       <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// nofrillsExample.js</span>
 
-  <span class="fu">fetch</span>(<span class="st">&#39;whatever.nofrills/getmesomedata/stores/3410/flyers&#39;</span>)
+  <span class="fu">fetch</span>(<span class="st">&#39;http://nofrills-api.herokuapp.com/api/v0/stores/3410/flyers&#39;</span>)
     .<span class="fu">then</span>(<span class="kw">function</span>(data) {
       <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&#39;we got some data! here it is: &#39;</span> + data);
   });</code></pre>
@@ -104,7 +104,7 @@
       <p>So if we write:</p>
       <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> importantThings = <span class="st">&#39;alphaghetti&#39;</span>;
 
-  <span class="fu">fetch</span>(<span class="st">&#39;whatever.nofrills/getmesomedata/stores/3410/flyers&#39;</span>)
+  <span class="fu">fetch</span>(<span class="st">&#39;http://nofrills-api.herokuapp.com/api/v0/stores/3410/flyers&#39;</span>)
     .<span class="fu">then</span>(<span class="kw">function</span>(stuff) {
       importantThings = stuff;
       <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&#39;these are really important things: &#39;</span>, importantThings);
