@@ -58,12 +58,16 @@
   margin-top: -5px;
 }
 
-.nf-docs-h3 {
+.nf-docs-h3, .nf-docs-h3-no-caps {
   font-weight: bold;
   font-size: 16pt;
   margin-top: 25px;
   margin-bottom: 15px;
   text-transform: capitalize;
+}
+
+.nf-docs-h3-no-caps {
+  text-transform: none;
 }
 
 .nf-docs pre {
