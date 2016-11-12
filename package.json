@@ -12,7 +12,7 @@
     "start": "node src/server.js",
     "test": "mocha 'src/**/*.test.js'",
     "lint": "eslint .",
-    "predev": "sass --watch static/styles/main.scss static/styles/main.css &",
+    "predev": "sass --watch static/styles/main.scss:static/styles/main.css &",
     "dev": "npm run start"
   },
   "keywords": [],
