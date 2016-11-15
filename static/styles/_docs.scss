@@ -2,13 +2,9 @@
   display: flex;
 }
 
-.nf-header-docs {
-  flex-wrap: wrap;
-}
-
 .nf-docs-sidenav {
   width: 15%;
-  padding: 85px 10px 10px;
+  padding: 105px 10px 10px;
   background-color: $backgroundGrey;
   position: fixed;
   top: 0px;
@@ -29,16 +25,9 @@
   color: $darkRed;
 }
 
-.nf-header-docs::after {
-  content: "";
-  height: 30px;
-  width: 100%;
-  background-color: $darkerLightGold;
-}
-
 .nf-docs main {
   flex: 1 1;
-  padding: 40px 45px 40px calc(15% + 60px);
+  padding: 50px 45px 40px calc(15% + 60px);
 }
 
 .nf-docs p {
