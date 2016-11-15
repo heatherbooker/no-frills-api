@@ -43,9 +43,12 @@ table {
 a {
   text-decoration: none;
   color: inherit;
-}
-a:active {
-  outline: none;
+  :focus {
+    outline: none;
+  }
+  :active {
+    outline: none;
+  }
 }
 a:hover, button:hover {
   cursor: pointer;

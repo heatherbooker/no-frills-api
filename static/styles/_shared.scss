@@ -22,12 +22,24 @@ ul.no-list-styles {
   justify-content: center;
 }
 
+.nf-header-non-home {
+  flex-wrap: wrap;
+}
+
+.nf-header-non-home::after {
+  content: "";
+  height: 30px;
+  width: 100%;
+  background-color: $darkerLightGold;
+}
+
 .nf-footer {
   justify-content: space-around;
 }
 
 .nf-nav {
   width: 87%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;

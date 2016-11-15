@@ -1,11 +1,8 @@
 ##NoFrills API
 #### A radical way to get your fix of NoFrills flyers, locations, and anything else you ever wanted to know.
 
-TO RUN:
+[Check out NoFrills API Website!](//nofrills-api.herokuapp.com).  
 
-```bash
-git clone https://github.com/heatherbooker/no-frills-api.git
-cd no-frills-api
-npm run dev
-xdg-open http://localhost:8080
-```
+NoFrills API is a convenient API to which you can send HTTP requests to receive nicely organized data about NoFrills stores and products.  
+
+[Read the docs](//nofrills-api.herokuapp.com/docs/v0.html) for more.
