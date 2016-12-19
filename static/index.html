@@ -105,7 +105,12 @@
           return res.json();
         })
         .then(response => {
-          tryIt_response.innerText = JSON.stringify(response, null, 2);
+          if (response.length) {
+            const shortResponse = response.slice(10);
+            tryIt_response.innerText = JSON.stringify(shortResponse, null, 2);
+          } else {
+            tryIt_response.innerText = JSON.stringify(response, null, 2);
+          }
         });
     });
 
