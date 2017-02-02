@@ -28,11 +28,13 @@
 .nf-docs main {
   flex: 1 1;
   padding: 50px 45px 40px calc(15% + 60px);
+  font-size: 16pt;
 }
 
 .nf-docs p {
-  line-height: 24px;
+  line-height: 28px;
   margin: 5px 0px;
+  font-size: 16pt;
 }
 
 .nf-docs-h2 {
@@ -40,7 +42,6 @@
   font-weight: bold;
   margin-top: 80px;
   margin-bottom: 20px;
-  text-transform: capitalize;
 }
 
 .nf-docs-h2-first {
@@ -49,7 +50,7 @@
 
 .nf-docs-h3, .nf-docs-h3-no-caps {
   font-weight: bold;
-  font-size: 16pt;
+  font-size: 18pt;
   margin-top: 25px;
   margin-bottom: 15px;
   text-transform: capitalize;
@@ -67,5 +68,14 @@
 .nf-docs-list {
   position: relative;
   left: 20px;
-  line-height: 24px;
+  line-height: 28px;
+}
+
+.nf-docs ol {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.nf-docs ol li {
+  line-height: 38px;
 }
