@@ -1,6 +1,10 @@
 .nf-home-mainContent {
   display: flex;
   background-color: $lightGold;
+  overflow: hidden;
+  @media (max-width: 1024px) {
+    flex-wrap: wrap;
+  }
 }
 
 // Left side 
@@ -62,6 +66,8 @@
   min-width: 600px;
   width: 90%;
   max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .nf-tryIt-requestBar {
@@ -88,8 +94,11 @@
 
 .nf-tryIt-input {
   flex: 1;
-  border: none;
   min-width: 0;
+  border: 1px solid grey;
+  padding-left: 3px;
+  margin: 2px;
+  margin-right: 4px;
 }
 
 .nf-tryIt-goBtn {
