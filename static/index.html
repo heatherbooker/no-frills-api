@@ -95,10 +95,11 @@
     tryIt_select.addEventListener('change', function() {
       const selectValue = tryIt_select.value;
       tryIt_input.value = selectValue;
+      makeRequest(selectValue);
     });
 
-    // Sends an HTTP Request when 'GO' btn is clicked.
-    tryIt_goBtn.addEventListener('click', function() {
+    // Sends an HTTP Request to API section of website.
+    function makeRequest() {
       const endpoint = tryIt_input.value;
       fetch('/api/v0/' + endpoint)
         .then(res => {
@@ -107,7 +108,10 @@
         .then(response => {
           tryIt_response.innerText = formatResponse(response);
         });
-    });
+    }
+
+    tryIt_input.addEventListener('change', makeRequest);
+    tryIt_goBtn.addEventListener('click', makeRequest);
 
   }
 
