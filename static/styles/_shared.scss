@@ -1,3 +1,13 @@
+body.nf-flex-body {
+  display: flex;
+  flex-direction: column;
+  height: 99%;
+}
+
+.nf-flex-main {
+  flex: 1;
+}
+
 body {
   background-color: #fff;
   font-family: 'Roboto', sans-serif;
@@ -9,6 +19,7 @@ ul.no-list-styles {
 }
 
 .nf-header, .nf-footer {
+  flex-shrink: 0;
   height: $navHeight;
   background-color: #fff;
   display: flex;
@@ -23,13 +34,11 @@ ul.no-list-styles {
 }
 
 .nf-header-non-home {
-  flex-wrap: wrap;
-  height: $navHeight;
-  .nf-header-btmStripe {
-      height: 30px;
-      background-color: $darkerLightGold;
-      width: 100%;
-  }
+  border-bottom: 30px solid $darkerLightGold;
+}
+
+.nf-footer-non-home {
+  border-top: 30px solid $darkerLightGold;
 }
 
 .nf-footer {

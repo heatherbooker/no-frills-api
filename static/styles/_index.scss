@@ -2,6 +2,7 @@
   display: flex;
   background-color: $lightGold;
   overflow: hidden;
+  height: 100%;
   @media (max-width: 1024px) {
     flex-wrap: wrap;
   }

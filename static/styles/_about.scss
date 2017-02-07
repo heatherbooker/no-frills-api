@@ -1,8 +1,6 @@
 .nf-about {
   display: flex;
   justify-content: center;
-  // 75px for header and 30px each for yellow bars at top/bottom of pg.
-  min-height: calc(100% - 95px - 90px);
 }
 
 .nf-about-content {
@@ -25,8 +23,3 @@
   }
 }
 
-.nf-footer-divider {
-  background-color: $darkerLightGold;
-  height: 30px;
-  width: 100%;
-}
