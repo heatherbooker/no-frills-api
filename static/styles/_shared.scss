@@ -24,18 +24,23 @@ ul.no-list-styles {
 
 .nf-header-non-home {
   flex-wrap: wrap;
-}
-
-.nf-header-non-home::after {
-  content: "";
-  height: 30px;
-  width: 100%;
-  background-color: $darkerLightGold;
+  height: $navHeight;
+  .nf-header-btmStripe {
+      height: 30px;
+      background-color: $darkerLightGold;
+      width: 100%;
+  }
 }
 
 .nf-footer {
   justify-content: space-around;
   flex-wrap: wrap;
+}
+
+.nf-footer p {
+  flex: 1;
+  max-width: 40%;
+  padding: 30px 0;
 }
 
 .nf-nav {

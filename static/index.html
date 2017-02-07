@@ -26,7 +26,7 @@
     </nav>
   </header>
 
-  <main>
+  <main class="nf-home-main">
 
     <div class="nf-home-mainContent">
       <div class="nf-home-main-left">
@@ -73,11 +73,10 @@
   </main>
 
   <footer class="nf-footer">
-    <p>No-Frills API is not affiliated with Loblaw Companies Limited</p>
-    <p>a project by
+    <p>No-Frills API is not affiliated with Loblaw Companies Limited.</p>
+    <p>A project by
       <a href="//www.github.com/heatherbooker">Heather Booker</a> , inspired by the
-      <a href="//www.lcboapi.com">LCBO API</a> by
-      <a href="//www.heycarsten.com">Carsten Nielson</a>
+      <a href="//www.lcboapi.com">LCBO API.</a>
     </p>
   </footer>
 
@@ -96,10 +95,11 @@
     tryIt_select.addEventListener('change', function() {
       const selectValue = tryIt_select.value;
       tryIt_input.value = selectValue;
+      makeRequest(selectValue);
     });
 
-    // Sends an HTTP Request when 'GO' btn is clicked.
-    tryIt_goBtn.addEventListener('click', function() {
+    // Sends an HTTP Request to API section of website.
+    function makeRequest() {
       const endpoint = tryIt_input.value;
       fetch('/api/v0/' + endpoint)
         .then(res => {
@@ -108,7 +108,10 @@
         .then(response => {
           tryIt_response.innerText = formatResponse(response);
         });
-    });
+    }
+
+    tryIt_input.addEventListener('change', makeRequest);
+    tryIt_goBtn.addEventListener('click', makeRequest);
 
   }
 
@@ -123,8 +126,6 @@
   nf_attachHandlers();
   // Makes first request to nofrills api.
   document.querySelector('.nf-tryIt-goBtn').click();
-  // Puts focus on input field so users notice it is editable.
-  document.querySelector('.nf-tryIt-input').focus();
   
 
 </script>

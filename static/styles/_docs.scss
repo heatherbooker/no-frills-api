@@ -1,40 +1,54 @@
-.nf-docs {
-  display: flex;
+.nf-docs a {
+  color: $darkRed;
 }
 
-.nf-docs-sidenav {
+a.nf-docs-anchor {
+    color: inherit;
+}
+
+.nf-docs-sidenav, .nf-docs-sidenav_fixed {
   width: 15%;
-  padding: 105px 10px 10px;
+  padding: 10px 16px 10px;
+  margin-top: 20px;
   background-color: $backgroundGrey;
-  position: fixed;
-  top: 0px;
-  height: calc(100% + 75px);
+  height: 100%;
+  float: left;
+}
+
+.nf-docs-sidenav_fixed {
+    position: fixed;
+    top: 0;
+    margin-top: 0px;
 }
 
 .nf-docs-sidenav-header {
   font-weight: bold;
 }
 
-.nf-docs-sidenav li {
+.nf-docs-sidenav li, .nf-docs-sidenav_fixed li {
   padding: 20px 10px;
 }
 
-.nf-docs-sidenav li a {
+.nf-docs-sidenav li a, .nf-docs-sidenav_fixed li a {
   width: 100%;
   height: 100%;
-  color: $darkRed;
 }
 
 .nf-docs main {
-  flex: 1 1;
+  margin-top: 10px;
   padding: 50px 45px 40px calc(15% + 60px);
-  font-size: 16pt;
+  font-size: 15pt;
+  section {
+    margin: auto;
+    max-width: 700px;
+    width: 90%;
+  }
 }
 
 .nf-docs p {
   line-height: 28px;
-  margin: 5px 0px;
-  font-size: 16pt;
+  margin: 25px 0px;
+  font-size: 15pt;
 }
 
 .nf-docs-h2 {
@@ -50,7 +64,7 @@
 
 .nf-docs-h3, .nf-docs-h3-no-caps {
   font-weight: bold;
-  font-size: 18pt;
+  font-size: 15pt;
   margin-top: 25px;
   margin-bottom: 15px;
   text-transform: capitalize;
@@ -62,18 +76,21 @@
 
 .nf-docs pre {
   padding: 10px;
-  width: 80%;
+  font-size: 13pt;
+  code {
+    padding: 1em;
+  }
 }
 
 .nf-docs-list {
   position: relative;
   left: 20px;
   line-height: 28px;
+  margin: 20px auto;
 }
 
 .nf-docs ol {
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin: 25px 0 25px 1em;
 }
 
 .nf-docs ol li {

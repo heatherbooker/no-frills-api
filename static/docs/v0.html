@@ -24,11 +24,12 @@
         <li><a href="//www.github.com/heatherbooker/no-frills-api">Source</a></li>
       </ul>
     </nav>
+    <div class="nf-header-btmStripe"></div>
   </header>
 
   <div class="nf-docs">
 
-    <div class="nf-docs-sidenav">
+    <div class="nf-docs-sidenav" id="nf-sidenav">
       <nav>
         <ul class="no-list-styles">
           <li class="nf-docs-sidenav-header">Information</li>
@@ -47,8 +48,9 @@
     </div>
 
     <main>
+      <section>
 
-      <h2 class="nf-docs-h2 nf-docs-h2-first" id="general">general</h2>
+      <h2 class="nf-docs-h2 nf-docs-h2-first" id="general">General</h2>
 
       <h3 class="nf-docs-h3" id="api-info">api info</h3>
       <p>Data is refreshed daily.</p>
@@ -62,13 +64,13 @@
         </ul>
       </p>
 
-      <h2 class="nf-docs-h2" id="root-endpoint">root endpoint</h2>
+      <h2 class="nf-docs-h2" id="root-endpoint">Root Endpoint</h2>
       
       <h3 class="nf-docs-h3-no-caps" id="http://nofrills-api.herokuapp.com/api/v0">http://nofrills-api.herokuapp.com/api/v0</h3>
       <p>Append the route representing the data you would like to receive, to the above endpoint.</p>
 
 
-      <h2 class="nf-docs-h2" id="errors">errors</h2>
+      <h2 class="nf-docs-h2" id="errors">Errors</h2>
 
       <h3 class="nf-docs-h3" id="description-5">description</h3>
       <p>This is the response object you might receive if there is a problem with your request. There will be a status code and an accompanying message.</p>
@@ -80,7 +82,8 @@
   }</code></pre>
 
 
-      <h2 class="nf-docs-h2" id="halp">halp!</h2>
+      <h2 class="nf-docs-h2" id="halp">Help!</h2>
+      [ <a href="#thegoodstuff">I don't need help, take me to the good stuff</a> ]
       <p>If you are new to this, it may all be a little confusing. I know it was for me. So let me break it down as much as I can.</p>
       <p><em>Tip: Change any word in the address prefaced with &quot;:&quot; (ex, &quot;:store_id&quot; -&gt; &quot;386&quot;) to specify what you want.</em></p>
       <ol style="list-style-type: decimal">
@@ -99,8 +102,12 @@
       </ol>
       <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">node</span> nofrillsExample.js</code></pre>
       <p>This will retrieve a single flyer, identified by the number &quot;2&quot; in the URL, from the store identified by the number &quot;3410&quot; in the URL. To get a flyer from a different store, change the number after &quot;/stores/&quot; (make sure that your new number is a valid store id though!). To get a different flyer from the same store, change the number after &quot;/flyers/&quot; (again, making sure the new number is also a valid flyer id - &quot;1&quot; is always a safe bet).
-        <br /><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Fetch</a> is an awesome, super simple way to make HTTP requests. It takes care of a lot of the details for you. For example, we don't need to specify that we want to use the <code>GET</code> method to access the data - it is simply the default.
-        <br />The fetch call is followed by <code>.then()</code> which takes a callback which itself takes an argument, &quot;data&quot;. There are a few things to know about this: - &quot;data&quot; is not a special word; you could use any word - &quot;information&quot;, &quot;stuff&quot;, &quot;whoKnowsWhatThisIsEvenGonnaBe&quot;, etc. - fetch returns a <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise">promise</a>: this means that it &quot;promises&quot; to do something which might take a long time; in this case, because it is going across the interwebs to get the nofrills data, it might be slow. once it's done, it hands over the data it retrieved to the callback function specified in the <code>.then()</code>. - anything you put in the callback will only happen once the data has been retrieved - anything you put outside of the <code>.then()</code> callback may happen at any time in relation to what is contained within it</p>
+        <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Fetch</a> is an awesome, super simple way to make HTTP requests. It takes care of a lot of the details for you. For example, we don't need to specify that we want to use the <code>GET</code> method to access the data - it is simply the default.</p>
+        <p>The fetch call is followed by <code>.then()</code> which takes a callback which itself takes an argument, &quot;data&quot;. There are a few things to know about this:</p>
+        <ul class="nf-docs-list">
+          <li>&quot;data&quot; is not a special word; you could use any word - &quot;information&quot;, &quot;stuff&quot;, &quot;whoKnowsWhatThisIsEvenGonnaBe&quot;, etc.</li> 
+          <li>fetch returns a <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise">promise</a>: this means that it &quot;promises&quot; to do something which might take a long time; in this case, because it is going across the interwebs to get the nofrills data, it might be slow. once it's done, it hands over the data it retrieved to the callback function specified in the <code>.then()</code>. </li>
+          <li>anything you put in the callback will only happen once the data has been retrieved - anything you put outside of the <code>.then()</code> callback may happen at any time in relation to what is contained within it.</li>
       <p>So if we write:</p>
       <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> importantThings = <span class="st">&#39;alphaghetti&#39;</span>;
 
@@ -116,7 +123,7 @@
       <h4 id="good-luck">Good luck!</h4>
 
 
-      <h2 class="nf-docs-h2" id="get-stores">Get /stores</h2>
+      <h2 class="nf-docs-h2" id="get-stores"><a aria-hidden="true" class="nf-docs-anchor" name="thegoodstuff">Get /stores</a></h2>
       
       <h3 class="nf-docs-h3" id="description">description</h3>
       <p>This request returns store information and flyer ids for all stores, organized by city and province. Provinces are represented by their two-letter abbreviation (ex. BC for British Columbia).</p>
@@ -125,7 +132,8 @@
       <pre><code class="javascript">{
     &quot;status&quot;: 200,
     &quot;data&quot;: [{
-        // see /store/:storeID response below for details of the store objects
+        // See /store/:storeID response below
+        // for details of the store objects.
       },
       ...
     ]
@@ -177,8 +185,8 @@
       <pre><code class="javascript">{
     &quot;data&quot;: [
       {
-        // see /flyers/:flyer_id response below
-        // for details of the flyer objects
+        // See /flyers/:flyer_id response below
+        // for details of the flyer objects.
       },
     ...
     ]
@@ -195,8 +203,8 @@
     &quot;status&quot;: 200,
     &quot;data&quot;: [
       {
-        // see /flyers/:flyer_id response below
-        // for details of the flyer objects
+        // See /flyers/:flyer_id response below
+        // for details of the flyer objects.
       },
       ...
     ]
@@ -232,16 +240,17 @@
   }</code></pre>
 
 
+    </section>
     </main>
 
   </div>
 
   <footer class="nf-footer">
-    <p>No-Frills API is not affiliated with Loblaw Companies Limited</p>
-    <p>a project by
+    <div class="nf-footer-divider"></div>
+    <p>No-Frills API is not affiliated with Loblaw Companies Limited.</p>
+    <p>A project by
       <a href="//www.github.com/heatherbooker">Heather Booker</a> , inspired by the
-      <a href="//www.lcboapi.com">LCBO API</a> by
-      <a href="//www.heycarsten.com">Carsten Nielson</a>
+      <a href="//www.lcboapi.com">LCBO API.</a>
     </p>
   </footer>
 
@@ -249,9 +258,31 @@
 
 <script type="text/javascript">
 
-  // Initialize syntax highlighting for code snippets.
-  hljs.initHighlightingOnLoad();
+// Initialize syntax highlighting for code snippets.
+hljs.initHighlightingOnLoad();
 
+// Make sidebar scroll then fix at top.
+document.addEventListener('DOMContentLoaded', function() {
+  const sidebar = document.getElementById('nf-sidenav');
+  const topPosition = getOffset(sidebar);
+  const topMargin = window.getComputedStyle(sidebar, null).getPropertyValue('margin-top');
+  const top = topPosition - parseFloat(topMargin);
+
+  window.onscroll = function() {
+    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    if (scrollTop >= top) {
+      sidebar.className = 'nf-docs-sidenav_fixed';
+    } else {
+      sidebar.className = 'nf-docs-sidenav';
+    }
+  }
+  function getOffset(element) {
+    var de = document.documentElement;
+    var box = element.getBoundingClientRect();
+    var top = box.top + window.pageYOffset - de.clientTop;
+    return top;
+  }
+});
 </script>
 
 </html>
