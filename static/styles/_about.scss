@@ -1,17 +1,20 @@
 .nf-about {
   display: flex;
   justify-content: center;
+  min-height: calc(100% - 75px - 80px - 75px);
 }
 
 .nf-about-content {
   width: 70%;
   max-width: 700px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  flex: 1 0;
 
   section {
-    flex: 1 1;
-    padding: 50px;
+    flex: 1 0;
+    padding-right: 50px;
     font-size: 16pt;
 
     p {

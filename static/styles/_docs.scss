@@ -1,24 +1,32 @@
+.nf-docs {
+  display: flex;
+}
+
 .nf-docs a {
   color: $darkRed;
 }
 
 a.nf-docs-anchor {
-    color: inherit;
+  color: inherit;
 }
 
 .nf-docs-sidenav, .nf-docs-sidenav_fixed {
-  width: 15%;
+  width: 20%;
+  min-width: 100px;
   padding: 10px 16px 10px;
-  margin-top: 20px;
   background-color: $backgroundGrey;
   height: 100%;
-  float: left;
+  position: absolute;
+  overflow-y: auto;
+  nav {
+    margin: auto;
+    width: 80%;
+  }
 }
 
 .nf-docs-sidenav_fixed {
-    position: fixed;
-    top: 0;
-    margin-top: 0px;
+  position: fixed;
+  top: 0;
 }
 
 .nf-docs-sidenav-header {
@@ -27,6 +35,7 @@ a.nf-docs-anchor {
 
 .nf-docs-sidenav li, .nf-docs-sidenav_fixed li {
   padding: 20px 10px;
+  font-size: 17pt;
 }
 
 .nf-docs-sidenav li a, .nf-docs-sidenav_fixed li a {
@@ -34,21 +43,32 @@ a.nf-docs-anchor {
   height: 100%;
 }
 
-.nf-docs main {
-  margin-top: 10px;
-  padding: 50px 45px 40px calc(15% + 60px);
+.nf-docs-main {
   font-size: 15pt;
-  section {
-    margin: auto;
-    max-width: 700px;
-    width: 90%;
-  }
+  border-top: 15px solid $darkerLightGold;
+  padding-top: 20px;
+  flex: 1;
+  margin-left: 20%;
+}
+
+.nf-docs-main-section {
+  margin: auto;
+  max-width: 700px;
+  width: 80%;
 }
 
 .nf-docs p {
   line-height: 28px;
   margin: 25px 0px;
   font-size: 15pt;
+}
+
+.nf-docs-title {
+  font-size: 22pt;
+  font-weight: bold;
+  margin-top: 40px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #CCCCCC;
 }
 
 .nf-docs-h2 {
@@ -59,7 +79,7 @@ a.nf-docs-anchor {
 }
 
 .nf-docs-h2-first {
-  margin-top: -5px;
+  margin-top: 40px;
 }
 
 .nf-docs-h3, .nf-docs-h3-no-caps {

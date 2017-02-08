@@ -1,7 +1,6 @@
 body.nf-flex-body {
   display: flex;
   flex-direction: column;
-  height: 99%;
 }
 
 .nf-flex-main {
@@ -34,11 +33,11 @@ ul.no-list-styles {
 }
 
 .nf-header-non-home {
-  border-bottom: 30px solid $darkerLightGold;
+  border-bottom: 80px solid $darkerLightGold;
 }
 
 .nf-footer-non-home {
-  border-top: 30px solid $darkerLightGold;
+  background-color: #eaeaea;
 }
 
 .nf-footer {
@@ -91,4 +90,11 @@ a.nf-link-active {
 
 .nf-footer a {
   color: $darkRed;
+}
+
+.nf-h2 {
+  font-size: 20pt;
+  font-weight: bold;
+  margin-top: 80px;
+  margin-bottom: 20px;
 }
