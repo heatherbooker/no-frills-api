@@ -3,6 +3,7 @@
   background-color: $lightGold;
   overflow: hidden;
   height: 100%;
+  position: relative;
   @media (max-width: 1024px) {
     flex-wrap: wrap;
   }
@@ -15,6 +16,11 @@
   font-weight: bold;
   width: 400px;
   text-transform: uppercase;
+  @media (max-width: $smallScreen) {
+    font-size: 30px;
+    width: 220px;
+    margin: auto;
+  }
 }
 
 .nf-home-bz1 {
@@ -36,11 +42,18 @@
 .nf-home-main-left {
   margin: 80px 100px 20px 170px;
   width: 500px;
+  @media (max-width: $smallScreen) {
+    width: 300px;
+    margin: 80px auto 20px;
+  }
 }
 
 .nf-home-main-right {
   margin-top: 65px;
   width: 100%;
+  @media (max-width: $smallScreen) {
+    display: none;
+  }
 }
 
 .nf-home-docsBtn {
@@ -49,6 +62,12 @@
   padding: 20px;
   font-size: 20pt;
   margin: 55px 25px;
+  @media (max-width: $smallScreen) {
+    margin: 55px auto;
+    display: block;
+    position: relative;
+    left: -20px;
+  }
 }
 
 .nf-home-docsBtn:hover {
