@@ -10,7 +10,7 @@ a.nf-docs-anchor {
   color: inherit;
 }
 
-.nf-docs-sidenav, .nf-docs-sidenav_fixed {
+.nf-docs-sidenav, .nf-docs-sidenav_fixed, .nf-docs-sidenav_hidden {
   width: 20%;
   min-width: 100px;
   padding: 10px 16px 10px;
@@ -24,6 +24,13 @@ a.nf-docs-anchor {
     width: 80%;
     padding-bottom: 100px;
   }
+  @media (max-width: $smallScreen) {
+    width: 180px;
+    left: 0;
+  }
+}
+
+.nf-docs-sidenav_hidden {
   @media (max-width: $smallScreen) {
     width: 180px;
     left: -180px;
