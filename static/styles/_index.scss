@@ -74,10 +74,9 @@
     position: relative;
     left: -20px;
   }
-}
-
-.nf-home-docsBtn:hover {
-  background-color: $lighterLightGold;
+  &:hover, &:active, &:focus {
+    background-color: $lighterLightGold;
+  }
 }
 
 // Right side
