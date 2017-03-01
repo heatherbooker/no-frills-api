@@ -13,7 +13,7 @@
     "test": "mocha 'src/**/*.test.js'",
     "lint": "eslint .",
     "predev": "sass -w static/styles/main.scss:static/styles/main.css &",
-    "dev": "npm run start"
+    "dev": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
