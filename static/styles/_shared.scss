@@ -72,6 +72,9 @@ ul.no-list-styles {
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  @media (max-width: $smallScreen) {
+    justify-content: space-around;
+  }
 }
 
 .nf-logo {
@@ -79,7 +82,7 @@ ul.no-list-styles {
   width: 220px;
   display: inline-block;
   @media (max-width: $smallScreen) {
-    width: 180px;
+    width: 38%;
   }
 }
 
@@ -91,6 +94,11 @@ ul.no-list-styles {
   display: inline-block;
   position: relative;
   left: -12px;
+  @media (max-width: $smallScreen) {
+    display: flex;
+    justify-content: space-around;
+    flex: 1;
+  }
 }
 
 .nf-nav li {
@@ -98,12 +106,26 @@ ul.no-list-styles {
   color: $darkGrey;
   padding: 20px;
   @media (max-width: $smallScreen) {
-    display: block;
+    height: 26px;
+    width: 26px;
     font-size: 80%;
     padding: 0;
   }
   :hover {
     color: $black;
+  }
+}
+
+.nf-hideOnMobile {
+  @media (max-width: $smallScreen) {
+    display: none;
+  }
+}
+
+.nf-mobile-menu {
+  display: none;
+  @media (max-width: $smallScreen) {
+    display: inline-block;
   }
 }
 

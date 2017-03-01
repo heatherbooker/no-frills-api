@@ -17,14 +17,23 @@
     <nav class="nf-nav">
       <h1 class="nf-logo">
         <a href="/">
-          <img src="../nfapi-logo.png" alt="No-Frills API">
+          <img class="nf-hideOnMobile" src="../nfapi-logo.png" alt="No-Frills API">
+          <img class="nf-mobile-menu" src="../assets/bananas.png" alt="No-Frills API">
         </a>
       </h1>
       <ul class="nf-nav-list no-list-styles">
-        <li><a href="/about.html">About</a></li>
-        <li class="nf-bigScreen-only"><a href="/docs/v0.html">Documentation</a></li>
-        <li class="nf-smallScreen-only"><a href="/docs/v0.html">Docs</a></li>
-        <li><a href="//www.github.com/heatherbooker/no-frills-api">Source</a></li>
+        <li><a href="/about.html">
+          <span class="nf-hideOnMobile">About</span>
+          <img src="../assets/question.svg" class="nf-mobile-menu"></a>
+        </li>
+        <li><a href="/docs/v0.html" class="nf-link-active">
+          <span class="nf-hideOnMobile">Documentation</span>
+          <img src="../assets/book-dark.svg" class="nf-mobile-menu"></a>
+        </li>
+        <li><a href="//www.github.com/heatherbooker/no-frills-api">
+          <span class="nf-hideOnMobile">Source</span>
+          <img src="../assets/github.svg" class="nf-mobile-menu"></a>
+        </li>
       </ul>
     </nav>
   </header>
