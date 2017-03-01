@@ -32,7 +32,7 @@
   <div class="nf-docs">
 
     <div class="nf-docs-sidenav-toggle_closed" id="nf-docs-sidenav-toggle"></div>
-    <div class="nf-docs-sidenav" id="nf-sidenav">
+    <div class="nf-docs-sidenav nf-docs-sidenav_hidden" id="nf-sidenav">
       <nav>
         <ul class="no-list-styles">
           <li class="nf-docs-sidenav-header">Information</li>
@@ -275,9 +275,9 @@ document.addEventListener('DOMContentLoaded', function() {
   window.onscroll = function() {
     const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
     if (scrollTop >= top) {
-      sidenav.className = 'nf-docs-sidenav_fixed';
+      sidenav.classList.add('nf-docs-sidenav_fixed');
     } else {
-      sidenav.className = 'nf-docs-sidenav';
+      sidenav.classList.remove('nf-docs-sidenav_fixed');
     }
   }
   function getOffset(element) {
@@ -290,11 +290,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // Toggle sidenav on mobile.
   const sidenavToggle = document.getElementById('nf-docs-sidenav-toggle');
   function toggleSidenav() {
-    if (sidenav.style.left === '0px') {
-      sidenav.style.left = '-180px';
+    if (!sidenav.classList.contains('nf-docs-sidenav_hidden')) {
+      sidenav.classList.add('nf-docs-sidenav_hidden');
       sidenavToggle.className = 'nf-docs-sidenav-toggle_closed';
     } else {
-      sidenav.style.left = '0';
+      sidenav.classList.remove('nf-docs-sidenav_hidden');
       sidenavToggle.className = 'nf-docs-sidenav-toggle_open';
     }
   }
