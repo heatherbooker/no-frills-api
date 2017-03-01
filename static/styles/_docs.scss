@@ -1,5 +1,8 @@
 .nf-docs {
   display: flex;
+  @media (max-width: $smallScreen) {
+    padding-top: $navHeight + 10px;
+  }
 }
 
 .nf-docs a {
