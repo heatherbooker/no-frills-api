@@ -1,3 +1,9 @@
+.nf-flex-main {
+  @media (max-width: $smallScreen) {
+    padding-top: $navHeight;
+  }
+}
+
 .nf-home-mainContent {
   display: flex;
   background-color: $lightGold;

@@ -30,10 +30,17 @@ ul.no-list-styles {
 
 .nf-header {
   justify-content: center;
+  @media (max-width: $smallScreen) {
+    position: fixed;
+    width: 100%;
+  }
 }
 
 .nf-header-non-home {
   border-bottom: 80px solid $darkerLightGold;
+  @media (max-width: $smallScreen) {
+    border-bottom-width: 10px;
+  }
 }
 
 .nf-footer-non-home {
