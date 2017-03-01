@@ -43,6 +43,7 @@ ul.no-list-styles {
 .nf-footer {
   justify-content: space-around;
   flex-wrap: wrap;
+  z-index: 6;
   @media (max-width: $smallScreen) {
     font-size: 80%;
     flex-direction: column;
