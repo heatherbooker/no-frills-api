@@ -55,7 +55,7 @@
         <h3 class="nf-tryItSlogan">Try it out!</h3>
         <div class="nf-tryIt">
           <div class="nf-tryIt-requestBar">
-            <select class="nf-tryIt-select">
+            <select class="nf-tryIt-select" id="nf-tryIt-select">
               <option value="stores/3946">A Store</option>
               <option value="stores">All Stores</option>
               <option value="flyers/1">A Flyer</option>
@@ -85,7 +85,10 @@
 
 </body>
 
+<!-- Polyfill fetch for Safari. -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.2/fetch.min.js"></script>
+<!-- Selectbox styling library. -->
+<script src="./choices.min.js"></script>
 <script type="text/javascript">
 
   function nf_attachHandlers() {
@@ -130,7 +133,14 @@
   nf_attachHandlers();
   // Makes first request to nofrills api.
   document.querySelector('.nf-tryIt-goBtn').click();
-  
+
+  // Handle select menu in tryIt section.
+  const nfTryItSelect = document.getElementById('nf-tryIt-select');
+  const choiceOptions = {
+    itemSelectText: '',
+    search: false
+  };
+  const nfChoices = new Choices(nfTryItSelect, choiceOptions);
 
 </script>
 
