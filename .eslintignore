@@ -1,2 +1,3 @@
 /src/scraper/waitFor.js
 /data
+**/*.min.js
