@@ -17,17 +17,55 @@ a.nf-docs-anchor {
   background-color: $backgroundGrey;
   height: 100%;
   position: absolute;
+  z-index: 5;
   overflow-y: auto;
   nav {
     margin: auto;
     width: 80%;
     padding-bottom: 100px;
   }
+  @media (max-width: $smallScreen) {
+    width: 180px;
+    left: -180px;
+  }
 }
 
 .nf-docs-sidenav_fixed {
   position: fixed;
   top: 0;
+}
+
+.nf-docs-sidenav-toggle_closed, .nf-docs-sidenav-toggle_open {
+  position: fixed;
+  display: inline-block;
+  padding: 1em;
+  left: 30px;
+  top: 250px;
+  z-index: 5;
+  &:before {
+    content: '';
+    position: fixed;
+    width: 1.5em;
+    height: 100px;
+    top: 250px;
+    right: 0;
+    bottom: 0;
+    left: 30px;
+    z-index: 5;
+    background: $backgroundGrey;
+    transform: perspective(4px) rotateY(1deg);
+  }
+}
+
+.nf-docs-sidenav-toggle_open {
+  left: 212px;
+  &:before {
+    left: 212px;
+  }
+}
+
+.nf-docs-sidenav-toggle_closed:hover, .nf-docs-sidenav-toggle_open:hover {
+  cursor: pointer;
 }
 
 .nf-docs-sidenav-header {
@@ -37,6 +75,9 @@ a.nf-docs-anchor {
 .nf-docs-sidenav li, .nf-docs-sidenav_fixed li {
   padding: 20px 10px;
   font-size: 17pt;
+  @media (max-width: $smallScreen) {
+    font-size: 12pt;
+  }
 }
 
 .nf-docs-sidenav li a, .nf-docs-sidenav_fixed li a {
@@ -50,18 +91,30 @@ a.nf-docs-anchor {
   padding-top: 20px;
   flex: 1;
   margin-left: 20%;
+  @media (max-width: $smallScreen) {
+    flex: unset;
+    margin-left: 32px;
+    width: calc(100% - 32px);
+    font-size: 12pt;
+  }
 }
 
 .nf-docs-main-section {
   margin: auto;
   max-width: 700px;
   width: 80%;
+  @media (max-width: $smallScreen) {
+    padding-left: 21px;
+  }
 }
 
 .nf-docs p {
   line-height: 28px;
   margin: 25px 0px;
   font-size: 15pt;
+  @media (max-width: $smallScreen) {
+    font-size: 12pt;
+  }
 }
 
 .nf-docs-title {
@@ -70,6 +123,9 @@ a.nf-docs-anchor {
   margin-top: 40px;
   padding-bottom: 18px;
   border-bottom: 1px solid #CCCCCC;
+  @media (max-width: $smallScreen) {
+    font-size: 16pt;
+  }
 }
 
 .nf-docs-h2 {
@@ -77,6 +133,9 @@ a.nf-docs-anchor {
   font-weight: bold;
   margin-top: 80px;
   margin-bottom: 20px;
+  @media (max-width: $smallScreen) {
+    font-size: 14pt;
+  }
 }
 
 .nf-docs-h2-first {
@@ -89,6 +148,9 @@ a.nf-docs-anchor {
   margin-top: 25px;
   margin-bottom: 15px;
   text-transform: capitalize;
+  @media (max-width: $smallScreen) {
+    font-size: 12pt;
+  }
 }
 
 .nf-docs-h3-no-caps {
@@ -101,6 +163,9 @@ a.nf-docs-anchor {
   code {
     padding: 1em;
   }
+  @media (max-width: $smallScreen) {
+    font-size: 12pt;
+  }
 }
 
 .nf-docs-list {
@@ -111,7 +176,7 @@ a.nf-docs-anchor {
 }
 
 .nf-docs ol {
-    margin: 25px 0 25px 1em;
+  margin: 25px 0 25px 1em;
 }
 
 .nf-docs ol li {

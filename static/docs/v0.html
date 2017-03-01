@@ -31,6 +31,7 @@
 
   <div class="nf-docs">
 
+    <div class="nf-docs-sidenav-toggle_closed" id="nf-docs-sidenav-toggle"></div>
     <div class="nf-docs-sidenav" id="nf-sidenav">
       <nav>
         <ul class="no-list-styles">
@@ -264,19 +265,19 @@
 // Initialize syntax highlighting for code snippets.
 hljs.initHighlightingOnLoad();
 
-// Make sidebar scroll then fix at top.
+// Make sidenav scroll then fix at top.
 document.addEventListener('DOMContentLoaded', function() {
-  const sidebar = document.getElementById('nf-sidenav');
-  const topPosition = getOffset(sidebar);
-  const topMargin = window.getComputedStyle(sidebar, null).getPropertyValue('margin-top');
+  const sidenav = document.getElementById('nf-sidenav');
+  const topPosition = getOffset(sidenav);
+  const topMargin = window.getComputedStyle(sidenav, null).getPropertyValue('margin-top');
   const top = topPosition - parseFloat(topMargin);
 
   window.onscroll = function() {
     const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
     if (scrollTop >= top) {
-      sidebar.className = 'nf-docs-sidenav_fixed';
+      sidenav.className = 'nf-docs-sidenav_fixed';
     } else {
-      sidebar.className = 'nf-docs-sidenav';
+      sidenav.className = 'nf-docs-sidenav';
     }
   }
   function getOffset(element) {
@@ -285,6 +286,22 @@ document.addEventListener('DOMContentLoaded', function() {
     var top = box.top + window.pageYOffset - de.clientTop;
     return top;
   }
+
+  // Toggle sidenav on mobile.
+  const sidenavToggle = document.getElementById('nf-docs-sidenav-toggle');
+  function toggleSidenav() {
+    if (sidenav.style.left === '0px') {
+      sidenav.style.left = '-180px';
+      sidenavToggle.className = 'nf-docs-sidenav-toggle_closed';
+    } else {
+      sidenav.style.left = '0';
+      sidenavToggle.className = 'nf-docs-sidenav-toggle_open';
+    }
+  }
+
+  sidenavToggle.onclick = toggleSidenav;
+  sidenav.onclick = toggleSidenav;
+
 });
 </script>
 
