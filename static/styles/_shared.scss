@@ -1,7 +1,6 @@
 body.nf-flex-body {
   display: flex;
   flex-direction: column;
-  height: 99%;
 }
 
 .nf-flex-main {
@@ -34,22 +33,35 @@ ul.no-list-styles {
 }
 
 .nf-header-non-home {
-  border-bottom: 30px solid $darkerLightGold;
+  border-bottom: 80px solid $darkerLightGold;
 }
 
 .nf-footer-non-home {
-  border-top: 30px solid $darkerLightGold;
+  background-color: #eaeaea;
 }
 
 .nf-footer {
   justify-content: space-around;
   flex-wrap: wrap;
+  @media (max-width: $smallScreen) {
+    font-size: 80%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 8px 0;
+  }
 }
 
 .nf-footer p {
   flex: 1;
   max-width: 40%;
   padding: 30px 0;
+  @media (max-width: $smallScreen) {
+    max-width: 80%;
+    padding: 7px 0;
+    flex: 0;
+  }
 }
 
 .nf-nav {
@@ -65,6 +77,9 @@ ul.no-list-styles {
   height: 45px;
   width: 220px;
   display: inline-block;
+  @media (max-width: $smallScreen) {
+    width: 180px;
+  }
 }
 
 .nf-logo img {
@@ -73,14 +88,34 @@ ul.no-list-styles {
 
 .nf-nav-list {
   display: inline-block;
+  position: relative;
+  left: -12px;
 }
 
 .nf-nav li {
   display: inline-block;
   color: $darkGrey;
   padding: 20px;
+  @media (max-width: $smallScreen) {
+    display: block;
+    font-size: 80%;
+    padding: 0;
+  }
   :hover {
     color: $black;
+  }
+}
+
+li.nf-smallScreen-only {
+  display: none;
+}
+
+@media (max-width: $smallScreen) {
+  li.nf-smallScreen-only {
+    display: block;
+  }
+  li.nf-bigScreen-only {
+    display: none;
   }
 }
 
@@ -91,4 +126,11 @@ a.nf-link-active {
 
 .nf-footer a {
   color: $darkRed;
+}
+
+.nf-h2 {
+  font-size: 20pt;
+  font-weight: bold;
+  margin-top: 80px;
+  margin-bottom: 20px;
 }

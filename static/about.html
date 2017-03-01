@@ -3,13 +3,15 @@
 
 <head>
   <title>No-Frills API</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 
-<body class="nf-flex-body">
+<body>
 
   <header class="nf-header nf-header-non-home">
     <nav class="nf-nav">
@@ -20,16 +22,18 @@
       </h1>
       <ul class="nf-nav-list no-list-styles">
         <li><a href="/about.html" class="nf-link-active">About</a></li>
-        <li><a href="/docs/v0.html">Documentation</a></li>
+        <li class="nf-bigScreen-only"><a href="/docs/v0.html">Documentation</a></li>
+        <li class="nf-smallScreen-only"><a href="/docs/v0.html">Docs</a></li>
         <li><a href="//www.github.com/heatherbooker/no-frills-api">Source</a></li>
       </ul>
     </nav>
     <div class="nf-header-btmStripe"></div>
   </header>
 
-  <main class="nf-about nf-flex-main">
+  <main class="nf-about">
 
     <div class="nf-about-content">
+      <h2 class="nf-h2">About No-Frills API</h2>
 
       <section>
         <p><b>No-Frills API</b> is designed to make getting information about No-Frills grocery stores easy and smooth. It retrieves and saves info about all store locations - everything from address and manager to departments, as well as current flyers and all the product information therein. This data is then accessible at various endpoints, in various combinations.</p>

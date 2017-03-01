@@ -3,6 +3,7 @@
   background-color: $lightGold;
   overflow: hidden;
   height: 100%;
+  position: relative;
   @media (max-width: 1024px) {
     flex-wrap: wrap;
   }
@@ -15,6 +16,11 @@
   font-weight: bold;
   width: 400px;
   text-transform: uppercase;
+  @media (max-width: $smallScreen) {
+    font-size: 30px;
+    width: 220px;
+    margin: auto;
+  }
 }
 
 .nf-home-bz1 {
@@ -34,13 +40,20 @@
 }
 
 .nf-home-main-left {
-  margin: 80px 100px 20px;
-  flex: 1;
+  margin: 80px 100px 20px 170px;
+  width: 500px;
+  @media (max-width: $smallScreen) {
+    width: 300px;
+    margin: 80px auto 20px;
+  }
 }
 
 .nf-home-main-right {
-  margin-top: 60px;
-  flex: 2;
+  margin-top: 65px;
+  width: 100%;
+  @media (max-width: $smallScreen) {
+    display: none;
+  }
 }
 
 .nf-home-docsBtn {
@@ -49,6 +62,12 @@
   padding: 20px;
   font-size: 20pt;
   margin: 55px 25px;
+  @media (max-width: $smallScreen) {
+    margin: 55px auto;
+    display: block;
+    position: relative;
+    left: -20px;
+  }
 }
 
 .nf-home-docsBtn:hover {
@@ -63,12 +82,13 @@
 
 .nf-tryIt {
   background-color: $black;
-  height: 500px;
-  min-width: 600px;
-  width: 90%;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  @media (max-width: 768px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  border: 9px solid #f0e7cb;
+  border-bottom: none;
 }
 
 .nf-tryIt-requestBar {
@@ -88,7 +108,7 @@
 }
 
 .nf-tryIt-endpoint {
-  color: #A5A5A5;
+  color: #B2B2B2;
   padding-left: 15px;
   align-self: center;
 }
@@ -96,10 +116,12 @@
 .nf-tryIt-input {
   flex: 1;
   min-width: 0;
-  border: 1px solid grey;
-  padding-left: 3px;
-  margin: 2px;
+  border: none;
+  outline: none;
+  margin: 1px;
   margin-right: 4px;
+  position: relative;
+  top: 1px;
 }
 
 .nf-tryIt-goBtn {
@@ -111,12 +133,37 @@
   width: 60px;
   margin-top: 0px;
   float: right;
+  position: relative;
+  overflow: hidden;
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+  }
+  &:active:after {
+    transform: scale(0, 0);
+    opacity: .2;
+    transition: 0s;
+  }
 }
 
 .nf-tryIt-response {
-  height: 460px;
+  height: 520px;
   overflow: auto;
   color: #fff;
   padding: 5px 10px;
+  margin-bottom: 0;
   line-height: 18px;
+  background-color: $black;
 }

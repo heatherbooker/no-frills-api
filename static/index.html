@@ -3,6 +3,8 @@
 
 <head>
   <title>No-Frills API</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -20,7 +22,8 @@
       </h1>
       <ul class="nf-nav-list no-list-styles">
         <li><a href="/about.html">About</a></li>
-        <li><a href="/docs/v0.html">Documentation</a></li>
+        <li class="nf-bigScreen-only"><a href="/docs/v0.html">Documentation</a></li>
+        <li class="nf-smallScreen-only"><a href="/docs/v0.html">Docs</a></li>
         <li><a href="//www.github.com/heatherbooker/no-frills-api">Source</a></li>
       </ul>
     </nav>
@@ -59,7 +62,7 @@
               <option value="flyers">All Flyers</option>
               <option value="stores/3946/flyers">All Flyers for a Store</option>
             </select>
-            <span class="nf-tryIt-endpoint">http://nofrills-api.herokuapp.com/api/v0/</span>
+            <span class="nf-tryIt-endpoint">nofrillsapi.com/api/v0/</span>
             <input type="text" value="stores/3946" class="nf-tryIt-input">
             <button class="nf-tryIt-goBtn">GO</button>
           </div>
