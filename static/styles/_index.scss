@@ -18,9 +18,9 @@
 // Left side 
 .nf-home-buzzwords {
   color: $lightGrey;
-  font-size: 40pt;
-  font-weight: bold;
-  width: 400px;
+  font-size: 33pt;
+  font-weight: 900;
+  width: 330px;
   text-transform: uppercase;
   @media (max-width: $smallScreen) {
     font-size: 30px;
@@ -46,7 +46,7 @@
 }
 
 .nf-home-main-left {
-  margin: 80px 100px 20px 170px;
+  margin: 80px 100px 20px 100px;
   width: 500px;
   @media (max-width: $smallScreen) {
     width: 300px;
@@ -67,7 +67,7 @@
   border-radius: 6px;
   padding: 20px;
   font-size: 20pt;
-  margin: 55px 25px;
+  margin: 55px 25px 55px 0px;
   @media (max-width: $smallScreen) {
     margin: 55px auto;
     display: block;
@@ -181,8 +181,11 @@
   height: 520px;
   overflow: auto;
   color: #fff;
-  padding: 5px 10px;
+  padding: 0 10px 5px 10px;
   margin-bottom: 0;
+  margin-top: -5px;
   line-height: 18px;
   background-color: $black;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10pt;
 }

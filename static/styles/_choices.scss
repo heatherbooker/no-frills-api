@@ -36,7 +36,10 @@
 }
 
 .choices[data-type*=select-one] .choices__inner {
-  padding-bottom: 6.5px
+  padding-bottom: 6.5px;
+  &:hover {
+    background-color: darken($darkGold, 6%);
+  }
 }
 
 .choices[data-type*=select-one] .choices__input {

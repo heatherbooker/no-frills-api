@@ -125,14 +125,14 @@ a.nf-docs-anchor {
   word-break: break-word;
   margin: auto;
   max-width: 700px;
-  width: 80%;
+  width: 60%;
   @media (max-width: $smallScreen) {
     width: 72%;
   }
 }
 
 .nf-docs p {
-  line-height: 28px;
+  line-height: 30px;
   margin: 25px 0px;
   font-size: 15pt;
   @media (max-width: $smallScreen) {
@@ -182,16 +182,17 @@ a.nf-docs-anchor {
 
 .nf-docs pre {
   padding: 10px;
-  font-size: 13pt;
+  font-size: 12pt;
   overflow-wrap: normal;
   word-wrap: normal;
   -ms-word-break: normal;
   word-break: normal;
+  font-family: 'Source Code Pro', monospace;
   code {
     padding: 1em;
   }
   @media (max-width: $smallScreen) {
-    font-size: 12pt;
+    font-size: 11pt;
   }
 }
 
@@ -200,6 +201,9 @@ a.nf-docs-anchor {
   left: 20px;
   line-height: 28px;
   margin: 20px auto;
+  li {
+    margin: 15px 0;
+  }
 }
 
 .nf-docs ol {
@@ -208,4 +212,8 @@ a.nf-docs-anchor {
 
 .nf-docs ol li {
   line-height: 38px;
+}
+
+.nf-docs ul li {
+  margin: 15px initial;
 }

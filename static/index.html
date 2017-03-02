@@ -5,9 +5,8 @@
   <title>No-Frills API</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,900|Source+Code+Pro" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 
@@ -76,7 +75,9 @@
             <button class="nf-tryIt-goBtn">GO</button>
           </div>
           <div class="nf-tryIt-responseContainer">
-            <pre class="nf-tryIt-response"></pre>
+            <pre>
+              <code class="nf-tryIt-response json"></code>
+            </pre>
           </div>
         </div>
       </div>
@@ -127,6 +128,8 @@
         })
         .then(response => {
           tryIt_response.innerText = formatResponse(response);
+          // Apply syntax highlighting for code snippet.
+          hljs.highlightBlock(document.querySelector('.nf-tryIt-response'));
         });
     }
 
@@ -151,7 +154,8 @@
   const nfTryItSelect = document.getElementById('nf-tryIt-select');
   const choiceOptions = {
     itemSelectText: '',
-    search: false
+    search: false,
+    shouldSort: false
   };
   const nfChoices = new Choices(nfTryItSelect, choiceOptions);
 
