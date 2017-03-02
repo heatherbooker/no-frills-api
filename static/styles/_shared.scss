@@ -89,7 +89,7 @@ ul.no-list-styles {
   width: 87%;
   height: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   text-align: center;
   @media (max-width: $smallScreen) {
@@ -101,7 +101,12 @@ ul.no-list-styles {
   height: 45px;
   width: 220px;
   display: inline-block;
+  position: absolute;
+  left: 100px;
+  top: 18px;
   @media (max-width: $smallScreen) {
+    position: static;
+    margin-left: initial;
     width: 38%;
   }
 }

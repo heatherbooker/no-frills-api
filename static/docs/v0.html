@@ -5,10 +5,9 @@
   <title>No-Frills API</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/atelier-sulphurpool-dark.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
   <link rel="stylesheet" type="text/css" href="../styles/main.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Source+Code+Pro" rel="stylesheet">
 </head>
 
 <body>
@@ -90,7 +89,7 @@
       <p>This is the response object you might receive if there is a problem with your request. There will be a status code and an accompanying message.</p>
 
       <h3 class="nf-docs-h3" id="response-5">response</h3>
-      <pre><code class="javascript">{
+      <pre><code class="json">{
     &quot;status&quot;: 404,
     &quot;message&quot;: &quot;The requested resource was not found.&quot;
   }</code></pre>
@@ -104,34 +103,34 @@
         <li>Open a new file; call it: <code>nofrillsExample.js</code>.</li>
         <li>Add an HTTP request to this nofrills api, using the fetch api:</li>
       </ol>
-      <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// nofrillsExample.js</span>
+      <pre class="javascript"><code class="javascript">// nofrillsExample.js
 
-  <span class="fu">fetch</span>(<span class="st">&#39;http://nofrills-api.herokuapp.com/api/v0/stores/3410/flyers&#39;</span>)
-    .<span class="fu">then</span>(<span class="kw">function</span>(data) {
-      <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&#39;we got some data! here it is: &#39;</span> + data);
+  fetch(&#39;http://nofrills-api.herokuapp.com/api/v0/stores/3410/flyers&#39;)
+    .then(function(data) {
+      console.log(&#39;we got some data! here it is: &#39; + data);
   });</code></pre>
       <ol start="3" style="list-style-type: decimal">
         <li>Make sure you have <a href="https://nodejs.org/en/download/">node installed</a>.</li>
         <li>Run the file from your terminal / command line (note: you must be in the directory where <code>nofrillsExample.js</code> is! <a href="http://www.digitalcitizen.life/command-prompt-how-use-basic-commands">use cd</a> to do this) :</li>
       </ol>
-      <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">node</span> nofrillsExample.js</code></pre>
+      <pre class="bash"><code class="bash">node</span> nofrillsExample.js</code></pre>
       <p>This will retrieve a single flyer, identified by the number &quot;2&quot; in the URL, from the store identified by the number &quot;3410&quot; in the URL. To get a flyer from a different store, change the number after &quot;/stores/&quot; (make sure that your new number is a valid store id though!). To get a different flyer from the same store, change the number after &quot;/flyers/&quot; (again, making sure the new number is also a valid flyer id - &quot;1&quot; is always a safe bet).
         <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Fetch</a> is an awesome, super simple way to make HTTP requests. It takes care of a lot of the details for you. For example, we don't need to specify that we want to use the <code>GET</code> method to access the data - it is simply the default.</p>
         <p>The fetch call is followed by <code>.then()</code> which takes a callback which itself takes an argument, &quot;data&quot;. There are a few things to know about this:</p>
         <ul class="nf-docs-list">
-          <li>&quot;data&quot; is not a special word; you could use any word - &quot;information&quot;, &quot;stuff&quot;, &quot;whoKnowsWhatThisIsEvenGonnaBe&quot;, etc.</li> 
-          <li>fetch returns a <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise">promise</a>: this means that it &quot;promises&quot; to do something which might take a long time; in this case, because it is going across the interwebs to get the nofrills data, it might be slow. once it's done, it hands over the data it retrieved to the callback function specified in the <code>.then()</code>. </li>
-          <li>anything you put in the callback will only happen once the data has been retrieved - anything you put outside of the <code>.then()</code> callback may happen at any time in relation to what is contained within it.</li>
+          <li>&quot;data&quot; is not a special word; You could use any word - &quot;information&quot;, &quot;stuff&quot;, &quot;whoKnowsWhatThisIsEvenGonnaBe&quot;, etc.</li> 
+          <li>Fetch returns a <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise">promise</a>: This means that it &quot;promises&quot; to do something which might take a long time; In this case, because it is going across the interwebs to get the nofrills data, it might be slow. Once it's done, it hands over the data it retrieved to the callback function specified in the <code>.then()</code>. </li>
+          <li>Anything you put in the callback will only happen once the data has been retrieved - Anything you put outside of the <code>.then()</code> callback may happen at any time in relation to what is contained within it.</li>
       <p>So if we write:</p>
-      <pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> importantThings = <span class="st">&#39;alphaghetti&#39;</span>;
+      <pre class="javascript"><code class="javascript">var importantThings = &#39;alphaghetti&#39;;
 
-  <span class="fu">fetch</span>(<span class="st">&#39;http://nofrills-api.herokuapp.com/api/v0/stores/3410/flyers&#39;</span>)
-    .<span class="fu">then</span>(<span class="kw">function</span>(stuff) {
+  fetch(&#39;http://nofrills-api.herokuapp.com/api/v0/stores/3410/flyers&#39;)
+    .then(function(stuff) {
       importantThings = stuff;
-      <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&#39;these are really important things: &#39;</span>, importantThings);
+      console.log(&#39;these are really important things: &#39;, importantThings);
   });
 
-  <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&#39;check out these important things: &#39;</span>, importantThings);</code></pre>
+  console.log(&#39;check out these important things: &#39;, importantThings);</code></pre>
       <p>It might look like the output should be <code>stuff</code> printed twice, since you change it before logging it. But actually, most likely first it will print &quot;alphaghetti&quot; and then <code>stuff</code>, because the request will be sent off to get &quot;stuff&quot;, then the <code>console.log</code> after the fetch call will happen, then once the response comes back, fetch will have completed its promise and the callback which changes importantThings will happen.</p>
       <p>A small detail: make sure you don't put a semicolon between the fetch call and the .then(), or the .then() wont have access to whatever information the fetch call is getting!</p>
       <h4 id="good-luck">Good luck!</h4>
@@ -143,7 +142,7 @@
       <p>This request returns store information and flyer ids for all stores, organized by city and province. Provinces are represented by their two-letter abbreviation (ex. BC for British Columbia).</p>
 
       <h3 class="nf-docs-h3" id="response">response</h3>
-      <pre><code class="javascript">{
+      <pre><code class="json">{
     &quot;status&quot;: 200,
     &quot;data&quot;: [{
         // See /store/:storeID response below
@@ -165,7 +164,7 @@
       </p>
 
       <h3 class="nf-docs-h3" id="response-1">response</h3>
-      <pre><code class="javascript">{
+      <pre><code class="json">{
     &quot;status&quot;: 200,
     &quot;data&quot;: {
       &quot;id&quot;: &quot;3410&quot;,
@@ -196,7 +195,7 @@
       <p>This request returns only flyers for the store identified by the <code>store_id</code> parameter.</p>
 
       <h3 class="nf-docs-h3" id="response-2">response</h3>
-      <pre><code class="javascript">{
+      <pre><code class="json">{
     &quot;data&quot;: [
       {
         // See /flyers/:flyer_id response below
@@ -213,7 +212,7 @@
       <p>This request returns all flyers for all stores.</p>
 
       <h3 class="nf-docs-h3" id="response-3">response</h3>
-      <pre><code class="javascript">{
+      <pre><code class="json">{
     &quot;status&quot;: 200,
     &quot;data&quot;: [
       {
@@ -231,7 +230,7 @@
       <p>This request returns the flyer identified by the <code>flyer_id</code> parameter for the store identified by the <code>store_id</code> parameter.</p>
 
       <h3 class="nf-docs-h3" id="response-4">response</h3>
-      <pre><code class="javascript">{
+      <pre><code class="json">{
     &quot;status&quot;: 200,
     &quot;data&quot;: {
       &quot;id&quot;: &quot;2&quot;,

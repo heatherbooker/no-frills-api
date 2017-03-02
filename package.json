@@ -8,11 +8,13 @@
     "npm": "3.10.3"
   },
   "scripts": {
-    "prestart": "node-sass static/styles/main.scss static/styles/main.css",
+    "prestart": "node-sass static/styles/main.scss static/styles/main.css && npm run css",
     "start": "node src/server.js",
     "test": "mocha 'src/**/*.test.js'",
     "lint": "eslint .",
-    "predev": "sass -w static/styles/main.scss:static/styles/main.css &",
+    "css": "postcss --use autoprefixer -r static/styles/main.css",
+    "sass:watch": "node-sass -w static/styles/main.scss static/styles/main.css &",
+    "predev": "npm run sass:watch && npm run css",
     "dev": "nodemon src/server.js"
   },
   "keywords": [],
@@ -31,7 +33,9 @@
     "winston": "2.2.0"
   },
   "devDependencies": {
+    "autoprefixer": "6.7.6",
     "eslint": "3.6.0",
-    "eslint-config-google": "0.6.0"
+    "eslint-config-google": "0.6.0",
+    "postcss-cli": "3.0.0-beta"
   }
 }
