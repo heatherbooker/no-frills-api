@@ -8,19 +8,22 @@
     "npm": "3.10.3"
   },
   "scripts": {
-    "prestart": "node-sass static/styles/main.scss static/styles/main.css && npm run css",
+    "prestart": "npm run sass:build && npm run css:build",
     "start": "node src/server.js",
     "test": "mocha 'src/**/*.test.js'",
     "lint": "eslint .",
-    "css": "postcss --use autoprefixer -r static/styles/main.css",
+    "css:watch": "postcss --use autoprefixer -r -w static/styles/main.css &",
+    "css:build": "postcss --use autoprefixer -r static/styles/main.css",
     "sass:watch": "node-sass -w static/styles/main.scss static/styles/main.css &",
-    "predev": "npm run sass:watch && npm run css",
+    "sass:build": "node-sass static/styles/main.scss static/styles/main.css",
+    "predev": "npm run sass:watch & npm run css:watch",
     "dev": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "autoprefixer": "6.7.6",
     "chai": "3.5.0",
     "chai-http": "3.0.0",
     "cheerio": "0.22.0",
@@ -29,13 +32,12 @@
     "mocha": "3.0.2",
     "node-sass": "3.11.2",
     "nodemon": "1.10.2",
+    "postcss-cli": "3.0.0-beta",
     "request": "2.75.0",
     "winston": "2.2.0"
   },
   "devDependencies": {
-    "autoprefixer": "6.7.6",
     "eslint": "3.6.0",
-    "eslint-config-google": "0.6.0",
-    "postcss-cli": "3.0.0-beta"
+    "eslint-config-google": "0.6.0"
   }
 }
