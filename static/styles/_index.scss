@@ -93,7 +93,10 @@
 // Right side
 .nf-tryItSlogan {
   font-size: 20pt;
-  margin: 15px 0px 15px 40px;
+  margin: 15px 0px 15px 9px;
+  @media (max-width: 1024px) {
+    margin: 0 0 40px 180px;
+  }
 }
 
 .nf-tryIt {
