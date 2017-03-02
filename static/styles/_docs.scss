@@ -1,7 +1,11 @@
+.nf-header-docs {
+  border-bottom: 15px solid $darkerLightGold;
+}
+
 .nf-docs {
   display: flex;
   @media (max-width: $smallScreen) {
-    padding-top: $navHeight + 10px;
+    padding-top: $navHeight + 14px;
   }
 }
 
@@ -30,6 +34,9 @@ a.nf-docs-anchor {
   @media (max-width: $smallScreen) {
     width: 180px;
     left: 0;
+    nav {
+      padding-bottom: 120px;
+    }
   }
 }
 
@@ -64,6 +71,9 @@ a.nf-docs-anchor {
     z-index: 5;
     background: $backgroundGrey;
     transform: perspective(4px) rotateY(1deg);
+    @media (min-width: $smallScreen) {
+      height: 0;
+    }
   }
 }
 
@@ -97,7 +107,6 @@ a.nf-docs-anchor {
 
 .nf-docs-main {
   font-size: 15pt;
-  border-top: 15px solid $darkerLightGold;
   padding-top: 20px;
   flex: 1;
   margin-left: 20%;
