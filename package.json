@@ -23,6 +23,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "autoprefixer": "6.7.6",
     "chai": "3.5.0",
     "chai-http": "3.0.0",
     "cheerio": "0.22.0",
@@ -31,13 +32,12 @@
     "mocha": "3.0.2",
     "node-sass": "3.11.2",
     "nodemon": "1.10.2",
+    "postcss-cli": "3.0.0-beta",
     "request": "2.75.0",
     "winston": "2.2.0"
   },
   "devDependencies": {
-    "autoprefixer": "6.7.6",
     "eslint": "3.6.0",
-    "eslint-config-google": "0.6.0",
-    "postcss-cli": "3.0.0-beta"
+    "eslint-config-google": "0.6.0"
   }
 }
